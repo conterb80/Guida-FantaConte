@@ -1,0 +1,22 @@
+const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
+const base=Object.fromEntries(teams.map(t=>[t,{coach:'',module:'',formation:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'}]));
+let data=JSON.parse(localStorage.getItem('gac-data')||'null')||base;
+for(const t of teams) if(!data[t]) data[t]=base[t];
+const grid=document.querySelector('#teamGrid'),modal=document.querySelector('#modal'),view=document.querySelector('#teamView');
+function renderTeams(q=''){grid.innerHTML='';teams.filter(t=>t.toLowerCase().includes(q.toLowerCase())).forEach((t,i)=>{let b=document.createElement('button');b.className='team';b.innerHTML=`<strong>${t}</strong><small>${data[t].updated||'Da compilare'}</small>`;b.onclick=()=>openTeam(t);grid.appendChild(b)})}
+function esc(v=''){return String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')}
+function openTeam(t){let d=data[t];view.innerHTML=`<div class='teamTitle'><small>SCHEDA SQUADRA</small><h2>${t}</h2></div><div class='fields'>
+<div class='row2'><div><div class='label'>Allenatore</div><input id='coach' value='${esc(d.coach)}'></div><div><div class='label'>Modulo</div><input id='module' value='${esc(d.module)}'></div></div>
+<div><div class='label'>Probabile formazione / gerarchie</div><textarea id='formation' rows='4'>${esc(d.formation)}</textarea></div>
+<div class='row2'><div><div class='label'>Scommesse</div><textarea id='bets'>${esc(d.bets)}</textarea></div><div><div class='label'>Giovani</div><textarea id='young'>${esc(d.young)}</textarea></div></div>
+<div class='row2'><div><div class='label'>Affidabili</div><textarea id='reliable'>${esc(d.reliable)}</textarea></div><div><div class='label'>Da evitare</div><textarea id='avoid'>${esc(d.avoid)}</textarea></div></div>
+<div><div class='label'>Osservati / obiettivi</div><textarea id='watch' placeholder='Un nome per riga'>${esc(d.watch)}</textarea></div>
+<div><div class='label'>Note Conte</div><textarea id='notes' rows='4'>${esc(d.notes)}</textarea></div>
+<button class='save'>Salva scheda</button></div>`;modal.classList.remove('hidden');view.querySelector('.save').onclick=()=>saveTeam(t)}
+function saveTeam(t){['coach','module','formation','bets','young','reliable','avoid','watch','notes'].forEach(k=>data[t][k]=document.querySelector('#'+k).value.trim());data[t].updated='Aggiornata oggi';persist();modal.classList.add('hidden');renderTeams(document.querySelector('#search').value);renderStrategy()}
+function persist(){localStorage.setItem('gac-data',JSON.stringify(data))}
+function renderStrategy(){let box=document.querySelector('#strategyList'),items=[];teams.forEach(t=>(data[t].watch||'').split('\n').map(x=>x.trim()).filter(Boolean).forEach(x=>items.push([x,t])));document.querySelector('#watchCount').textContent=items.length;box.innerHTML=items.length?items.map(([p,t])=>`<div class='strategyItem'><b>${esc(p)}</b><span>${t}</span></div>`).join(''):`<div class='empty'><strong>Nessun giocatore osservato</strong><p>Apri una squadra e inserisci i nomi nel campo “Osservati / obiettivi”.</p></div>`}
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelector('#'+b.dataset.tab).classList.add('active');if(b.dataset.tab==='strategy')renderStrategy()});
+document.querySelector('.close').onclick=()=>modal.classList.add('hidden');modal.onclick=e=>{if(e.target===modal)modal.classList.add('hidden')};document.querySelector('#search').oninput=e=>renderTeams(e.target.value);
+const fi=document.querySelector('#fileInput');document.querySelector('#refreshBtn').onclick=()=>fi.click();fi.onchange=async()=>{try{let incoming=JSON.parse(await fi.files[0].text());let changed=0;Object.entries(incoming.teams||incoming).forEach(([t,v])=>{if(data[t]){let personal={bets:data[t].bets,young:data[t].young,reliable:data[t].reliable,avoid:data[t].avoid,watch:data[t].watch,notes:data[t].notes};data[t]={...data[t],...v,...personal,updated:'Rosa importata oggi'};changed++}});persist();renderTeams();alert(`Aggiornate ${changed} squadre. Le tue note personali sono state conservate.`)}catch(e){alert('File non valido. Usa il formato JSON previsto.')}fi.value=''};
+renderTeams();renderStrategy();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
