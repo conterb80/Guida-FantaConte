@@ -146,42 +146,81 @@ function toggleAuctionPlayer(team,name){
   refreshAll();
 }
 
-function openTeam(t){
+function setTeamSection(name){
+  view.querySelectorAll('.teamSectionTab').forEach(btn=>btn.classList.toggle('active',btn.dataset.section===name));
+  view.querySelectorAll('.teamSection').forEach(section=>section.classList.toggle('active',section.dataset.section===name));
+  const sheet=document.querySelector('.sheet');
+  if(sheet)sheet.scrollTo({top:0,behavior:'smooth'});
+}
+function setRosterFilter(role){
+  rosterFilter=role;
+  view.querySelectorAll('.rosterFilter').forEach(btn=>btn.classList.toggle('active',btn.dataset.role===role));
+  view.querySelectorAll('.roleBlock').forEach(block=>block.hidden=role!=='all'&&block.dataset.role!==role);
+}
+function openTeam(t,section='formation'){
   const d=data[t];
+  const teamIndex=teams.indexOf(t);
+  const prev=teams[(teamIndex-1+teams.length)%teams.length];
+  const next=teams[(teamIndex+1)%teams.length];
   view.innerHTML=`
-    <div class="teamTitle"><small>SCHEDA SQUADRA • GUIDA ASTA CONTE RC4</small><h2>${t}</h2><p>Compila o correggi ciò che ti serve: ogni modifica resta salvata sul dispositivo.</p>${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}</div>
-    <div class="fields">
-      <section class="formSection lineupSection"><div class="sectionTitleLine"><h3>Probabile formazione titolare</h3><span class="moduleBadge">${esc(d.module||'')}</span></div>${lineupHtml(d)}<div class="lineupNote">Solo gli 11 probabili titolari. Le alternative restano nella rosa completa.</div></section>
-      <section class="formSection rosterSection"><div class="sectionTitleLine"><h3>Rosa completa</h3><span class="auctionCount">⭐ Lista asta: ${auctionList.length}</span></div>${rosterHtml(d,t)}</section>
-      <section class="formSection"><h3>Assetto squadra</h3>
-        <div class="row2"><label><span>Allenatore</span><input id="coach" value="${esc(d.coach)}"></label><label><span>Modulo</span><input id="module" value="${esc(d.module)}"></label></div>
-        <label><span>Formazione in formato testo / note gerarchie</span><textarea id="formation" rows="5">${esc(d.formation)}</textarea></label>
-      </section>
-      <section class="formSection"><h3>Piazzati</h3>
-        <div class="row3"><label><span>Rigoristi</span><textarea id="penalties">${esc(d.penalties)}</textarea></label><label><span>Punizioni</span><textarea id="freeKicks">${esc(d.freeKicks)}</textarea></label><label><span>Calci d'angolo</span><textarea id="corners">${esc(d.corners)}</textarea></label></div>
-      </section>
-      <section class="formSection"><h3>Mercato</h3>
-        <div class="row2"><label><span>Acquisti ufficiali</span><textarea id="arrivals" placeholder="Un nome per riga">${esc(d.arrivals)}</textarea></label><label><span>Cessioni ufficiali</span><textarea id="departures" placeholder="Un nome per riga">${esc(d.departures)}</textarea></label></div>
-        <label><span>Trattative / possibili movimenti</span><textarea id="talks" placeholder="Un nome o una nota per riga">${esc(d.talks)}</textarea></label>
-      </section>
-      <section class="formSection"><h3>Valutazioni Conte</h3>
-        <div class="row2"><label class="tagField recommended"><span>⭐ Consigliati</span><textarea id="recommended" placeholder="Un nome per riga">${esc(d.recommended)}</textarea></label><label class="tagField bet"><span>💎 Scommesse</span><textarea id="bets" placeholder="Un nome per riga">${esc(d.bets)}</textarea></label></div>
-        <div class="row2"><label class="tagField young"><span>👶 Giovani</span><textarea id="young" placeholder="Un nome per riga">${esc(d.young)}</textarea></label><label class="tagField reliable"><span>🛡️ Affidabili</span><textarea id="reliable" placeholder="Un nome per riga">${esc(d.reliable)}</textarea></label></div>
-        <div class="row2"><label class="tagField watch"><span>👀 Osservati / obiettivi</span><textarea id="watch" placeholder="Un nome per riga">${esc(d.watch)}</textarea></label><label class="tagField avoid"><span>🚫 Da evitare</span><textarea id="avoid" placeholder="Un nome per riga">${esc(d.avoid)}</textarea></label></div>
-      </section>
-      <section class="formSection"><h3>Note personali</h3><label><span>Note Conte</span><textarea id="notes" rows="4">${esc(d.notes)}</textarea></label></section>
-      ${t==='Atalanta'?'<button class="restore" type="button">Ripristina dati editoriali Atalanta</button>':''}<button class="save">Salva scheda ${t}</button>
+    <div class="teamTitle compactTeamTitle">
+      <small>SCHEDA SQUADRA • GUIDA ASTA CONTE RC5</small>
+      <div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div><h2>${t}</h2><p>${esc(d.coach||'Allenatore da definire')} • ${esc(d.module||'Modulo da definire')}</p></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div>
+      ${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}
+    </div>
+    <div class="teamSectionTabs" role="tablist" aria-label="Sezioni scheda squadra">
+      <button type="button" class="teamSectionTab" data-section="formation">⚽ Formazione</button>
+      <button type="button" class="teamSectionTab" data-section="roster">👥 Rosa</button>
+      <button type="button" class="teamSectionTab" data-section="advice">⭐ Consigli</button>
+      <button type="button" class="teamSectionTab" data-section="market">💰 Mercato</button>
+      <button type="button" class="teamSectionTab" data-section="notes">📝 Note</button>
+    </div>
+    <div class="fields rc5Fields">
+      <div class="teamSection" data-section="formation">
+        <section class="formSection lineupSection"><div class="sectionTitleLine"><h3>Probabile formazione titolare</h3><span class="moduleBadge">${esc(d.module||'')}</span></div>${lineupHtml(d)}<div class="lineupNote">Solo gli 11 probabili titolari. Le alternative restano nella rosa completa.</div></section>
+        <section class="formSection"><h3>Assetto squadra</h3>
+          <div class="row2"><label><span>Allenatore</span><input id="coach" value="${esc(d.coach)}"></label><label><span>Modulo</span><input id="module" value="${esc(d.module)}"></label></div>
+          <label><span>Formazione in formato testo / note gerarchie</span><textarea id="formation" rows="4">${esc(d.formation)}</textarea></label>
+        </section>
+        <section class="formSection"><h3>Piazzati</h3>
+          <div class="row3"><label><span>Rigoristi</span><textarea id="penalties">${esc(d.penalties)}</textarea></label><label><span>Punizioni</span><textarea id="freeKicks">${esc(d.freeKicks)}</textarea></label><label><span>Calci d'angolo</span><textarea id="corners">${esc(d.corners)}</textarea></label></div>
+        </section>
+      </div>
+      <div class="teamSection" data-section="roster">
+        <section class="formSection rosterSection"><div class="sectionTitleLine"><h3>Rosa completa</h3><span class="auctionCount">⭐ Lista asta: ${auctionList.length}</span></div>${rosterHtml(d,t)}</section>
+      </div>
+      <div class="teamSection" data-section="advice">
+        <section class="formSection"><h3>Valutazioni Conte</h3>
+          <div class="row2"><label class="tagField recommended"><span>⭐ Consigliati</span><textarea id="recommended" placeholder="Un nome per riga">${esc(d.recommended)}</textarea></label><label class="tagField bet"><span>💎 Scommesse</span><textarea id="bets" placeholder="Un nome per riga">${esc(d.bets)}</textarea></label></div>
+          <div class="row2"><label class="tagField young"><span>👶 Giovani</span><textarea id="young" placeholder="Un nome per riga">${esc(d.young)}</textarea></label><label class="tagField reliable"><span>🛡️ Affidabili</span><textarea id="reliable" placeholder="Un nome per riga">${esc(d.reliable)}</textarea></label></div>
+          <div class="row2"><label class="tagField watch"><span>👀 Osservati / obiettivi</span><textarea id="watch" placeholder="Un nome per riga">${esc(d.watch)}</textarea></label><label class="tagField avoid"><span>🚫 Da evitare</span><textarea id="avoid" placeholder="Un nome per riga">${esc(d.avoid)}</textarea></label></div>
+        </section>
+      </div>
+      <div class="teamSection" data-section="market">
+        <section class="formSection"><h3>Mercato</h3>
+          <div class="row2"><label><span>Acquisti ufficiali</span><textarea id="arrivals" placeholder="Un nome per riga">${esc(d.arrivals)}</textarea></label><label><span>Cessioni ufficiali</span><textarea id="departures" placeholder="Un nome per riga">${esc(d.departures)}</textarea></label></div>
+          <label><span>Trattative / possibili movimenti</span><textarea id="talks" placeholder="Un nome o una nota per riga">${esc(d.talks)}</textarea></label>
+        </section>
+      </div>
+      <div class="teamSection" data-section="notes">
+        <section class="formSection"><h3>Note personali</h3><label><span>Note Conte</span><textarea id="notes" rows="7">${esc(d.notes)}</textarea></label></section>
+        ${t==='Atalanta'?'<button class="restore" type="button">Ripristina dati editoriali Atalanta</button>':''}
+      </div>
+      <button class="save compactSave" aria-label="Salva scheda ${t}" title="Salva scheda">✓<span>Salva</span></button>
     </div>`;
   modal.classList.remove('hidden');
   document.body.classList.add('locked');
   view.querySelector('.save').onclick=()=>saveTeam(t);
   view.querySelectorAll('.starBtn').forEach(btn=>btn.onclick=()=>toggleAuctionPlayer(btn.dataset.team,btn.dataset.player));
-  view.querySelectorAll('.rosterFilter').forEach(btn=>btn.onclick=()=>{rosterFilter=btn.dataset.role;openTeam(t)});
-  document.querySelector('.sheet').scrollTop=0;
+  view.querySelectorAll('.rosterFilter').forEach(btn=>btn.onclick=()=>setRosterFilter(btn.dataset.role));
+  view.querySelectorAll('.teamSectionTab').forEach(btn=>btn.onclick=()=>setTeamSection(btn.dataset.section));
+  view.querySelectorAll('.teamStep').forEach(btn=>btn.onclick=()=>openTeam(btn.dataset.team,section));
   const restore=view.querySelector('.restore');
   if(restore)restore.onclick=()=>restoreAtalanta();
+  setRosterFilter(rosterFilter);
+  setTeamSection(section);
+  document.querySelector('.sheet').scrollTop=0;
 }
-
 
 function restoreAtalanta(){
   const personal={};
@@ -271,9 +310,9 @@ const fi=document.querySelector('#fileInput');
 document.querySelector('#refreshBtn').onclick=()=>fi.click();
 
 document.querySelector('#exportBtn').onclick=()=>{
-  const payload={app:'Guida Asta Conte',version:'RC4-Formazione-Rosa-Lista-Asta',exportedAt:new Date().toISOString(),teams:data};
+  const payload={app:'Guida Asta Conte',version:'RC5-Modalita-Asta-Compatta',exportedAt:new Date().toISOString(),teams:data};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC4.json';a.click();URL.revokeObjectURL(a.href);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC5.json';a.click();URL.revokeObjectURL(a.href);
 };
 fi.onchange=async()=>{
   if(!fi.files[0])return;
