@@ -1,7 +1,7 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',lineup:[],roster:[],penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
-const DATA_VERSION=6;
+const DATA_VERSION=7;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
@@ -95,6 +95,7 @@ localStorage.setItem('gac-data-version',String(DATA_VERSION));
 persist();
 let auctionList=JSON.parse(localStorage.getItem('gac-auction-list')||'[]');
 const saveAuctionList=()=>localStorage.setItem('gac-auction-list',JSON.stringify(auctionList));
+let rosterFilter='all';
 
 const grid=document.querySelector('#teamGrid');
 const modal=document.querySelector('#modal');
@@ -121,31 +122,37 @@ function lineupHtml(d){
   const rows=[d.lineup.slice(0,1),d.lineup.slice(1,5),d.lineup.slice(5,8),d.lineup.slice(8,11)];
   return `<div class="pitch">${rows.map((r,i)=>`<div class="pitchRow row${i}">${r.map(p=>`<div class="shirt"><span>${esc(p.short)}</span><small>${esc(p.pos)}</small></div>`).join('')}</div>`).join('')}</div>`;
 }
-function rosterHtml(d){
+function rosterHtml(d,t){
   if(!d.roster?.length)return '<div class="emptyMini">Rosa non ancora inserita</div>';
   const roles=['Portiere','Difensore','Centrocampista','Attaccante'];
   const icons={Portiere:'🧤',Difensore:'🛡️',Centrocampista:'⚙️',Attaccante:'⚽'};
-  return roles.map(role=>{
+  const counts=Object.fromEntries(roles.map(r=>[r,d.roster.filter(p=>p.role===r).length]));
+  const filters=`<div class="rosterFilters"><button type="button" class="rosterFilter ${rosterFilter==='all'?'active':''}" data-role="all">Tutti <b>${d.roster.length}</b></button>${roles.map(r=>`<button type="button" class="rosterFilter ${rosterFilter===r?'active':''}" data-role="${r}">${icons[r]} <b>${counts[r]}</b></button>`).join('')}</div>`;
+  const visible=rosterFilter==='all'?roles:roles.filter(r=>r===rosterFilter);
+  return filters+visible.map(role=>{
     const players=d.roster.filter(p=>p.role===role);
-    return `<div class="roleBlock"><h4>${icons[role]} ${role}${role==='Portiere'?'i':role==='Difensore'?'i':role==='Centrocampista'?'i':'i'}</h4>${players.map(p=>{
-      const selected=auctionList.some(x=>x.team==='Atalanta'&&x.name===p.name);
-      return `<div class="playerCard"><div class="playerMain"><b>${esc(p.name)}</b><div class="playerMeta"><span class="statusChip ${esc(p.status).toLowerCase().replaceAll(' ','-')}">${esc(p.status)}</span>${(p.tags||[]).map(tag=>`<span class="tagChip">${esc(tag)}</span>`).join('')}</div></div><button type="button" class="starBtn ${selected?'selected':''}" data-player="${esc(p.name)}" aria-label="Aggiungi alla lista asta">${selected?'★':'☆'}</button></div>`;
+    return `<div class="roleBlock"><h4>${icons[role]} ${role}${role==='Portiere'?'i':role==='Difensore'?'i':role==='Centrocampista'?'i':'i'} <span>${players.length}</span></h4>${players.map(p=>{
+      const selected=auctionList.some(x=>x.team===t&&x.name===p.name);
+      return `<div class="playerCard"><div class="playerMain"><b>${esc(p.name)}</b><div class="playerMeta"><span class="statusChip ${esc(p.status).toLowerCase().replaceAll(' ','-')}">${esc(p.status)}</span>${(p.tags||[]).map(tag=>`<span class="tagChip">${esc(tag)}</span>`).join('')}</div></div><button type="button" class="starBtn ${selected?'selected':''}" data-team="${esc(t)}" data-player="${esc(p.name)}" aria-label="${selected?'Rimuovi dalla':'Aggiungi alla'} lista asta">${selected?'★':'☆'}</button></div>`;
     }).join('')}</div>`;
   }).join('');
 }
-function toggleAuctionPlayer(name){
-  const i=auctionList.findIndex(x=>x.team==='Atalanta'&&x.name===name);
-  if(i>=0)auctionList.splice(i,1);else auctionList.push({team:'Atalanta',name});
-  saveAuctionList();openTeam('Atalanta');
+function toggleAuctionPlayer(team,name){
+  const player=(data[team]?.roster||[]).find(p=>p.name===name)||{};
+  const i=auctionList.findIndex(x=>x.team===team&&x.name===name);
+  if(i>=0)auctionList.splice(i,1);else auctionList.push({team,name,role:player.role||'',status:player.status||'',tags:player.tags||[]});
+  saveAuctionList();renderAuction();
+  if(!modal.classList.contains('hidden'))openTeam(team);
+  refreshAll();
 }
 
 function openTeam(t){
   const d=data[t];
   view.innerHTML=`
-    <div class="teamTitle"><small>SCHEDA SQUADRA • TEST ATALANTA</small><h2>${t}</h2><p>Compila o correggi ciò che ti serve: ogni modifica resta salvata sul dispositivo.</p>${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}</div>
+    <div class="teamTitle"><small>SCHEDA SQUADRA • GUIDA ASTA CONTE RC4</small><h2>${t}</h2><p>Compila o correggi ciò che ti serve: ogni modifica resta salvata sul dispositivo.</p>${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}</div>
     <div class="fields">
       <section class="formSection lineupSection"><div class="sectionTitleLine"><h3>Probabile formazione titolare</h3><span class="moduleBadge">${esc(d.module||'')}</span></div>${lineupHtml(d)}<div class="lineupNote">Solo gli 11 probabili titolari. Le alternative restano nella rosa completa.</div></section>
-      <section class="formSection rosterSection"><div class="sectionTitleLine"><h3>Rosa completa</h3><span class="auctionCount">⭐ Lista asta: ${auctionList.length}</span></div>${rosterHtml(d)}</section>
+      <section class="formSection rosterSection"><div class="sectionTitleLine"><h3>Rosa completa</h3><span class="auctionCount">⭐ Lista asta: ${auctionList.length}</span></div>${rosterHtml(d,t)}</section>
       <section class="formSection"><h3>Assetto squadra</h3>
         <div class="row2"><label><span>Allenatore</span><input id="coach" value="${esc(d.coach)}"></label><label><span>Modulo</span><input id="module" value="${esc(d.module)}"></label></div>
         <label><span>Formazione in formato testo / note gerarchie</span><textarea id="formation" rows="5">${esc(d.formation)}</textarea></label>
@@ -168,7 +175,9 @@ function openTeam(t){
   modal.classList.remove('hidden');
   document.body.classList.add('locked');
   view.querySelector('.save').onclick=()=>saveTeam(t);
-  view.querySelectorAll('.starBtn').forEach(btn=>btn.onclick=()=>toggleAuctionPlayer(btn.dataset.player));
+  view.querySelectorAll('.starBtn').forEach(btn=>btn.onclick=()=>toggleAuctionPlayer(btn.dataset.team,btn.dataset.player));
+  view.querySelectorAll('.rosterFilter').forEach(btn=>btn.onclick=()=>{rosterFilter=btn.dataset.role;openTeam(t)});
+  document.querySelector('.sheet').scrollTop=0;
   const restore=view.querySelector('.restore');
   if(restore)restore.onclick=()=>restoreAtalanta();
 }
@@ -210,6 +219,20 @@ function renderStrategy(){
   box.innerHTML=items.length?items.map(x=>{const [icon,label]=categoryMeta[x.type];return `<button class="strategyItem" onclick="openTeam('${x.team.replaceAll("'","\\'")}')"><span class="strategyIcon">${icon}</span><span><b>${esc(x.player)}</b><small>${x.team}</small></span><em class="badge ${x.type}">${label}</em></button>`}).join(''):`<div class="empty"><strong>Nessun giocatore in questa categoria</strong><p>Apri una squadra e inserisci i nomi nelle valutazioni personali.</p></div>`;
 }
 
+function renderAuction(){
+  const box=document.querySelector('#auctionList');
+  const filter=document.querySelector('#auctionRoleFilter')?.value||'all';
+  document.querySelector('#auctionTabCount').textContent=auctionList.length;
+  const enriched=auctionList.map(x=>{
+    const p=(data[x.team]?.roster||[]).find(p=>p.name===x.name)||x;
+    return {...x,role:p.role||'',status:p.status||'',tags:p.tags||[]};
+  });
+  const items=filter==='all'?enriched:enriched.filter(x=>x.role===filter);
+  const roleIcon={Portiere:'🧤',Difensore:'🛡️',Centrocampista:'⚙️',Attaccante:'⚽'};
+  box.innerHTML=items.length?items.map(x=>`<div class="auctionItem"><button class="auctionOpen" onclick="openTeam('${x.team.replaceAll("'","\'")}')"><span class="strategyIcon">${roleIcon[x.role]||'⭐'}</span><span><b>${esc(x.name)}</b><small>${esc(x.team)} • ${esc(x.role||'Ruolo da definire')} • ${esc(x.status||'')}</small></span></button><button class="removeAuction" data-team="${esc(x.team)}" data-player="${esc(x.name)}" aria-label="Rimuovi">×</button></div>`).join(''):`<div class="empty"><strong>La lista asta è vuota</strong><p>Apri la rosa di una squadra e tocca ☆ accanto ai giocatori che vuoi seguire.</p></div>`;
+  box.querySelectorAll('.removeAuction').forEach(btn=>btn.onclick=()=>toggleAuctionPlayer(btn.dataset.team,btn.dataset.player));
+}
+
 function marketItems(){
   const items=[];
   teams.forEach(team=>{
@@ -229,12 +252,12 @@ function renderMarket(){
   box.innerHTML=items.length?items.map(x=>{const [icon,label]=meta[x.type];return `<button class="marketItem" onclick="openTeam('${x.team.replaceAll("'","\\'")}')"><span class="marketIcon ${x.type}">${icon}</span><span><b>${esc(x.name)}</b><small>${x.team} • ${label}</small></span><em class="status ${x.status}">${x.status==='official'?'Ufficiale':'Trattativa'}</em></button>`}).join(''):`<div class="empty"><strong>Nessun movimento inserito</strong><p>Apri una squadra e compila acquisti, cessioni o trattative.</p></div>`;
 }
 
-function refreshAll(){renderTeams(document.querySelector('#search').value);renderStrategy();renderMarket()}
+function refreshAll(){renderTeams(document.querySelector('#search').value);renderStrategy();renderMarket();renderAuction()}
 
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));
   b.classList.add('active');document.querySelector('#'+b.dataset.tab).classList.add('active');
-  if(b.dataset.tab==='strategy')renderStrategy();if(b.dataset.tab==='market')renderMarket();
+  if(b.dataset.tab==='strategy')renderStrategy();if(b.dataset.tab==='market')renderMarket();if(b.dataset.tab==='auction')renderAuction();
 });
 document.querySelector('.close').onclick=closeModal;
 modal.onclick=e=>{if(e.target===modal)closeModal()};
@@ -242,14 +265,15 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 document.querySelector('#search').oninput=e=>renderTeams(e.target.value);
 document.querySelector('#strategyFilter').onchange=renderStrategy;
 document.querySelector('#marketFilter').onchange=renderMarket;
+document.querySelector('#auctionRoleFilter').onchange=renderAuction;
 
 const fi=document.querySelector('#fileInput');
 document.querySelector('#refreshBtn').onclick=()=>fi.click();
 
 document.querySelector('#exportBtn').onclick=()=>{
-  const payload={app:'Guida Asta Conte',version:'RC-Rosa-Completa-v1',exportedAt:new Date().toISOString(),teams:data};
+  const payload={app:'Guida Asta Conte',version:'RC4-Formazione-Rosa-Lista-Asta',exportedAt:new Date().toISOString(),teams:data};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC-Rosa-Completa-v1.json';a.click();URL.revokeObjectURL(a.href);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC4.json';a.click();URL.revokeObjectURL(a.href);
 };
 fi.onchange=async()=>{
   if(!fi.files[0])return;

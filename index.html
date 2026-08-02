@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#101826">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=7">
   <title>Guida Asta Conte • Test Atalanta</title>
 </head>
 <body>
@@ -21,7 +21,7 @@
 <main>
   <section class="hero">
     <div>
-      <span class="pill">RC TEST • FORMAZIONE + ROSA COMPLETA</span>
+      <span class="pill">RC4 • FORMAZIONE + ROSA + LISTA ASTA</span>
       <h2>Dalla rosa alla strategia d’asta.</h2>
       <p>Pacchetto unico per testare struttura, mercato, strategia e scheda Atalanta già compilata.</p>
     </div>
@@ -36,6 +36,7 @@
     <button class="tab active" data-tab="teams">Squadre</button>
     <button class="tab" data-tab="market">Mercato</button>
     <button class="tab" data-tab="strategy">Strategia</button>
+    <button class="tab" data-tab="auction">Lista asta <span id="auctionTabCount">0</span></button>
   </nav>
 
   <section id="teams" class="panel active">
@@ -68,6 +69,21 @@
     </div>
     <div id="strategyList" class="list"></div>
   </section>
+
+  <section id="auction" class="panel">
+    <div class="sectionHead auctionHead">
+      <div><h3>La mia lista asta</h3><p>I giocatori selezionati con la stella nelle rose squadra.</p></div>
+      <select id="auctionRoleFilter">
+        <option value="all">Tutti i ruoli</option>
+        <option value="Portiere">Portieri</option>
+        <option value="Difensore">Difensori</option>
+        <option value="Centrocampista">Centrocampisti</option>
+        <option value="Attaccante">Attaccanti</option>
+      </select>
+    </div>
+    <div id="auctionList" class="list"></div>
+  </section>
+
 </main>
 
 <div id="modal" class="modal hidden">
@@ -78,6 +94,6 @@
 </div>
 
 <input type="file" id="fileInput" accept=".json,application/json" hidden>
-<script src="app.js?v=5"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>
