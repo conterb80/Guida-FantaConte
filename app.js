@@ -164,8 +164,8 @@ function openTeam(t,section='formation'){
   const next=teams[(teamIndex+1)%teams.length];
   view.innerHTML=`
     <div class="teamTitle compactTeamTitle">
-      <small>GUIDA ASTA CONTE • RC6 GRAFICA PRO</small>
-      <div class="teamIdentity"><div class="teamMonogram" aria-hidden="true">${t.slice(0,3).toUpperCase()}</div><div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div><h2>${t}</h2><p>${esc(d.coach||'Allenatore da definire')} • ${esc(d.module||'Modulo da definire')}</p></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div></div>
+      <small>GUIDA ASTA CONTE • RC7 GRAFICA PRO</small>
+      <div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div class="clubIdentity"><span class="clubMark">${esc(t.slice(0,3).toUpperCase())}</span><div class="clubCopy"><h2>${t}</h2><p><span>${esc(d.coach||'Allenatore da definire')}</span><b>${esc(d.module||'Modulo da definire')}</b></p></div></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div>
       ${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}
     </div>
     <div class="teamSectionTabs" role="tablist" aria-label="Sezioni scheda squadra">
@@ -310,9 +310,9 @@ const fi=document.querySelector('#fileInput');
 document.querySelector('#refreshBtn').onclick=()=>fi.click();
 
 document.querySelector('#exportBtn').onclick=()=>{
-  const payload={app:'Guida Asta Conte',version:'RC6-Grafica-Pro',exportedAt:new Date().toISOString(),teams:data};
+  const payload={app:'Guida Asta Conte',version:'RC7-Grafica-Asta-Pro',exportedAt:new Date().toISOString(),teams:data};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC6.json';a.click();URL.revokeObjectURL(a.href);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC7.json';a.click();URL.revokeObjectURL(a.href);
 };
 fi.onchange=async()=>{
   if(!fi.files[0])return;

@@ -14,44 +14,50 @@
 @media(max-width:560px){.sheet{padding-top:12px}.compactTeamTitle{padding-right:46px}.teamTitleRow{grid-template-columns:34px 1fr 34px}.teamTitleRow h2{font-size:24px}.teamStep{height:34px;font-size:24px}.sourceNote{font-size:10px;padding:5px 8px}.teamSectionTabs{margin-top:2px}.teamSectionTab{font-size:10px;padding:8px 9px}.compactSave{width:54px;height:54px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));font-size:23px}.compactSave span{display:none}.teamSection.active{gap:9px}}
 
 
-/* RC6 — GRAFICA PRO: restyling evidente, logica RC5 invariata */
-.modal{background:rgba(1,7,15,.82);backdrop-filter:blur(7px)}
+/* RC7 - Grafica Asta Pro: restyling evidente, nessuna modifica alla logica */
+.modal{background:rgba(1,6,14,.86);backdrop-filter:blur(7px)}
 .sheet{background:
- radial-gradient(circle at 85% 2%,rgba(35,112,191,.18),transparent 28%),
- linear-gradient(180deg,#0b1524 0%,#091321 100%);
- border:1px solid rgba(111,159,214,.28);box-shadow:0 -18px 60px rgba(0,0,0,.55)}
-.close{position:absolute;top:16px;right:16px;width:48px;height:48px;border-radius:16px;background:linear-gradient(145deg,#263d5e,#172840);border:1px solid #385579;box-shadow:0 8px 24px rgba(0,0,0,.3)}
-.compactTeamTitle{padding:16px 62px 14px 16px;margin:-2px 0 12px;border:1px solid rgba(81,132,190,.35);border-radius:20px;background:linear-gradient(135deg,rgba(25,50,82,.96),rgba(13,29,49,.96));box-shadow:0 12px 34px rgba(0,0,0,.24)}
-.compactTeamTitle>small{display:block;color:#8eb4df;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
-.teamIdentity{display:grid;grid-template-columns:58px 1fr;gap:12px;align-items:center}
-.teamMonogram{width:58px;height:58px;display:grid;place-items:center;border-radius:17px;background:linear-gradient(145deg,#35d47e,#168b4d);color:#05160d;font-size:17px;font-weight:950;letter-spacing:.06em;box-shadow:0 10px 28px rgba(35,201,108,.23);border:1px solid rgba(255,255,255,.28)}
-.teamTitleRow{grid-template-columns:34px 1fr 34px;gap:8px;margin:0}
-.teamTitleRow h2{font-size:28px;letter-spacing:-.03em}.teamTitleRow p{font-size:13px;color:#a7bbd1}
-.teamStep{height:34px;border-radius:11px;background:#203653;border:1px solid #315070;font-size:23px}
-.sourceNote{margin-top:12px;background:rgba(35,199,103,.13);border:1px solid rgba(53,215,126,.28);color:#9cf0bf;padding:7px 10px}
-.teamSectionTabs{position:sticky;top:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:0 0 14px;padding:9px;background:rgba(8,19,33,.94);border:1px solid #233b59;border-radius:17px;box-shadow:0 10px 28px rgba(0,0,0,.25);backdrop-filter:blur(12px)}
-.teamSectionTab{min-width:0;padding:10px 4px;border-radius:12px;background:transparent;color:#91a8c2;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid transparent}
-.teamSectionTab.active{background:linear-gradient(145deg,#f6f9ff,#dceaff);color:#0c1928;border-color:#fff;box-shadow:0 6px 17px rgba(0,0,0,.18)}
-.teamSection.active{gap:14px;animation:rc6In .2s ease-out}@keyframes rc6In{from{opacity:.25;transform:translateY(5px)}to{opacity:1;transform:none}}
-.formSection{position:relative;overflow:hidden;padding:17px;border-radius:20px;border:1px solid #294563;background:linear-gradient(160deg,rgba(19,37,61,.98),rgba(12,27,46,.98));box-shadow:0 12px 32px rgba(0,0,0,.19)}
-.formSection:before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;border-radius:0 4px 4px 0;background:linear-gradient(#39db83,#2375bf)}
-.formSection h3{font-size:18px;color:#eff6ff;margin-left:4px}.sectionTitleLine h3{font-size:18px}
-.moduleBadge,.auctionCount{background:#24466e;border:1px solid #37618e;color:#f1f7ff;padding:7px 11px}
-.pitch{border-radius:22px;padding:19px 8px;background:linear-gradient(180deg,#198552,#11613d);border:1px solid rgba(125,255,181,.38);box-shadow:inset 0 0 35px rgba(0,0,0,.14),0 12px 28px rgba(0,0,0,.2)}
-.shirt{background:rgba(4,22,14,.82);border-color:rgba(171,255,207,.22);box-shadow:0 7px 16px rgba(0,0,0,.28)}
-input,textarea,select{background:#081727;border:1px solid #315071;border-radius:14px;padding:13px 14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
-label>span{font-size:11px;text-transform:uppercase;letter-spacing:.055em;color:#849bb6;font-weight:800;margin-top:10px}
-.playerCard{padding:11px 2px}.playerMain b{font-size:15px}.starBtn{border:1px solid #2d4968;background:#172b43}.starBtn.selected{border-color:#8a6d19;background:#5b4714}
-.rosterFilters{padding:3px 0 11px}.rosterFilter{padding:8px 11px;border:1px solid #2a4564}.rosterFilter.active{box-shadow:0 5px 14px rgba(0,0,0,.2)}
-.compactSave{width:48px;height:48px;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));font-size:21px;border:2px solid rgba(255,255,255,.36);box-shadow:0 10px 26px rgba(0,0,0,.42),0 0 0 5px rgba(40,199,111,.11)}
-.rc5Fields{padding-bottom:70px}
+ radial-gradient(circle at 12% -4%,rgba(36,199,111,.15),transparent 29%),
+ radial-gradient(circle at 95% 12%,rgba(51,124,255,.13),transparent 31%),
+ linear-gradient(180deg,#0b1728 0%,#08121f 100%);
+ border:1px solid rgba(117,157,207,.25);box-shadow:0 -24px 70px rgba(0,0,0,.5)}
+.close{position:fixed;right:18px;top:calc(16px + env(safe-area-inset-top));width:48px;height:48px;border-radius:16px;background:rgba(28,46,70,.94);border:1px solid #355071;box-shadow:0 8px 24px rgba(0,0,0,.32)}
+.compactTeamTitle{padding:5px 58px 12px 0;margin:0;border-bottom:1px solid rgba(109,142,181,.2)}
+.compactTeamTitle>small{display:block;color:#7f98b7;font-size:10px;font-weight:850;letter-spacing:1.15px;text-transform:uppercase;margin-bottom:10px}
+.teamTitleRow{grid-template-columns:44px minmax(0,1fr) 44px;gap:10px}
+.teamStep{height:44px;border-radius:15px;background:linear-gradient(180deg,#1d3451,#14263d);border:1px solid #324d70;color:#f2f7ff;box-shadow:inset 0 1px rgba(255,255,255,.05),0 7px 18px rgba(0,0,0,.24)}
+.clubIdentity{min-width:0;display:flex;align-items:center;justify-content:center;gap:11px}
+.clubMark{flex:0 0 46px;height:46px;display:grid;place-items:center;border-radius:15px;background:linear-gradient(145deg,#29d77b,#149450);color:#04160b;font-size:13px;font-weight:950;letter-spacing:.7px;box-shadow:0 8px 24px rgba(31,198,107,.23),inset 0 1px rgba(255,255,255,.28)}
+.clubCopy{min-width:0}.clubCopy h2{font-size:27px;line-height:1;margin:0 0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.clubCopy p{display:flex;align-items:center;gap:7px;margin:0;color:#9bb0c9}.clubCopy p span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.clubCopy p b{flex:0 0 auto;background:#1a3150;color:#dceaff;border:1px solid #2f4a6e;border-radius:999px;padding:3px 7px;font-size:10px}
+.sourceNote{display:flex;width:max-content;max-width:100%;margin:11px auto 0;padding:6px 11px;background:rgba(23,80,51,.82);border:1px solid rgba(68,222,137,.28);box-shadow:0 6px 18px rgba(0,0,0,.14)}
+.teamSectionTabs{top:-1px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:0 -6px 13px;padding:11px 6px 12px;background:rgba(9,20,34,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(95,129,171,.17)}
+.teamSectionTab{min-width:0;padding:9px 4px;border-radius:14px;background:linear-gradient(180deg,#172b44,#13243a);border:1px solid transparent;color:#a8bad0;font-size:10px;line-height:1.15;white-space:nowrap;box-shadow:0 5px 14px rgba(0,0,0,.13)}
+.teamSectionTab.active{background:linear-gradient(180deg,#f8fbff,#dce9f8);border-color:white;color:#0b1726;box-shadow:0 7px 22px rgba(0,0,0,.25)}
+.teamSection.active{animation:rc7In .2s ease-out}@keyframes rc7In{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:none}}
+.formSection{position:relative;border:1px solid rgba(74,112,158,.43);background:linear-gradient(155deg,rgba(18,35,57,.97),rgba(12,25,42,.98));border-radius:21px;padding:17px;box-shadow:inset 0 1px rgba(255,255,255,.035),0 12px 30px rgba(0,0,0,.14);overflow:hidden}
+.formSection:before{content:"";position:absolute;left:0;top:19px;width:3px;height:34px;border-radius:0 4px 4px 0;background:#2bd477;box-shadow:0 0 16px rgba(43,212,119,.4)}
+.formSection h3,.sectionTitleLine h3{font-size:18px;color:#f4f8ff;margin-left:3px}.sectionTitleLine{margin-bottom:14px}
+.moduleBadge,.auctionCount{background:linear-gradient(180deg,#24466e,#193451);border:1px solid #3a5c83;color:#f1f7ff;padding:7px 11px}
+.lineupSection{padding:17px 17px 14px}.pitch{border-radius:22px;padding:16px 8px;background:linear-gradient(155deg,#20875a,#116440);border:1px solid rgba(121,255,183,.38);box-shadow:inset 0 0 35px rgba(0,0,0,.14),0 12px 26px rgba(0,0,0,.22)}
+.pitch:before{inset:12px;border-color:rgba(224,255,238,.37);border-radius:7px}.pitch:after{top:12px;bottom:12px;border-color:rgba(224,255,238,.28)}
+.shirt{background:linear-gradient(180deg,rgba(5,28,19,.94),rgba(4,20,14,.88));border-color:rgba(154,255,201,.23);border-radius:13px;box-shadow:0 7px 16px rgba(0,0,0,.27)}
+.lineupNote{margin:12px 2px 0;color:#9fb2c9;text-align:center}
+label>span{font-size:11px;font-weight:760;letter-spacing:.15px;color:#91a8c2;margin:9px 0 6px}
+input,textarea,select{background:rgba(6,18,31,.82);border:1px solid #304c6e;border-radius:14px;padding:13px 14px;color:#f3f7ff;box-shadow:inset 0 1px 4px rgba(0,0,0,.18)}
+input:focus,textarea:focus,select:focus{border-color:#35dd83;box-shadow:0 0 0 3px rgba(53,221,131,.12),inset 0 1px 4px rgba(0,0,0,.16)}
+.row2,.row3{gap:12px}.tagField{border:1px solid rgba(83,112,151,.22);padding:4px 10px 10px}.playerCard{padding:10px 3px}.starBtn{border:1px solid #2c4667;background:linear-gradient(180deg,#1d3553,#152942)}
+.compactSave{width:52px;height:52px;border:1px solid rgba(171,255,209,.58);background:linear-gradient(145deg,#37df87,#19b963);box-shadow:0 10px 30px rgba(0,0,0,.42),0 0 0 6px rgba(40,199,111,.09);font-size:22px}
+.rc5Fields{padding-bottom:80px}
 @media(max-width:560px){
- .sheet{padding:10px 12px calc(18px + env(safe-area-inset-bottom));max-height:96vh}
- .close{top:13px;right:13px;width:44px;height:44px;border-radius:14px}
- .compactTeamTitle{padding:13px 54px 12px 12px;border-radius:18px}
- .teamIdentity{grid-template-columns:50px 1fr;gap:9px}.teamMonogram{width:50px;height:50px;border-radius:15px;font-size:15px}
- .teamTitleRow{grid-template-columns:30px 1fr 30px}.teamTitleRow h2{font-size:25px}.teamStep{height:30px;font-size:20px}
- .teamSectionTabs{gap:4px;padding:6px;border-radius:14px}.teamSectionTab{padding:9px 2px;font-size:9px}
- .formSection{padding:15px 13px;border-radius:18px}.formSection h3,.sectionTitleLine h3{font-size:17px}
- .pitch{padding:14px 4px}.compactSave{width:46px;height:46px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom))}
+ .sheet{max-height:100vh;height:100vh;border-radius:0;padding:calc(13px + env(safe-area-inset-top)) 14px calc(18px + env(safe-area-inset-bottom))}
+ .close{right:13px;top:calc(13px + env(safe-area-inset-top));width:44px;height:44px;border-radius:14px}
+ .compactTeamTitle{padding-right:48px}.compactTeamTitle>small{font-size:9px;margin-bottom:9px}
+ .teamTitleRow{grid-template-columns:39px minmax(0,1fr) 39px;gap:7px}.teamStep{height:39px;border-radius:13px}.clubIdentity{gap:8px}.clubMark{flex-basis:41px;height:41px;border-radius:13px;font-size:11px}.clubCopy h2{font-size:24px}.clubCopy p{font-size:12px;gap:5px}.clubCopy p b{font-size:9px;padding:3px 6px}
+ .sourceNote{font-size:9px;margin-top:9px;padding:5px 8px}
+ .teamSectionTabs{gap:5px;margin-left:-3px;margin-right:-3px;padding:10px 3px}.teamSectionTab{padding:9px 2px;font-size:9px;border-radius:12px}
+ .formSection{padding:15px 14px;border-radius:19px}.formSection h3,.sectionTitleLine h3{font-size:17px}.lineupSection{padding:15px 12px 13px}
+ .pitch{padding:12px 3px;border-radius:19px}.pitchRow{margin:10px 0}.shirt{min-width:43px;border-radius:11px}
+ .row2{grid-template-columns:1fr 1fr}.row3{grid-template-columns:1fr}.row2 label input{min-width:0}
+ input,textarea{padding:12px 13px;border-radius:13px}.compactSave{width:50px;height:50px;right:14px}
 }
+@media(max-width:390px){.teamSectionTab{font-size:0}.teamSectionTab::first-letter{font-size:16px}.clubMark{display:none}.clubCopy h2{font-size:23px}}
