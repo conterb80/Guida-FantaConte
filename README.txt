@@ -1,20 +1,17 @@
-GUIDA ASTA CONTE - RC2
+GUIDA ASTA CONTE — RC3
 
-INSTALLAZIONE / AGGIORNAMENTO GITHUB
-1. Apri la repository già usata per Guida Asta Conte.
-2. Carica tutti i file contenuti in questa cartella nella cartella principale della repository.
-3. Sostituisci i file della RC1 quando GitHub lo richiede.
-4. Premi Commit changes.
-5. Apri l'app dal solito indirizzo GitHub Pages e aggiorna la pagina.
+Novità principali:
+- prima scheda squadra operativa: Atalanta
+- probabile formazione, gerarchie, piazzati e mercato precompilati
+- valutazioni iniziali per l’asta modificabili dall’utente
+- importazione rose senza perdere le valutazioni personali
+- nuovo pulsante Backup per esportare tutti i dati in JSON
+- compatibilità con i dati salvati nelle versioni precedenti
 
-NOVITÀ RC2
-- Scheda squadra ampliata con rigoristi, punizioni e calci d'angolo.
-- Sezione mercato con acquisti, cessioni e trattative.
-- Badge Ufficiale e Trattativa.
-- Valutazioni personali: Consigliati, Scommesse, Giovani, Affidabili, Osservati e Da evitare.
-- Filtri nelle sezioni Mercato e Strategia.
-- Compatibilità con i dati personali già salvati nella RC1.
-- Service worker aggiornato per sostituire correttamente la vecchia cache.
+INSTALLAZIONE SU GITHUB
+1. Estrai tutti i file dello ZIP.
+2. Caricali nella cartella principale della repository sostituendo i precedenti.
+3. Premi Commit changes.
+4. Apri l’app e, se vedi ancora RC2, aggiorna la pagina o chiudi e riapri la PWA.
 
-AGGIORNA ROSE
-Il pulsante importa un file JSON. Le valutazioni personali e le note già inserite vengono conservate.
+Nota: la scheda Atalanta fotografa la situazione al 2 agosto 2026 e resta modificabile. Il mercato è ancora aperto.

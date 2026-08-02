@@ -1,8 +1,33 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
+const editorialDefaults={
+  Atalanta:{
+    coach:'Maurizio Sarri',module:'4-3-3',
+    formation:'Carnesecchi; Bellanova, Scalvini, Hien, Ahanor; Éderson, Gaetano, Pašalić; De Ketelaere, Scamacca, Raspadori.\nAlternative da seguire: Sportiello, Kossounou, Djimsiti, Zappacosta, Samardžić.',
+    penalties:'Scamacca\nDe Ketelaere\nRaspadori',
+    freeKicks:'Raspadori\nSamardžić\nDe Ketelaere',
+    corners:'Raspadori\nSamardžić\nZappacosta',
+    arrivals:'Gianluca Gaetano\nFrancesco Olivieri\nDiego Perillo\nLjubo Puljić',
+    departures:'Marco Palestra\nBen Godfrey',
+    talks:'Giorgio Scalvini — seguito in Premier League\nÉderson — situazione da monitorare fino a fine mercato',
+    recommended:'Charles De Ketelaere\nGianluca Scamacca',
+    bets:'Gianluca Gaetano\nLazar Samardžić',
+    young:'Honest Ahanor\nLjubo Puljić',
+    reliable:'Marten de Roon\nMario Pašalić',
+    watch:'Giacomo Raspadori\nGiorgio Scalvini',
+    avoid:'',
+    notes:'Prima lettura RC3: il passaggio al 4-3-3 di Sarri può cambiare gerarchie e bonus. Verificare titolari, piazzati e mercato prima dell’asta.',
+    updated:'Aggiornata 2 agosto 2026',source:'Scheda editoriale RC3'
+  }
+};
 let data=JSON.parse(localStorage.getItem('gac-data')||'null')||base;
-for(const t of teams)data[t]={...blank(),...(data[t]||{})};
+for(const t of teams){
+  const current=data[t]||{};
+  const defaults=editorialDefaults[t]||{};
+  data[t]={...blank(),...defaults,...current};
+}
+persist();
 
 const grid=document.querySelector('#teamGrid');
 const modal=document.querySelector('#modal');
@@ -26,7 +51,7 @@ function renderTeams(q=''){
 function openTeam(t){
   const d=data[t];
   view.innerHTML=`
-    <div class="teamTitle"><small>SCHEDA SQUADRA • RC2</small><h2>${t}</h2><p>Compila solo ciò che ti serve: ogni modifica resta salvata sul dispositivo.</p></div>
+    <div class="teamTitle"><small>SCHEDA SQUADRA • RC3</small><h2>${t}</h2><p>Compila o correggi ciò che ti serve: ogni modifica resta salvata sul dispositivo.</p>${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}</div>
     <div class="fields">
       <section class="formSection"><h3>Assetto squadra</h3>
         <div class="row2"><label><span>Allenatore</span><input id="coach" value="${esc(d.coach)}"></label><label><span>Modulo</span><input id="module" value="${esc(d.module)}"></label></div>
@@ -114,6 +139,12 @@ document.querySelector('#marketFilter').onchange=renderMarket;
 
 const fi=document.querySelector('#fileInput');
 document.querySelector('#refreshBtn').onclick=()=>fi.click();
+
+document.querySelector('#exportBtn').onclick=()=>{
+  const payload={app:'Guida Asta Conte',version:'RC3',exportedAt:new Date().toISOString(),teams:data};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC3.json';a.click();URL.revokeObjectURL(a.href);
+};
 fi.onchange=async()=>{
   if(!fi.files[0])return;
   try{
