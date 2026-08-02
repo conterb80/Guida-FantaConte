@@ -1,17 +1,19 @@
-GUIDA ASTA CONTE — RC3
+GUIDA ASTA CONTE — PACCHETTO TEST ATALANTA
 
-Novità principali:
-- prima scheda squadra operativa: Atalanta
-- probabile formazione, gerarchie, piazzati e mercato precompilati
-- valutazioni iniziali per l’asta modificabili dall’utente
-- importazione rose senza perdere le valutazioni personali
-- nuovo pulsante Backup per esportare tutti i dati in JSON
-- compatibilità con i dati salvati nelle versioni precedenti
+Contenuto reale del pacchetto:
+- PWA installabile
+- scheda Atalanta precompilata
+- probabile formazione e gerarchie
+- piazzati
+- mercato
+- valutazioni d'asta
+- note personali salvate sul dispositivo
+- backup JSON
+- importazione rose JSON
+- pulsante di ripristino dati editoriali Atalanta
 
-INSTALLAZIONE SU GITHUB
-1. Estrai tutti i file dello ZIP.
-2. Caricali nella cartella principale della repository sostituendo i precedenti.
-3. Premi Commit changes.
-4. Apri l’app e, se vedi ancora RC2, aggiorna la pagina o chiudi e riapri la PWA.
+IMPORTANTE
+Questo pacchetto corregge il problema delle versioni precedenti: i vecchi campi vuoti salvati nel telefono non coprono più i dati editoriali Atalanta.
 
-Nota: la scheda Atalanta fotografa la situazione al 2 agosto 2026 e resta modificabile. Il mercato è ancora aperto.
+INSTALLAZIONE
+Caricare tutti gli 8 file nella root della repository GitHub, sostituendo i precedenti. Dopo il commit, aprire l'app e attendere qualche secondo. Se era già aperta, chiuderla e riaprirla.

@@ -1,6 +1,7 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
+const DATA_VERSION=4;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
@@ -22,11 +23,20 @@ const editorialDefaults={
   }
 };
 let data=JSON.parse(localStorage.getItem('gac-data')||'null')||base;
+const storedVersion=Number(localStorage.getItem('gac-data-version')||0);
 for(const t of teams){
   const current=data[t]||{};
   const defaults=editorialDefaults[t]||{};
-  data[t]={...blank(),...defaults,...current};
+  const merged={...blank(),...current};
+  if(t==='Atalanta' && storedVersion<DATA_VERSION){
+    const personalFields=['recommended','bets','young','reliable','avoid','watch','notes'];
+    const personal=Object.fromEntries(personalFields.map(k=>[k,current[k]||defaults[k]||'']));
+    data[t]={...blank(),...defaults,...personal};
+  }else{
+    data[t]={...blank(),...defaults,...current};
+  }
 }
+localStorage.setItem('gac-data-version',String(DATA_VERSION));
 persist();
 
 const grid=document.querySelector('#teamGrid');
@@ -51,7 +61,7 @@ function renderTeams(q=''){
 function openTeam(t){
   const d=data[t];
   view.innerHTML=`
-    <div class="teamTitle"><small>SCHEDA SQUADRA • RC3</small><h2>${t}</h2><p>Compila o correggi ciò che ti serve: ogni modifica resta salvata sul dispositivo.</p>${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}</div>
+    <div class="teamTitle"><small>SCHEDA SQUADRA • TEST ATALANTA</small><h2>${t}</h2><p>Compila o correggi ciò che ti serve: ogni modifica resta salvata sul dispositivo.</p>${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}</div>
     <div class="fields">
       <section class="formSection"><h3>Assetto squadra</h3>
         <div class="row2"><label><span>Allenatore</span><input id="coach" value="${esc(d.coach)}"></label><label><span>Modulo</span><input id="module" value="${esc(d.module)}"></label></div>
@@ -70,13 +80,25 @@ function openTeam(t){
         <div class="row2"><label class="tagField watch"><span>👀 Osservati / obiettivi</span><textarea id="watch" placeholder="Un nome per riga">${esc(d.watch)}</textarea></label><label class="tagField avoid"><span>🚫 Da evitare</span><textarea id="avoid" placeholder="Un nome per riga">${esc(d.avoid)}</textarea></label></div>
       </section>
       <section class="formSection"><h3>Note personali</h3><label><span>Note Conte</span><textarea id="notes" rows="4">${esc(d.notes)}</textarea></label></section>
-      <button class="save">Salva scheda ${t}</button>
+      ${t==='Atalanta'?'<button class="restore" type="button">Ripristina dati editoriali Atalanta</button>':''}<button class="save">Salva scheda ${t}</button>
     </div>`;
   modal.classList.remove('hidden');
   document.body.classList.add('locked');
   view.querySelector('.save').onclick=()=>saveTeam(t);
+  const restore=view.querySelector('.restore');
+  if(restore)restore.onclick=()=>restoreAtalanta();
 }
 
+
+function restoreAtalanta(){
+  const personal={};
+  ['recommended','bets','young','reliable','avoid','watch','notes'].forEach(k=>personal[k]=data.Atalanta[k]||'');
+  data.Atalanta={...blank(),...editorialDefaults.Atalanta,...personal};
+  persist();
+  openTeam('Atalanta');
+  refreshAll();
+  alert('Scheda Atalanta ripristinata con i dati editoriali del pacchetto test.');
+}
 function saveTeam(t){
   ['coach','module','formation','penalties','freeKicks','corners','arrivals','departures','talks','recommended','bets','young','reliable','avoid','watch','notes'].forEach(k=>data[t][k]=document.querySelector('#'+k).value.trim());
   data[t].updated='Aggiornata oggi';
@@ -141,9 +163,9 @@ const fi=document.querySelector('#fileInput');
 document.querySelector('#refreshBtn').onclick=()=>fi.click();
 
 document.querySelector('#exportBtn').onclick=()=>{
-  const payload={app:'Guida Asta Conte',version:'RC3',exportedAt:new Date().toISOString(),teams:data};
+  const payload={app:'Guida Asta Conte',version:'Test-Atalanta',exportedAt:new Date().toISOString(),teams:data};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC3.json';a.click();URL.revokeObjectURL(a.href);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-Test-Atalanta.json';a.click();URL.revokeObjectURL(a.href);
 };
 fi.onchange=async()=>{
   if(!fi.files[0])return;
