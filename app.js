@@ -1,22 +1,132 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
-const base=Object.fromEntries(teams.map(t=>[t,{coach:'',module:'',formation:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'}]));
+const blank=()=>({coach:'',module:'',formation:'',penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
+const base=Object.fromEntries(teams.map(t=>[t,blank()]));
 let data=JSON.parse(localStorage.getItem('gac-data')||'null')||base;
-for(const t of teams) if(!data[t]) data[t]=base[t];
-const grid=document.querySelector('#teamGrid'),modal=document.querySelector('#modal'),view=document.querySelector('#teamView');
-function renderTeams(q=''){grid.innerHTML='';teams.filter(t=>t.toLowerCase().includes(q.toLowerCase())).forEach((t,i)=>{let b=document.createElement('button');b.className='team';b.innerHTML=`<strong>${t}</strong><small>${data[t].updated||'Da compilare'}</small>`;b.onclick=()=>openTeam(t);grid.appendChild(b)})}
-function esc(v=''){return String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;')}
-function openTeam(t){let d=data[t];view.innerHTML=`<div class='teamTitle'><small>SCHEDA SQUADRA</small><h2>${t}</h2></div><div class='fields'>
-<div class='row2'><div><div class='label'>Allenatore</div><input id='coach' value='${esc(d.coach)}'></div><div><div class='label'>Modulo</div><input id='module' value='${esc(d.module)}'></div></div>
-<div><div class='label'>Probabile formazione / gerarchie</div><textarea id='formation' rows='4'>${esc(d.formation)}</textarea></div>
-<div class='row2'><div><div class='label'>Scommesse</div><textarea id='bets'>${esc(d.bets)}</textarea></div><div><div class='label'>Giovani</div><textarea id='young'>${esc(d.young)}</textarea></div></div>
-<div class='row2'><div><div class='label'>Affidabili</div><textarea id='reliable'>${esc(d.reliable)}</textarea></div><div><div class='label'>Da evitare</div><textarea id='avoid'>${esc(d.avoid)}</textarea></div></div>
-<div><div class='label'>Osservati / obiettivi</div><textarea id='watch' placeholder='Un nome per riga'>${esc(d.watch)}</textarea></div>
-<div><div class='label'>Note Conte</div><textarea id='notes' rows='4'>${esc(d.notes)}</textarea></div>
-<button class='save'>Salva scheda</button></div>`;modal.classList.remove('hidden');view.querySelector('.save').onclick=()=>saveTeam(t)}
-function saveTeam(t){['coach','module','formation','bets','young','reliable','avoid','watch','notes'].forEach(k=>data[t][k]=document.querySelector('#'+k).value.trim());data[t].updated='Aggiornata oggi';persist();modal.classList.add('hidden');renderTeams(document.querySelector('#search').value);renderStrategy()}
+for(const t of teams)data[t]={...blank(),...(data[t]||{})};
+
+const grid=document.querySelector('#teamGrid');
+const modal=document.querySelector('#modal');
+const view=document.querySelector('#teamView');
+const esc=(v='')=>String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+const lines=(v='')=>String(v).split('\n').map(x=>x.trim()).filter(Boolean);
+
+function renderTeams(q=''){
+  grid.innerHTML='';
+  teams.filter(t=>t.toLowerCase().includes(q.toLowerCase())).forEach(t=>{
+    const d=data[t];
+    const filled=[d.formation,d.arrivals,d.recommended,d.bets,d.young,d.watch].filter(Boolean).length;
+    const b=document.createElement('button');
+    b.className='team';
+    b.innerHTML=`<div class="teamTop"><strong>${t}</strong><span class="completion">${filled}/6</span></div><small>${esc(d.updated||'Da compilare')}</small><div class="teamBadges">${d.arrivals?'<i>Mercato</i>':''}${d.watch?'<i>Obiettivi</i>':''}${d.formation?'<i>Formazione</i>':''}</div>`;
+    b.onclick=()=>openTeam(t);
+    grid.appendChild(b);
+  });
+}
+
+function openTeam(t){
+  const d=data[t];
+  view.innerHTML=`
+    <div class="teamTitle"><small>SCHEDA SQUADRA • RC2</small><h2>${t}</h2><p>Compila solo ciò che ti serve: ogni modifica resta salvata sul dispositivo.</p></div>
+    <div class="fields">
+      <section class="formSection"><h3>Assetto squadra</h3>
+        <div class="row2"><label><span>Allenatore</span><input id="coach" value="${esc(d.coach)}"></label><label><span>Modulo</span><input id="module" value="${esc(d.module)}"></label></div>
+        <label><span>Probabile formazione / gerarchie</span><textarea id="formation" rows="5">${esc(d.formation)}</textarea></label>
+      </section>
+      <section class="formSection"><h3>Piazzati</h3>
+        <div class="row3"><label><span>Rigoristi</span><textarea id="penalties">${esc(d.penalties)}</textarea></label><label><span>Punizioni</span><textarea id="freeKicks">${esc(d.freeKicks)}</textarea></label><label><span>Calci d'angolo</span><textarea id="corners">${esc(d.corners)}</textarea></label></div>
+      </section>
+      <section class="formSection"><h3>Mercato</h3>
+        <div class="row2"><label><span>Acquisti ufficiali</span><textarea id="arrivals" placeholder="Un nome per riga">${esc(d.arrivals)}</textarea></label><label><span>Cessioni ufficiali</span><textarea id="departures" placeholder="Un nome per riga">${esc(d.departures)}</textarea></label></div>
+        <label><span>Trattative / possibili movimenti</span><textarea id="talks" placeholder="Un nome o una nota per riga">${esc(d.talks)}</textarea></label>
+      </section>
+      <section class="formSection"><h3>Valutazioni Conte</h3>
+        <div class="row2"><label class="tagField recommended"><span>⭐ Consigliati</span><textarea id="recommended" placeholder="Un nome per riga">${esc(d.recommended)}</textarea></label><label class="tagField bet"><span>💎 Scommesse</span><textarea id="bets" placeholder="Un nome per riga">${esc(d.bets)}</textarea></label></div>
+        <div class="row2"><label class="tagField young"><span>👶 Giovani</span><textarea id="young" placeholder="Un nome per riga">${esc(d.young)}</textarea></label><label class="tagField reliable"><span>🛡️ Affidabili</span><textarea id="reliable" placeholder="Un nome per riga">${esc(d.reliable)}</textarea></label></div>
+        <div class="row2"><label class="tagField watch"><span>👀 Osservati / obiettivi</span><textarea id="watch" placeholder="Un nome per riga">${esc(d.watch)}</textarea></label><label class="tagField avoid"><span>🚫 Da evitare</span><textarea id="avoid" placeholder="Un nome per riga">${esc(d.avoid)}</textarea></label></div>
+      </section>
+      <section class="formSection"><h3>Note personali</h3><label><span>Note Conte</span><textarea id="notes" rows="4">${esc(d.notes)}</textarea></label></section>
+      <button class="save">Salva scheda ${t}</button>
+    </div>`;
+  modal.classList.remove('hidden');
+  document.body.classList.add('locked');
+  view.querySelector('.save').onclick=()=>saveTeam(t);
+}
+
+function saveTeam(t){
+  ['coach','module','formation','penalties','freeKicks','corners','arrivals','departures','talks','recommended','bets','young','reliable','avoid','watch','notes'].forEach(k=>data[t][k]=document.querySelector('#'+k).value.trim());
+  data[t].updated='Aggiornata oggi';
+  persist(); closeModal(); refreshAll();
+}
 function persist(){localStorage.setItem('gac-data',JSON.stringify(data))}
-function renderStrategy(){let box=document.querySelector('#strategyList'),items=[];teams.forEach(t=>(data[t].watch||'').split('\n').map(x=>x.trim()).filter(Boolean).forEach(x=>items.push([x,t])));document.querySelector('#watchCount').textContent=items.length;box.innerHTML=items.length?items.map(([p,t])=>`<div class='strategyItem'><b>${esc(p)}</b><span>${t}</span></div>`).join(''):`<div class='empty'><strong>Nessun giocatore osservato</strong><p>Apri una squadra e inserisci i nomi nel campo “Osservati / obiettivi”.</p></div>`}
-document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelector('#'+b.dataset.tab).classList.add('active');if(b.dataset.tab==='strategy')renderStrategy()});
-document.querySelector('.close').onclick=()=>modal.classList.add('hidden');modal.onclick=e=>{if(e.target===modal)modal.classList.add('hidden')};document.querySelector('#search').oninput=e=>renderTeams(e.target.value);
-const fi=document.querySelector('#fileInput');document.querySelector('#refreshBtn').onclick=()=>fi.click();fi.onchange=async()=>{try{let incoming=JSON.parse(await fi.files[0].text());let changed=0;Object.entries(incoming.teams||incoming).forEach(([t,v])=>{if(data[t]){let personal={bets:data[t].bets,young:data[t].young,reliable:data[t].reliable,avoid:data[t].avoid,watch:data[t].watch,notes:data[t].notes};data[t]={...data[t],...v,...personal,updated:'Rosa importata oggi'};changed++}});persist();renderTeams();alert(`Aggiornate ${changed} squadre. Le tue note personali sono state conservate.`)}catch(e){alert('File non valido. Usa il formato JSON previsto.')}fi.value=''};
-renderTeams();renderStrategy();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
+function closeModal(){modal.classList.add('hidden');document.body.classList.remove('locked')}
+
+const categoryMeta={
+  recommended:['⭐','Consigliato'],bet:['💎','Scommessa'],young:['👶','Giovane'],reliable:['🛡️','Affidabile'],watch:['👀','Osservato'],avoid:['🚫','Da evitare']
+};
+function strategyItems(){
+  const items=[];
+  const map={recommended:'recommended',bets:'bet',young:'young',reliable:'reliable',watch:'watch',avoid:'avoid'};
+  teams.forEach(team=>Object.entries(map).forEach(([field,type])=>lines(data[team][field]).forEach(player=>items.push({player,team,type}))));
+  return items;
+}
+function renderStrategy(){
+  const box=document.querySelector('#strategyList');
+  const filter=document.querySelector('#strategyFilter').value;
+  const all=strategyItems();
+  const objectiveCount=all.filter(x=>['recommended','bet','young','watch'].includes(x.type)).length;
+  document.querySelector('#watchCount').textContent=objectiveCount;
+  const items=filter==='all'?all:all.filter(x=>x.type===filter);
+  box.innerHTML=items.length?items.map(x=>{const [icon,label]=categoryMeta[x.type];return `<button class="strategyItem" onclick="openTeam('${x.team.replaceAll("'","\\'")}')"><span class="strategyIcon">${icon}</span><span><b>${esc(x.player)}</b><small>${x.team}</small></span><em class="badge ${x.type}">${label}</em></button>`}).join(''):`<div class="empty"><strong>Nessun giocatore in questa categoria</strong><p>Apri una squadra e inserisci i nomi nelle valutazioni personali.</p></div>`;
+}
+
+function marketItems(){
+  const items=[];
+  teams.forEach(team=>{
+    lines(data[team].arrivals).forEach(name=>items.push({team,name,type:'arrival',status:'official'}));
+    lines(data[team].departures).forEach(name=>items.push({team,name,type:'departure',status:'official'}));
+    lines(data[team].talks).forEach(name=>items.push({team,name,type:'talk',status:'talk'}));
+  });
+  return items;
+}
+function renderMarket(){
+  const box=document.querySelector('#marketList');
+  const filter=document.querySelector('#marketFilter').value;
+  const all=marketItems();
+  document.querySelector('#marketCount').textContent=all.length;
+  const items=filter==='all'?all:all.filter(x=>x.status===filter);
+  const meta={arrival:['↘','Acquisto'],departure:['↗','Cessione'],talk:['…','Trattativa']};
+  box.innerHTML=items.length?items.map(x=>{const [icon,label]=meta[x.type];return `<button class="marketItem" onclick="openTeam('${x.team.replaceAll("'","\\'")}')"><span class="marketIcon ${x.type}">${icon}</span><span><b>${esc(x.name)}</b><small>${x.team} • ${label}</small></span><em class="status ${x.status}">${x.status==='official'?'Ufficiale':'Trattativa'}</em></button>`}).join(''):`<div class="empty"><strong>Nessun movimento inserito</strong><p>Apri una squadra e compila acquisti, cessioni o trattative.</p></div>`;
+}
+
+function refreshAll(){renderTeams(document.querySelector('#search').value);renderStrategy();renderMarket()}
+
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');document.querySelector('#'+b.dataset.tab).classList.add('active');
+  if(b.dataset.tab==='strategy')renderStrategy();if(b.dataset.tab==='market')renderMarket();
+});
+document.querySelector('.close').onclick=closeModal;
+modal.onclick=e=>{if(e.target===modal)closeModal()};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+document.querySelector('#search').oninput=e=>renderTeams(e.target.value);
+document.querySelector('#strategyFilter').onchange=renderStrategy;
+document.querySelector('#marketFilter').onchange=renderMarket;
+
+const fi=document.querySelector('#fileInput');
+document.querySelector('#refreshBtn').onclick=()=>fi.click();
+fi.onchange=async()=>{
+  if(!fi.files[0])return;
+  try{
+    const incoming=JSON.parse(await fi.files[0].text());let changed=0;
+    Object.entries(incoming.teams||incoming).forEach(([t,v])=>{
+      if(data[t]&&v&&typeof v==='object'){
+        const personal={recommended:data[t].recommended,bets:data[t].bets,young:data[t].young,reliable:data[t].reliable,avoid:data[t].avoid,watch:data[t].watch,notes:data[t].notes};
+        data[t]={...blank(),...data[t],...v,...personal,updated:'Rosa importata oggi'};changed++;
+      }
+    });
+    persist();refreshAll();alert(`Aggiornate ${changed} squadre. Le tue valutazioni personali sono state conservate.`);
+  }catch(e){alert('File non valido. Usa il formato JSON previsto.')}fi.value='';
+};
+
+refreshAll();
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');

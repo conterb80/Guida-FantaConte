@@ -1,11 +1,83 @@
-<!doctype html><html lang='it'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><meta name='theme-color' content='#101826'><link rel='manifest' href='manifest.json'><link rel='stylesheet' href='style.css'><title>Guida Asta Conte RC1</title></head><body>
-<header><div><small>STAGIONE 2026/27</small><h1>Guida Asta Conte</h1><p>Centro preparazione asta</p></div><button id='refreshBtn'>↻ Aggiorna rose</button></header>
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101826">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <title>Guida Asta Conte RC2</title>
+</head>
+<body>
+<header>
+  <div>
+    <small>STAGIONE 2026/27</small>
+    <h1>Guida Asta Conte</h1>
+    <p>Centro preparazione asta</p>
+  </div>
+  <button id="refreshBtn" title="Importa un file rose JSON">↻ Aggiorna rose</button>
+</header>
+
 <main>
-<section class='hero'><div><span class='pill'>RC1 • BASE OPERATIVA</span><h2>Studia il mercato. Costruisci la strategia.</h2><p>Rose, probabili titolari, scommesse, giovani e valutazioni personali in un solo posto.</p></div><div class='stats'><b id='teamCount'>20</b><span>squadre</span><b id='watchCount'>0</b><span>osservati</span></div></section>
-<nav><button class='tab active' data-tab='teams'>Squadre</button><button class='tab' data-tab='market'>Mercato</button><button class='tab' data-tab='strategy'>Strategia</button></nav>
-<section id='teams' class='panel active'><div class='sectionHead'><div><h3>Serie A 2026/27</h3><p>Apri una squadra per preparare la scheda.</p></div><input id='search' placeholder='Cerca squadra'></div><div id='teamGrid' class='grid'></div></section>
-<section id='market' class='panel'><div class='sectionHead'><div><h3>Mercato di oggi</h3><p>Area pronta per news e ufficialità aggregate.</p></div></div><div class='empty'><strong>Collegamento fonti in preparazione</strong><p>Nella prossima fase collegheremo ufficialità, acquisti, cessioni e probabili formazioni. In RC1 puoi già importare un file rose aggiornato.</p></div></section>
-<section id='strategy' class='panel'><div class='sectionHead'><div><h3>La mia strategia</h3><p>Giocatori e appunti segnati nelle schede squadra.</p></div></div><div id='strategyList' class='list'></div></section>
+  <section class="hero">
+    <div>
+      <span class="pill">RC2 • STRATEGIA MERCATO</span>
+      <h2>Studia il mercato. Costruisci la strategia.</h2>
+      <p>Rose, gerarchie, piazzati, mercato e valutazioni personali in un solo posto.</p>
+    </div>
+    <div class="stats">
+      <b id="teamCount">20</b><span>squadre</span>
+      <b id="watchCount">0</b><span>obiettivi</span>
+      <b id="marketCount">0</b><span>movimenti</span>
+    </div>
+  </section>
+
+  <nav>
+    <button class="tab active" data-tab="teams">Squadre</button>
+    <button class="tab" data-tab="market">Mercato</button>
+    <button class="tab" data-tab="strategy">Strategia</button>
+  </nav>
+
+  <section id="teams" class="panel active">
+    <div class="sectionHead">
+      <div><h3>Serie A 2026/27</h3><p>Apri una squadra per preparare la scheda.</p></div>
+      <input id="search" placeholder="Cerca squadra">
+    </div>
+    <div id="teamGrid" class="grid"></div>
+  </section>
+
+  <section id="market" class="panel">
+    <div class="sectionHead marketHead">
+      <div><h3>Mercato squadre</h3><p>Acquisti, cessioni e trattative inserite nelle schede.</p></div>
+      <select id="marketFilter"><option value="all">Tutti</option><option value="official">Ufficiali</option><option value="talk">Trattative</option></select>
+    </div>
+    <div id="marketList" class="list"></div>
+  </section>
+
+  <section id="strategy" class="panel">
+    <div class="sectionHead strategyHead">
+      <div><h3>La mia strategia</h3><p>Giocatori classificati nelle schede squadra.</p></div>
+      <select id="strategyFilter">
+        <option value="all">Tutte le categorie</option>
+        <option value="recommended">Consigliati</option>
+        <option value="bet">Scommesse</option>
+        <option value="young">Giovani</option>
+        <option value="watch">Osservati</option>
+        <option value="avoid">Da evitare</option>
+      </select>
+    </div>
+    <div id="strategyList" class="list"></div>
+  </section>
 </main>
-<div id='modal' class='modal hidden'><div class='sheet'><button class='close'>×</button><div id='teamView'></div></div></div>
-<input type='file' id='fileInput' accept='.json' hidden><script src='app.js'></script></body></html>
+
+<div id="modal" class="modal hidden">
+  <div class="sheet">
+    <button class="close" aria-label="Chiudi">×</button>
+    <div id="teamView"></div>
+  </div>
+</div>
+
+<input type="file" id="fileInput" accept=".json,application/json" hidden>
+<script src="app.js"></script>
+</body>
+</html>

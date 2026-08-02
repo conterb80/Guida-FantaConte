@@ -1,9 +1,20 @@
-GUIDA ASTA CONTE RC1
+GUIDA ASTA CONTE - RC2
 
-1. Carica tutti i file nella root di una nuova repository GitHub.
-2. Attiva GitHub Pages sul branch main / root.
-3. Apri il link dal telefono.
-4. Il pulsante Aggiorna rose importa un file JSON e conserva note, scommesse, giovani, affidabili, da evitare e osservati.
-5. rose-esempio.json mostra il formato iniziale.
+INSTALLAZIONE / AGGIORNAMENTO GITHUB
+1. Apri la repository già usata per Guida Asta Conte.
+2. Carica tutti i file contenuti in questa cartella nella cartella principale della repository.
+3. Sostituisci i file della RC1 quando GitHub lo richiede.
+4. Premi Commit changes.
+5. Apri l'app dal solito indirizzo GitHub Pages e aggiorna la pagina.
 
-RC1 è una base di struttura. Le rose reali e le fonti automatiche saranno collegate dopo la scelta della fonte stabile.
+NOVITÀ RC2
+- Scheda squadra ampliata con rigoristi, punizioni e calci d'angolo.
+- Sezione mercato con acquisti, cessioni e trattative.
+- Badge Ufficiale e Trattativa.
+- Valutazioni personali: Consigliati, Scommesse, Giovani, Affidabili, Osservati e Da evitare.
+- Filtri nelle sezioni Mercato e Strategia.
+- Compatibilità con i dati personali già salvati nella RC1.
+- Service worker aggiornato per sostituire correttamente la vecchia cache.
+
+AGGIORNA ROSE
+Il pulsante importa un file JSON. Le valutazioni personali e le note già inserite vengono conservate.
