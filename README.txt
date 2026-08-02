@@ -1,13 +1,10 @@
-GUIDA ASTA CONTE — PACCHETTO TEST ATALANTA v5
+GUIDA ASTA CONTE — RC ROSA COMPLETA
 
-Correzione principale:
-- la scheda Atalanta viene compilata automaticamente anche se sul telefono era rimasta salvata una vecchia scheda vuota
-- preservate le valutazioni personali già inserite
-- cache PWA aggiornata alla versione v5
-- aggiunto pulsante di ripristino dati editoriali Atalanta
+Novità principali:
+- probabile formazione titolare separata e visuale
+- rosa completa Atalanta divisa per ruoli
+- indicatori titolare, ballottaggio, giovane, nuovo acquisto e valutazioni
+- stella per aggiungere un giocatore alla lista asta
+- mantenimento delle sezioni piazzati, mercato e valutazioni Conte
 
-Installazione:
-1. caricare e sostituire tutti gli 8 file su GitHub
-2. eseguire Commit changes
-3. riaprire la pagina; se era già aperta, chiudere e riaprire Chrome
-4. aprire Atalanta: i campi devono risultare compilati
+La rosa è provvisoria e aggiornata al 2 agosto 2026: il mercato estivo è ancora aperto.

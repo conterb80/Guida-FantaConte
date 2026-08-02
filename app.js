@@ -1,25 +1,74 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
-const blank=()=>({coach:'',module:'',formation:'',penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
+const blank=()=>({coach:'',module:'',formation:'',lineup:[],roster:[],penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
-const DATA_VERSION=5;
+const DATA_VERSION=6;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
-    formation:'Carnesecchi; Bellanova, Scalvini, Hien, Ahanor; Éderson, Gaetano, Pašalić; De Ketelaere, Scamacca, Raspadori.\nAlternative da seguire: Sportiello, Kossounou, Djimsiti, Zappacosta, Samardžić.',
-    penalties:'Scamacca\nDe Ketelaere\nRaspadori',
+    formation:'Carnesecchi; Bellanova, Scalvini, Hien, Ahanor; Éderson, Gaetano, Pašalić; De Ketelaere, Scamacca, Raspadori',
+    lineup:[
+      {name:'Marco Carnesecchi',short:'Carnesecchi',pos:'POR'},
+      {name:'Raoul Bellanova',short:'Bellanova',pos:'TD'},
+      {name:'Giorgio Scalvini',short:'Scalvini',pos:'DC'},
+      {name:'Isak Hien',short:'Hien',pos:'DC'},
+      {name:'Honest Ahanor',short:'Ahanor',pos:'TS'},
+      {name:'Éderson',short:'Éderson',pos:'CC'},
+      {name:'Gianluca Gaetano',short:'Gaetano',pos:'CC'},
+      {name:'Mario Pašalić',short:'Pašalić',pos:'CC'},
+      {name:'Charles De Ketelaere',short:'De Ketelaere',pos:'AD'},
+      {name:'Gianluca Scamacca',short:'Scamacca',pos:'PC'},
+      {name:'Giacomo Raspadori',short:'Raspadori',pos:'AS'}
+    ],
+    roster:[
+      {name:'Marco Carnesecchi',role:'Portiere',status:'Titolare',tags:['Top reparto']},
+      {name:'Marco Sportiello',role:'Portiere',status:'Riserva',tags:['Affidabile']},
+      {name:'Paolo Vismara',role:'Portiere',status:'Gerarchia aperta',tags:['Giovane']},
+      {name:'Mattia Sonzogni',role:'Portiere',status:'Aggregato',tags:['Giovane']},
+      {name:'Raoul Bellanova',role:'Difensore',status:'Titolare',tags:['Bonus','Da comprare']},
+      {name:'Giorgio Scalvini',role:'Difensore',status:'Titolare',tags:['Top','Osservato']},
+      {name:'Isak Hien',role:'Difensore',status:'Titolare',tags:['Affidabile']},
+      {name:'Honest Ahanor',role:'Difensore',status:'Titolare',tags:['Giovane','Scommessa']},
+      {name:'Odilon Kossounou',role:'Difensore',status:'Ballottaggio',tags:['Affidabile']},
+      {name:'Berat Djimsiti',role:'Difensore',status:'Ballottaggio',tags:['Affidabile']},
+      {name:'Davide Zappacosta',role:'Difensore',status:'Ballottaggio',tags:['Bonus']},
+      {name:'Sead Kolašinac',role:'Difensore',status:'Da valutare',tags:['Esperienza']},
+      {name:'Mitchel Bakker',role:'Difensore',status:'In rosa',tags:['Da seguire']},
+      {name:'Giovanni Bonfanti',role:'Difensore',status:'In rosa',tags:['Giovane']},
+      {name:'Lorenzo Bernasconi',role:'Difensore',status:'Aggregato',tags:['Giovane']},
+      {name:'Giorgio Cittadini',role:'Difensore',status:'Aggregato',tags:['Giovane']},
+      {name:'Ljubo Puljić',role:'Difensore',status:'Aggregato',tags:['Giovane']},
+      {name:'Éderson',role:'Centrocampista',status:'Titolare',tags:['Top','Da comprare']},
+      {name:'Gianluca Gaetano',role:'Centrocampista',status:'Titolare',tags:['Nuovo acquisto','Scommessa']},
+      {name:'Mario Pašalić',role:'Centrocampista',status:'Titolare',tags:['Bonus','Affidabile']},
+      {name:'Marten de Roon',role:'Centrocampista',status:'Ballottaggio',tags:['Affidabile']},
+      {name:'Lazar Samardžić',role:'Centrocampista',status:'Ballottaggio',tags:['Scommessa','Piazzati']},
+      {name:'Ibrahim Sulemana',role:'Centrocampista',status:'In rosa',tags:['Da seguire']},
+      {name:'Nicola Zalewski',role:'Centrocampista',status:'In rosa',tags:['Jolly']},
+      {name:'Samuel Giovane',role:'Centrocampista',status:'Aggregato',tags:['Giovane']},
+      {name:'Sergej Levak',role:'Centrocampista',status:'Aggregato',tags:['Giovane','Scommessa']},
+      {name:'Charles De Ketelaere',role:'Attaccante',status:'Titolare',tags:['Top','Da comprare']},
+      {name:'Gianluca Scamacca',role:'Attaccante',status:'Titolare',tags:['Top','Rigorista']},
+      {name:'Giacomo Raspadori',role:'Attaccante',status:'Titolare',tags:['Piazzati','Osservato']},
+      {name:'Nikola Krstović',role:'Attaccante',status:'Ballottaggio',tags:['Da seguire']},
+      {name:'Daniel Maldini',role:'Attaccante',status:'In rosa',tags:['Da valutare']},
+      {name:'El Bilal Touré',role:'Attaccante',status:'In rosa',tags:['Da valutare']},
+      {name:'Dominic Vavassori',role:'Attaccante',status:'Aggregato',tags:['Giovane']},
+      {name:'Vanja Vlahović',role:'Attaccante',status:'Aggregato',tags:['Giovane']}
+    ],
+    penalties:'Scamacca\nSamardžić\nDe Ketelaere',
     freeKicks:'Raspadori\nSamardžić\nDe Ketelaere',
     corners:'Raspadori\nSamardžić\nZappacosta',
-    arrivals:'Gianluca Gaetano\nFrancesco Olivieri\nDiego Perillo\nLjubo Puljić',
+    arrivals:'Gianluca Gaetano',
     departures:'Marco Palestra\nBen Godfrey',
-    talks:'Giorgio Scalvini — seguito in Premier League\nÉderson — situazione da monitorare fino a fine mercato',
-    recommended:'Charles De Ketelaere\nGianluca Scamacca',
-    bets:'Gianluca Gaetano\nLazar Samardžić',
-    young:'Honest Ahanor\nLjubo Puljić',
-    reliable:'Marten de Roon\nMario Pašalić',
-    watch:'Giacomo Raspadori\nGiorgio Scalvini',
+    talks:'Mercato ancora aperto: verificare uscite e nuovi innesti prima dell’asta',
+    recommended:'Charles De Ketelaere\nGianluca Scamacca\nÉderson',
+    bets:'Gianluca Gaetano\nLazar Samardžić\nHonest Ahanor',
+    young:'Honest Ahanor\nSergej Levak\nLjubo Puljić',
+    reliable:'Marten de Roon\nMario Pašalić\nIsak Hien',
+    watch:'Giacomo Raspadori\nGiorgio Scalvini\nRaoul Bellanova',
     avoid:'',
-    notes:'Prima lettura RC3: il passaggio al 4-3-3 di Sarri può cambiare gerarchie e bonus. Verificare titolari, piazzati e mercato prima dell’asta.',
-    updated:'Aggiornata 2 agosto 2026',source:'Scheda editoriale RC3'
+    notes:'Scheda test: rosa provvisoria di preparazione estiva. Aggiornare titolarità, mercato e disponibilità prima dell’asta.',
+    updated:'Aggiornata 2 agosto 2026',source:'Scheda editoriale test • rosa provvisoria'
   }
 };
 let data=JSON.parse(localStorage.getItem('gac-data')||'null')||base;
@@ -44,6 +93,8 @@ for(const t of teams){
 }
 localStorage.setItem('gac-data-version',String(DATA_VERSION));
 persist();
+let auctionList=JSON.parse(localStorage.getItem('gac-auction-list')||'[]');
+const saveAuctionList=()=>localStorage.setItem('gac-auction-list',JSON.stringify(auctionList));
 
 const grid=document.querySelector('#teamGrid');
 const modal=document.querySelector('#modal');
@@ -64,14 +115,40 @@ function renderTeams(q=''){
   });
 }
 
+
+function lineupHtml(d){
+  if(!d.lineup?.length)return '<div class="emptyMini">Formazione non ancora disponibile</div>';
+  const rows=[d.lineup.slice(0,1),d.lineup.slice(1,5),d.lineup.slice(5,8),d.lineup.slice(8,11)];
+  return `<div class="pitch">${rows.map((r,i)=>`<div class="pitchRow row${i}">${r.map(p=>`<div class="shirt"><span>${esc(p.short)}</span><small>${esc(p.pos)}</small></div>`).join('')}</div>`).join('')}</div>`;
+}
+function rosterHtml(d){
+  if(!d.roster?.length)return '<div class="emptyMini">Rosa non ancora inserita</div>';
+  const roles=['Portiere','Difensore','Centrocampista','Attaccante'];
+  const icons={Portiere:'🧤',Difensore:'🛡️',Centrocampista:'⚙️',Attaccante:'⚽'};
+  return roles.map(role=>{
+    const players=d.roster.filter(p=>p.role===role);
+    return `<div class="roleBlock"><h4>${icons[role]} ${role}${role==='Portiere'?'i':role==='Difensore'?'i':role==='Centrocampista'?'i':'i'}</h4>${players.map(p=>{
+      const selected=auctionList.some(x=>x.team==='Atalanta'&&x.name===p.name);
+      return `<div class="playerCard"><div class="playerMain"><b>${esc(p.name)}</b><div class="playerMeta"><span class="statusChip ${esc(p.status).toLowerCase().replaceAll(' ','-')}">${esc(p.status)}</span>${(p.tags||[]).map(tag=>`<span class="tagChip">${esc(tag)}</span>`).join('')}</div></div><button type="button" class="starBtn ${selected?'selected':''}" data-player="${esc(p.name)}" aria-label="Aggiungi alla lista asta">${selected?'★':'☆'}</button></div>`;
+    }).join('')}</div>`;
+  }).join('');
+}
+function toggleAuctionPlayer(name){
+  const i=auctionList.findIndex(x=>x.team==='Atalanta'&&x.name===name);
+  if(i>=0)auctionList.splice(i,1);else auctionList.push({team:'Atalanta',name});
+  saveAuctionList();openTeam('Atalanta');
+}
+
 function openTeam(t){
   const d=data[t];
   view.innerHTML=`
     <div class="teamTitle"><small>SCHEDA SQUADRA • TEST ATALANTA</small><h2>${t}</h2><p>Compila o correggi ciò che ti serve: ogni modifica resta salvata sul dispositivo.</p>${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}</div>
     <div class="fields">
+      <section class="formSection lineupSection"><div class="sectionTitleLine"><h3>Probabile formazione titolare</h3><span class="moduleBadge">${esc(d.module||'')}</span></div>${lineupHtml(d)}<div class="lineupNote">Solo gli 11 probabili titolari. Le alternative restano nella rosa completa.</div></section>
+      <section class="formSection rosterSection"><div class="sectionTitleLine"><h3>Rosa completa</h3><span class="auctionCount">⭐ Lista asta: ${auctionList.length}</span></div>${rosterHtml(d)}</section>
       <section class="formSection"><h3>Assetto squadra</h3>
         <div class="row2"><label><span>Allenatore</span><input id="coach" value="${esc(d.coach)}"></label><label><span>Modulo</span><input id="module" value="${esc(d.module)}"></label></div>
-        <label><span>Probabile formazione / gerarchie</span><textarea id="formation" rows="5">${esc(d.formation)}</textarea></label>
+        <label><span>Formazione in formato testo / note gerarchie</span><textarea id="formation" rows="5">${esc(d.formation)}</textarea></label>
       </section>
       <section class="formSection"><h3>Piazzati</h3>
         <div class="row3"><label><span>Rigoristi</span><textarea id="penalties">${esc(d.penalties)}</textarea></label><label><span>Punizioni</span><textarea id="freeKicks">${esc(d.freeKicks)}</textarea></label><label><span>Calci d'angolo</span><textarea id="corners">${esc(d.corners)}</textarea></label></div>
@@ -91,6 +168,7 @@ function openTeam(t){
   modal.classList.remove('hidden');
   document.body.classList.add('locked');
   view.querySelector('.save').onclick=()=>saveTeam(t);
+  view.querySelectorAll('.starBtn').forEach(btn=>btn.onclick=()=>toggleAuctionPlayer(btn.dataset.player));
   const restore=view.querySelector('.restore');
   if(restore)restore.onclick=()=>restoreAtalanta();
 }
@@ -169,9 +247,9 @@ const fi=document.querySelector('#fileInput');
 document.querySelector('#refreshBtn').onclick=()=>fi.click();
 
 document.querySelector('#exportBtn').onclick=()=>{
-  const payload={app:'Guida Asta Conte',version:'Test-Atalanta-v5',exportedAt:new Date().toISOString(),teams:data};
+  const payload={app:'Guida Asta Conte',version:'RC-Rosa-Completa-v1',exportedAt:new Date().toISOString(),teams:data};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-Test-Atalanta-v5.json';a.click();URL.revokeObjectURL(a.href);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC-Rosa-Completa-v1.json';a.click();URL.revokeObjectURL(a.href);
 };
 fi.onchange=async()=>{
   if(!fi.files[0])return;
