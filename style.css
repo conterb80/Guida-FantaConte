@@ -13,51 +13,45 @@
 .compactTeamTitle{margin-bottom:8px;padding-right:50px}.teamTitleRow{display:grid;grid-template-columns:38px 1fr 38px;align-items:center;gap:8px;margin-top:4px}.teamTitleRow h2{margin:0;font-size:25px}.teamTitleRow p{margin:2px 0 0}.teamStep{height:38px;padding:0;background:#192a40;color:#dce9f8;font-size:28px;line-height:1}.teamSectionTabs{position:sticky;top:0;z-index:4;display:flex;gap:6px;overflow-x:auto;margin:0 -4px 10px;padding:7px 4px 9px;background:linear-gradient(180deg,#0c1624 76%,rgba(12,22,36,0));scrollbar-width:none}.teamSectionTabs::-webkit-scrollbar{display:none}.teamSectionTab{flex:0 0 auto;padding:8px 10px;border-radius:999px;background:#18283d;color:#9fb4cd;font-size:11px}.teamSectionTab.active{background:#e9f2ff;color:#0b1624}.teamSection{display:none}.teamSection.active{display:grid;gap:11px}.rc5Fields{padding-bottom:82px}.compactSave{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom));z-index:15;width:58px;height:58px;margin:0;border-radius:50%;display:grid;place-items:center;padding:0;background:#28c76f;color:#07150d;box-shadow:0 10px 28px rgba(0,0,0,.42);font-size:25px}.compactSave span{position:absolute;right:66px;background:#173f2b;color:#b7f5cf;font-size:11px;padding:6px 9px;border-radius:999px;opacity:0;pointer-events:none;transition:.15s}.compactSave:focus span,.compactSave:hover span{opacity:1}.roleBlock[hidden]{display:none}.teamSection[data-section="roster"] .formSection{padding-bottom:6px}
 @media(max-width:560px){.sheet{padding-top:12px}.compactTeamTitle{padding-right:46px}.teamTitleRow{grid-template-columns:34px 1fr 34px}.teamTitleRow h2{font-size:24px}.teamStep{height:34px;font-size:24px}.sourceNote{font-size:10px;padding:5px 8px}.teamSectionTabs{margin-top:2px}.teamSectionTab{font-size:10px;padding:8px 9px}.compactSave{width:54px;height:54px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));font-size:23px}.compactSave span{display:none}.teamSection.active{gap:9px}}
 
-/* RC6 - Rifinitura grafica professionale mobile */
-:root{--rc6-bg:#08111e;--rc6-panel:#0f1c2e;--rc6-panel-2:#122238;--rc6-border:#263b58;--rc6-muted:#91a5bd;--rc6-accent:#2bd17e}
-.modal{background:rgba(2,7,13,.82);backdrop-filter:blur(3px)}
-.sheet{background:linear-gradient(180deg,#0b1625 0%,#0d1929 58%,#091320 100%);border:1px solid rgba(87,119,158,.24);box-shadow:0 -18px 60px rgba(0,0,0,.48)}
-.close{position:absolute;right:14px;top:14px;float:none;width:42px;height:42px;border-radius:14px;background:#1a2b43;border:1px solid #29405f;box-shadow:0 8px 20px rgba(0,0,0,.22)}
-.compactTeamTitle{padding:2px 54px 10px 0;margin:0;border-bottom:1px solid rgba(67,94,128,.28)}
-.compactTeamTitle>small{display:block;color:#8fa5bf;font-size:10px;letter-spacing:.055em;font-weight:750;margin-bottom:8px}
-.teamTitleRow{grid-template-columns:36px 1fr 36px;gap:10px}
-.teamTitleRow h2{font-size:26px;line-height:1.02;letter-spacing:-.02em}
-.teamTitleRow p{font-size:12px;color:#a4b6cc;margin-top:5px}
-.teamStep{width:36px;height:36px;border-radius:13px;background:#172a42;border:1px solid #29415f;color:#e5eefb;font-size:23px;box-shadow:0 6px 14px rgba(0,0,0,.16)}
-.sourceNote{margin-top:10px;background:linear-gradient(90deg,#164a2e,#1b5b38);border:1px solid rgba(82,225,145,.16);color:#aef0c8;box-shadow:inset 0 1px rgba(255,255,255,.04)}
-.teamSectionTabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;overflow:visible;margin:10px 0 12px;padding:8px 0 9px;background:linear-gradient(180deg,#0c1726 78%,rgba(12,23,38,0));top:-1px}
-.teamSectionTab{min-width:0;padding:9px 3px;border-radius:13px;background:#15263c;border:1px solid transparent;color:#9eb2ca;font-size:10px;line-height:1.1;text-align:center;white-space:nowrap;box-shadow:0 4px 12px rgba(0,0,0,.10)}
-.teamSectionTab.active{background:linear-gradient(180deg,#f4f8ff,#dfeafa);color:#0b1624;border-color:#fff;box-shadow:0 6px 16px rgba(0,0,0,.16)}
-.teamSection.active{gap:10px;animation:rc6fade .16s ease-out}@keyframes rc6fade{from{opacity:.35;transform:translateY(3px)}to{opacity:1;transform:none}}
-.formSection{background:linear-gradient(180deg,#111f32,#0f1b2c);border-color:#263b58;border-radius:18px;padding:14px;box-shadow:0 9px 24px rgba(0,0,0,.12),inset 0 1px rgba(255,255,255,.025)}
-.formSection h3{font-size:16px;color:#dce8f7;margin-bottom:10px;letter-spacing:-.01em}
-.sectionTitleLine{margin-bottom:10px}.sectionTitleLine h3{font-size:16px}
-.moduleBadge,.auctionCount{background:#1d385a;border:1px solid #2c4c72;color:#e4effd;padding:6px 10px}
-.pitch{border-radius:20px;padding:14px 6px;background:linear-gradient(180deg,#197047,#155c3e);border-color:rgba(132,240,184,.26);box-shadow:inset 0 0 35px rgba(3,36,22,.22),0 10px 22px rgba(0,0,0,.17)}
-.pitch:before{inset:9px;border-radius:6px}.pitchRow{margin:10px 0}.shirt{min-width:47px;max-width:70px;border-radius:13px;padding:7px 3px;background:rgba(5,20,14,.76);border-color:rgba(197,255,222,.18);box-shadow:0 5px 13px rgba(0,0,0,.22)}
-.shirt span{font-size:9.5px}.shirt small{font-size:9px}.lineupNote{margin:9px 2px 0;font-size:10px;line-height:1.35}
-label>span{font-size:11px;margin:7px 0 5px;color:#91a6bf}
-input,textarea,select{background:#0b1726;border-color:#2a405e;border-radius:13px;padding:10px 12px;color:#f0f5fd;box-shadow:inset 0 1px 4px rgba(0,0,0,.18)}
-textarea{min-height:68px;line-height:1.3}
-.roleBlock{margin-top:10px}.roleBlock h4{font-size:14px;margin-bottom:5px}.playerCard{padding:9px 1px;border-bottom-color:#20344f}.playerMain b{font-size:14px}.playerMeta{gap:4px;margin-top:4px}.statusChip,.tagChip{font-size:9px;padding:4px 7px}
-.starBtn{width:40px;height:40px;border-radius:13px;background:#182b43;border:1px solid #263d5b}
-.rosterFilters{gap:5px;margin-bottom:2px}.rosterFilter{padding:7px 9px;border:1px solid #263b58;background:#14263b}
-.compactSave{width:50px;height:50px;right:15px;bottom:calc(15px + env(safe-area-inset-bottom));font-size:22px;border:1px solid rgba(255,255,255,.18);box-shadow:0 10px 26px rgba(0,0,0,.42),0 0 0 5px rgba(43,209,126,.08)}
-.rc5Fields{padding-bottom:70px}
-.restore{border-radius:14px;padding:11px;background:#223955;border-color:#345273}
-.tagField{border-radius:14px;padding:1px 8px 8px}
 
+/* RC6 — GRAFICA PRO: restyling evidente, logica RC5 invariata */
+.modal{background:rgba(1,7,15,.82);backdrop-filter:blur(7px)}
+.sheet{background:
+ radial-gradient(circle at 85% 2%,rgba(35,112,191,.18),transparent 28%),
+ linear-gradient(180deg,#0b1524 0%,#091321 100%);
+ border:1px solid rgba(111,159,214,.28);box-shadow:0 -18px 60px rgba(0,0,0,.55)}
+.close{position:absolute;top:16px;right:16px;width:48px;height:48px;border-radius:16px;background:linear-gradient(145deg,#263d5e,#172840);border:1px solid #385579;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.compactTeamTitle{padding:16px 62px 14px 16px;margin:-2px 0 12px;border:1px solid rgba(81,132,190,.35);border-radius:20px;background:linear-gradient(135deg,rgba(25,50,82,.96),rgba(13,29,49,.96));box-shadow:0 12px 34px rgba(0,0,0,.24)}
+.compactTeamTitle>small{display:block;color:#8eb4df;font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px}
+.teamIdentity{display:grid;grid-template-columns:58px 1fr;gap:12px;align-items:center}
+.teamMonogram{width:58px;height:58px;display:grid;place-items:center;border-radius:17px;background:linear-gradient(145deg,#35d47e,#168b4d);color:#05160d;font-size:17px;font-weight:950;letter-spacing:.06em;box-shadow:0 10px 28px rgba(35,201,108,.23);border:1px solid rgba(255,255,255,.28)}
+.teamTitleRow{grid-template-columns:34px 1fr 34px;gap:8px;margin:0}
+.teamTitleRow h2{font-size:28px;letter-spacing:-.03em}.teamTitleRow p{font-size:13px;color:#a7bbd1}
+.teamStep{height:34px;border-radius:11px;background:#203653;border:1px solid #315070;font-size:23px}
+.sourceNote{margin-top:12px;background:rgba(35,199,103,.13);border:1px solid rgba(53,215,126,.28);color:#9cf0bf;padding:7px 10px}
+.teamSectionTabs{position:sticky;top:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:0 0 14px;padding:9px;background:rgba(8,19,33,.94);border:1px solid #233b59;border-radius:17px;box-shadow:0 10px 28px rgba(0,0,0,.25);backdrop-filter:blur(12px)}
+.teamSectionTab{min-width:0;padding:10px 4px;border-radius:12px;background:transparent;color:#91a8c2;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid transparent}
+.teamSectionTab.active{background:linear-gradient(145deg,#f6f9ff,#dceaff);color:#0c1928;border-color:#fff;box-shadow:0 6px 17px rgba(0,0,0,.18)}
+.teamSection.active{gap:14px;animation:rc6In .2s ease-out}@keyframes rc6In{from{opacity:.25;transform:translateY(5px)}to{opacity:1;transform:none}}
+.formSection{position:relative;overflow:hidden;padding:17px;border-radius:20px;border:1px solid #294563;background:linear-gradient(160deg,rgba(19,37,61,.98),rgba(12,27,46,.98));box-shadow:0 12px 32px rgba(0,0,0,.19)}
+.formSection:before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:3px;border-radius:0 4px 4px 0;background:linear-gradient(#39db83,#2375bf)}
+.formSection h3{font-size:18px;color:#eff6ff;margin-left:4px}.sectionTitleLine h3{font-size:18px}
+.moduleBadge,.auctionCount{background:#24466e;border:1px solid #37618e;color:#f1f7ff;padding:7px 11px}
+.pitch{border-radius:22px;padding:19px 8px;background:linear-gradient(180deg,#198552,#11613d);border:1px solid rgba(125,255,181,.38);box-shadow:inset 0 0 35px rgba(0,0,0,.14),0 12px 28px rgba(0,0,0,.2)}
+.shirt{background:rgba(4,22,14,.82);border-color:rgba(171,255,207,.22);box-shadow:0 7px 16px rgba(0,0,0,.28)}
+input,textarea,select{background:#081727;border:1px solid #315071;border-radius:14px;padding:13px 14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.025)}
+label>span{font-size:11px;text-transform:uppercase;letter-spacing:.055em;color:#849bb6;font-weight:800;margin-top:10px}
+.playerCard{padding:11px 2px}.playerMain b{font-size:15px}.starBtn{border:1px solid #2d4968;background:#172b43}.starBtn.selected{border-color:#8a6d19;background:#5b4714}
+.rosterFilters{padding:3px 0 11px}.rosterFilter{padding:8px 11px;border:1px solid #2a4564}.rosterFilter.active{box-shadow:0 5px 14px rgba(0,0,0,.2)}
+.compactSave{width:48px;height:48px;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));font-size:21px;border:2px solid rgba(255,255,255,.36);box-shadow:0 10px 26px rgba(0,0,0,.42),0 0 0 5px rgba(40,199,111,.11)}
+.rc5Fields{padding-bottom:70px}
 @media(max-width:560px){
-  .sheet{max-height:95vh;padding:12px 14px calc(18px + env(safe-area-inset-bottom));border-radius:24px 24px 0 0}
-  .close{right:12px;top:12px;width:40px;height:40px;border-radius:13px}
-  .compactTeamTitle{padding-right:48px}
-  .compactTeamTitle>small{font-size:9px;margin-bottom:7px}
-  .teamTitleRow{grid-template-columns:34px 1fr 34px;gap:8px}
-  .teamTitleRow h2{font-size:25px}.teamStep{width:34px;height:34px;font-size:22px}
-  .sourceNote{font-size:9px;padding:5px 8px;margin-top:8px}
-  .teamSectionTabs{gap:4px;margin:8px 0 10px;padding:7px 0 8px}
-  .teamSectionTab{font-size:9px;padding:8px 1px;border-radius:12px}
-  .formSection{padding:12px;border-radius:17px}
-  .pitch{padding:11px 3px}.pitchRow{margin:8px 0}.shirt{min-width:42px;padding:6px 2px}.shirt span{font-size:8.8px}.shirt small{font-size:8.4px}
-  input,textarea,select{padding:10px 11px}.compactSave{width:48px;height:48px;font-size:21px}
+ .sheet{padding:10px 12px calc(18px + env(safe-area-inset-bottom));max-height:96vh}
+ .close{top:13px;right:13px;width:44px;height:44px;border-radius:14px}
+ .compactTeamTitle{padding:13px 54px 12px 12px;border-radius:18px}
+ .teamIdentity{grid-template-columns:50px 1fr;gap:9px}.teamMonogram{width:50px;height:50px;border-radius:15px;font-size:15px}
+ .teamTitleRow{grid-template-columns:30px 1fr 30px}.teamTitleRow h2{font-size:25px}.teamStep{height:30px;font-size:20px}
+ .teamSectionTabs{gap:4px;padding:6px;border-radius:14px}.teamSectionTab{padding:9px 2px;font-size:9px}
+ .formSection{padding:15px 13px;border-radius:18px}.formSection h3,.sectionTitleLine h3{font-size:17px}
+ .pitch{padding:14px 4px}.compactSave{width:46px;height:46px;right:14px;bottom:calc(14px + env(safe-area-inset-bottom))}
 }

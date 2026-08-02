@@ -1,20 +1,20 @@
-GUIDA ASTA CONTE — RC6 RIFINITURA GRAFICA PRO
+GUIDA ASTA CONTE — RC6 GRAFICA PRO
 
-Questa RC parte dalla RC5 già promossa nel funzionamento e interviene solo sulla resa grafica e sull'uso da smartphone.
+Base: RC5 promossa nel funzionamento.
 
-Novità RC6:
-- intestazione squadra più pulita e compatta
-- barra delle 5 sezioni centrata e proporzionata allo schermo
-- card, bordi e campi uniformati
-- campo formazione rifinito e leggermente più compatto
-- spazi verticali ridotti senza togliere contenuti
-- pulsante Salva più piccolo e meno invasivo
-- animazione leggera nel passaggio tra sezioni
-- contrasto e leggibilità migliorati
-- cache PWA aggiornata alla RC6
+Modifiche visibili RC6:
+- nuova testata squadra a card con monogramma verde
+- navigazione a 5 sezioni trasformata in barra compatta a tutta larghezza
+- card con profondità, bordo laterale e spaziature uniformi
+- campo formazione più rifinito e leggibile
+- campi di testo e filtri ridisegnati
+- pulsante Salva ridotto e meno invasivo
+- sfondo e modale con effetto profondità
+- nessuna modifica alla logica della RC5
+- cache PWA aggiornata a v9
 
-INSTALLAZIONE
-1. Estrai lo ZIP.
-2. Carica tutti i file nella root del repository GitHub sostituendo quelli presenti.
-3. Attendi il completamento del deploy GitHub Pages.
-4. Apri l'app, aggiorna la pagina e, se necessario, chiudila e riaprila.
+Installazione:
+1. caricare tutti i file nella root GitHub sostituendo quelli esistenti;
+2. attendere GitHub Pages;
+3. chiudere e riaprire l'app;
+4. se resta una vecchia versione, cancellare una sola volta i dati/cache del sito.

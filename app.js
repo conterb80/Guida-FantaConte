@@ -164,8 +164,8 @@ function openTeam(t,section='formation'){
   const next=teams[(teamIndex+1)%teams.length];
   view.innerHTML=`
     <div class="teamTitle compactTeamTitle">
-      <small>SCHEDA SQUADRA • GUIDA ASTA CONTE RC6</small>
-      <div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div><h2>${t}</h2><p>${esc(d.coach||'Allenatore da definire')} • ${esc(d.module||'Modulo da definire')}</p></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div>
+      <small>GUIDA ASTA CONTE • RC6 GRAFICA PRO</small>
+      <div class="teamIdentity"><div class="teamMonogram" aria-hidden="true">${t.slice(0,3).toUpperCase()}</div><div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div><h2>${t}</h2><p>${esc(d.coach||'Allenatore da definire')} • ${esc(d.module||'Modulo da definire')}</p></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div></div>
       ${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}
     </div>
     <div class="teamSectionTabs" role="tablist" aria-label="Sezioni scheda squadra">
