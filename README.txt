@@ -1,19 +1,13 @@
-GUIDA ASTA CONTE — PACCHETTO TEST ATALANTA
+GUIDA ASTA CONTE — PACCHETTO TEST ATALANTA v5
 
-Contenuto reale del pacchetto:
-- PWA installabile
-- scheda Atalanta precompilata
-- probabile formazione e gerarchie
-- piazzati
-- mercato
-- valutazioni d'asta
-- note personali salvate sul dispositivo
-- backup JSON
-- importazione rose JSON
-- pulsante di ripristino dati editoriali Atalanta
+Correzione principale:
+- la scheda Atalanta viene compilata automaticamente anche se sul telefono era rimasta salvata una vecchia scheda vuota
+- preservate le valutazioni personali già inserite
+- cache PWA aggiornata alla versione v5
+- aggiunto pulsante di ripristino dati editoriali Atalanta
 
-IMPORTANTE
-Questo pacchetto corregge il problema delle versioni precedenti: i vecchi campi vuoti salvati nel telefono non coprono più i dati editoriali Atalanta.
-
-INSTALLAZIONE
-Caricare tutti gli 8 file nella root della repository GitHub, sostituendo i precedenti. Dopo il commit, aprire l'app e attendere qualche secondo. Se era già aperta, chiuderla e riaprirla.
+Installazione:
+1. caricare e sostituire tutti gli 8 file su GitHub
+2. eseguire Commit changes
+3. riaprire la pagina; se era già aperta, chiudere e riaprire Chrome
+4. aprire Atalanta: i campi devono risultare compilati

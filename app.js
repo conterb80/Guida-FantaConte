@@ -1,7 +1,7 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
-const DATA_VERSION=4;
+const DATA_VERSION=5;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
@@ -28,10 +28,16 @@ for(const t of teams){
   const current=data[t]||{};
   const defaults=editorialDefaults[t]||{};
   const merged={...blank(),...current};
-  if(t==='Atalanta' && storedVersion<DATA_VERSION){
+  if(t==='Atalanta'){
     const personalFields=['recommended','bets','young','reliable','avoid','watch','notes'];
     const personal=Object.fromEntries(personalFields.map(k=>[k,current[k]||defaults[k]||'']));
-    data[t]={...blank(),...defaults,...personal};
+    const coreFields=['coach','module','formation','penalties','freeKicks','corners','arrivals','departures','talks'];
+    const hasEditorialData=coreFields.some(k=>String(current[k]||'').trim());
+    if(storedVersion<DATA_VERSION || !hasEditorialData){
+      data[t]={...blank(),...defaults,...personal};
+    }else{
+      data[t]={...blank(),...defaults,...current};
+    }
   }else{
     data[t]={...blank(),...defaults,...current};
   }
@@ -163,9 +169,9 @@ const fi=document.querySelector('#fileInput');
 document.querySelector('#refreshBtn').onclick=()=>fi.click();
 
 document.querySelector('#exportBtn').onclick=()=>{
-  const payload={app:'Guida Asta Conte',version:'Test-Atalanta',exportedAt:new Date().toISOString(),teams:data};
+  const payload={app:'Guida Asta Conte',version:'Test-Atalanta-v5',exportedAt:new Date().toISOString(),teams:data};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-Test-Atalanta.json';a.click();URL.revokeObjectURL(a.href);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-Test-Atalanta-v5.json';a.click();URL.revokeObjectURL(a.href);
 };
 fi.onchange=async()=>{
   if(!fi.files[0])return;
