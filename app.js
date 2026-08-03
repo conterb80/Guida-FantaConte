@@ -1,7 +1,7 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',lineup:[],roster:[],penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
-const DATA_VERSION=12;
+const DATA_VERSION=13;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
@@ -109,6 +109,8 @@ persist();
 let auctionList=JSON.parse(localStorage.getItem('gac-auction-list')||'[]');
 let conteFavorites=JSON.parse(localStorage.getItem('gac-conte-favorites')||'[]');
 let auctionPlan=JSON.parse(localStorage.getItem('gac-auction-plan')||'null')||{budget:500,spent:0,slots:{Portiere:3,Difensore:8,Centrocampista:8,Attaccante:6}};
+let updateDiary=JSON.parse(localStorage.getItem('gac-update-diary')||'[]');
+let lastScan=JSON.parse(localStorage.getItem('gac-last-scan')||'null');
 const saveConteFavorites=()=>localStorage.setItem('gac-conte-favorites',JSON.stringify(conteFavorites));
 const saveAuctionList=()=>localStorage.setItem('gac-auction-list',JSON.stringify(auctionList));
 const saveAuctionPlan=()=>localStorage.setItem('gac-auction-plan',JSON.stringify(auctionPlan));
@@ -180,7 +182,7 @@ function smartUpdateTeam(team){
   ['recommended','bets','young','reliable','avoid','watch','notes'].forEach(k=>personal[k]=data[team][k]||defaults[k]||'');
   data[team]={...blank(),...data[team],...defaults,...personal,updated:'Smart update eseguito oggi'};
   persist();refreshAll();openTeam(team,'formation');
-  alert(`${team} aggiornata con i dati editoriali inclusi nella RC12. Le tue note e valutazioni sono state conservate.`);
+  alert(`${team} aggiornata con i dati editoriali inclusi nella RC13. Le tue note e valutazioni sono state conservate.`);
 }
 function renderAuctionPlan(){
   const budgetInput=document.querySelector('#auctionBudget'),spentInput=document.querySelector('#auctionSpent');
@@ -256,7 +258,7 @@ function openTeam(t,section='formation'){
   const next=teams[(teamIndex+1)%teams.length];
   view.innerHTML=`
     <div class="teamTitle compactTeamTitle">
-      <small>GUIDA ASTA CONTE • RC12 SMART DATA</small>
+      <small>GUIDA ASTA CONTE • RC13 SCOUT LIVE</small>
       <div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div class="clubIdentity"><span class="clubMark">${esc(t.slice(0,3).toUpperCase())}</span><div class="clubCopy"><h2>${t}</h2><p><span>${esc(d.coach||'Allenatore da definire')}</span><b>${esc(d.module||'Modulo da definire')}</b></p></div></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div>
       ${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}
       <button type="button" class="smartUpdateBtn" data-smart-update="${esc(t)}">↻ Aggiorna squadra</button>
@@ -335,7 +337,7 @@ function openPlayer(team,name){
   const candidates=allRosterPlayers().filter(x=>x.name!==name&&x.role===p.role).slice(0,24);
   const alternatives=(s.alternatives||[]).map(alt=>`<button type="button" class="altPlayer" data-team="${esc(team)}" data-player="${esc(alt)}">${esc(alt)}</button>`).join('')||'<span class="noAlt">Da definire</span>';
   document.querySelector('#playerView').innerHTML=`
-    <div class="playerHubLabel">RC11 • PLAYER HUB</div>
+    <div class="playerHubLabel">RC13 • PLAYER HUB</div>
     <div class="playerHero"><div class="playerAvatar">${esc(initials)}</div><div><span class="playerTeam">${esc(team)} • ${esc(p.role||'Ruolo da definire')}</span><h2>${esc(name)}</h2><div class="playerStars">${starsHtml(s.stars)} <small>${s.stars}/5</small></div></div><div class="conteScore"><b>${esc(s.score)}</b><small>CONTE</small></div></div>
     <div class="playerIdentity"><span>${esc(s.tier)}</span><span>${esc(s.age)} anni</span><span>Piede ${esc(s.foot)}</span><span>${esc(p.status||'Da valutare')}</span></div>
     <section class="hubSection situationHub"><div class="hubTitle"><small>SITUAZIONE ATTUALE</small><strong>Disponibilità e gerarchie</strong></div><div class="situationGrid"><div><span>Titolarità</span><b>${esc(s.starterPct)}%</b><i><u style="width:${Math.max(0,Math.min(100,Number(s.starterPct)||0))}%"></u></i></div><div><span>Condizione</span><b>${esc(s.condition)}</b></div><div><span>Infortuni</span><b>${esc(s.injury)}</b></div><div><span>Trend</span><b>${esc(s.trend)}</b></div></div></section>
@@ -433,12 +435,53 @@ function renderMarket(){
   box.innerHTML=items.length?items.map(x=>{const [icon,label]=meta[x.type];return `<button class="marketItem" onclick="openTeam('${x.team.replaceAll("'","\\'")}')"><span class="marketIcon ${x.type}">${icon}</span><span><b>${esc(x.name)}</b><small>${x.team} • ${label}</small></span><em class="status ${x.status}">${x.status==='official'?'Ufficiale':'Trattativa'}</em></button>`}).join(''):`<div class="empty"><strong>Nessun movimento inserito</strong><p>Apri una squadra e compila acquisti, cessioni o trattative.</p></div>`;
 }
 
-function refreshAll(){renderTeams(document.querySelector('#search').value);renderStrategy();renderMarket();renderAuction();renderAuctionPlan()}
+
+function saveDiary(){localStorage.setItem('gac-update-diary',JSON.stringify(updateDiary));}
+function addDiaryEntry(text,type='note',team='Generale'){
+  updateDiary.unshift({id:Date.now(),date:new Date().toLocaleString('it-IT'),text,team,type});
+  updateDiary=updateDiary.slice(0,80);saveDiary();renderScoutLive();
+}
+function scoutLiveItems(){
+  const items=[];
+  marketItems().forEach((x,i)=>items.push({...x,id:`m-${i}`,category:'market',title:x.type==='arrival'?'Nuovo acquisto':x.type==='departure'?'Cessione ufficiale':'Trattativa da seguire',detail:x.name,level:x.status==='official'?'high':'medium'}));
+  teams.forEach(team=>{
+    const d=data[team], roster=d.roster||[];
+    roster.filter(p=>['Ballottaggio','Da valutare','Gerarchia aperta'].includes(p.status)).slice(0,5).forEach((p,i)=>items.push({id:`l-${team}-${i}`,category:'lineup',team,title:'Gerarchia da verificare',detail:`${p.name} • ${p.status}`,level:'medium'}));
+  });
+  auctionList.forEach((x,i)=>{
+    const p=(data[x.team]?.roster||[]).find(p=>p.name===x.name)||x;
+    if(['Da valutare','Ballottaggio','Gerarchia aperta'].includes(p.status))items.push({id:`w-${i}`,category:'watch',team:x.team,title:'Obiettivo con situazione aperta',detail:`${x.name} • ${p.status}`,level:'high'});
+  });
+  return items;
+}
+function renderScoutLive(){
+  const box=document.querySelector('#scoutLiveList');if(!box)return;
+  const filter=document.querySelector('#scoutLiveFilter')?.value||'all';
+  const all=scoutLiveItems(), items=filter==='all'?all:all.filter(x=>x.category===filter);
+  document.querySelector('#alertTabCount').textContent=all.length;
+  document.querySelector('#liveAlertCount').textContent=all.filter(x=>x.level==='high').length;
+  document.querySelector('#liveChangeCount').textContent=marketItems().length;
+  document.querySelector('#liveWatchCount').textContent=auctionList.length;
+  const icons={market:'💰',lineup:'⚽',watch:'⭐'};
+  box.innerHTML=items.length?items.map(x=>`<button class="liveItem ${x.level}" data-team="${esc(x.team)}"><span class="liveIcon">${icons[x.category]||'🔔'}</span><span><b>${esc(x.title)}</b><small>${esc(x.team)} • ${esc(x.detail)}</small></span><em>${x.level==='high'?'Priorità':'Da seguire'}</em></button>`).join(''):`<div class="empty"><strong>Nessun alert per questo filtro</strong><p>Gli avvisi compariranno quando ci saranno movimenti o gerarchie da controllare.</p></div>`;
+  box.querySelectorAll('.liveItem').forEach(btn=>btn.onclick=()=>openTeam(btn.dataset.team,btn.querySelector('small')?.textContent.includes('Gerarchia')?'formation':'market'));
+  const diary=document.querySelector('#updateDiary');
+  diary.innerHTML=updateDiary.length?updateDiary.map(x=>`<div class="diaryItem"><span>${x.type==='scan'?'↻':'✎'}</span><div><b>${esc(x.text)}</b><small>${esc(x.team)} • ${esc(x.date)}</small></div><button data-id="${x.id}" aria-label="Elimina">×</button></div>`).join(''):`<div class="emptyMini">Nessuna voce nel diario.</div>`;
+  diary.querySelectorAll('button[data-id]').forEach(btn=>btn.onclick=()=>{updateDiary=updateDiary.filter(x=>String(x.id)!==btn.dataset.id);saveDiary();renderScoutLive();});
+}
+function scanScoutChanges(){
+  const snapshot={market:marketItems().length,watch:auctionList.length,alerts:scoutLiveItems().length,at:new Date().toISOString()};
+  let message='Prima scansione completata: situazione salvata come riferimento.';
+  if(lastScan){const parts=[];if(snapshot.market!==lastScan.market)parts.push(`${snapshot.market-lastScan.market>0?'+':''}${snapshot.market-lastScan.market} movimenti mercato`);if(snapshot.watch!==lastScan.watch)parts.push(`${snapshot.watch-lastScan.watch>0?'+':''}${snapshot.watch-lastScan.watch} obiettivi`);if(snapshot.alerts!==lastScan.alerts)parts.push(`${snapshot.alerts-lastScan.alerts>0?'+':''}${snapshot.alerts-lastScan.alerts} alert`);message=parts.length?`Variazioni rilevate: ${parts.join(', ')}.`:'Nessuna variazione rispetto all’ultima scansione.';}
+  lastScan=snapshot;localStorage.setItem('gac-last-scan',JSON.stringify(lastScan));addDiaryEntry(message,'scan','Scout Live');alert(message);
+}
+
+function refreshAll(){renderTeams(document.querySelector('#search').value);renderStrategy();renderMarket();renderAuction();renderAuctionPlan();renderScoutLive()}
 
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));
   b.classList.add('active');document.querySelector('#'+b.dataset.tab).classList.add('active');
-  if(b.dataset.tab==='strategy')renderStrategy();if(b.dataset.tab==='market')renderMarket();if(b.dataset.tab==='auction')renderAuction();
+  if(b.dataset.tab==='strategy')renderStrategy();if(b.dataset.tab==='market')renderMarket();if(b.dataset.tab==='auction')renderAuction();if(b.dataset.tab==='scoutlive')renderScoutLive();
 });
 document.querySelector('.close').onclick=closeModal;
 document.querySelector('#playerClose').onclick=closePlayer;
@@ -451,6 +494,10 @@ if(playerSearch){playerSearch.oninput=e=>renderPlayerSearch(e.target.value);play
 document.addEventListener('click',e=>{const results=document.querySelector('#playerSearchResults');if(results&&!e.target.closest('.globalScout'))results.classList.add('hidden');});
 document.querySelector('#strategyFilter').onchange=renderStrategy;
 document.querySelector('#marketFilter').onchange=renderMarket;
+const scoutLiveFilter=document.querySelector('#scoutLiveFilter');if(scoutLiveFilter)scoutLiveFilter.onchange=renderScoutLive;
+const scanChangesBtn=document.querySelector('#scanChangesBtn');if(scanChangesBtn)scanChangesBtn.onclick=scanScoutChanges;
+const addDiaryBtn=document.querySelector('#addDiaryBtn');if(addDiaryBtn)addDiaryBtn.onclick=()=>{const text=prompt('Scrivi la nota da aggiungere al diario aggiornamenti:');if(text?.trim())addDiaryEntry(text.trim(),'note','Nota Conte');};
+const clearDiaryBtn=document.querySelector('#clearDiaryBtn');if(clearDiaryBtn)clearDiaryBtn.onclick=()=>{if(confirm('Svuotare tutto il diario aggiornamenti?')){updateDiary=[];saveDiary();renderScoutLive();}};
 document.querySelector('#auctionRoleFilter').onchange=renderAuction;
 const auctionBudget=document.querySelector('#auctionBudget'),auctionSpent=document.querySelector('#auctionSpent');
 if(auctionBudget)auctionBudget.oninput=e=>{auctionPlan.budget=Math.max(0,Number(e.target.value||0));saveAuctionPlan();renderAuctionPlan();};
@@ -461,9 +508,9 @@ const fi=document.querySelector('#fileInput');
 document.querySelector('#refreshBtn').onclick=()=>fi.click();
 
 document.querySelector('#exportBtn').onclick=()=>{
-  const payload={app:'Guida Asta Conte',version:'RC12-Smart-Data',exportedAt:new Date().toISOString(),teams:data};
+  const payload={app:'Guida Asta Conte',version:'RC13-Scout-Live',exportedAt:new Date().toISOString(),teams:data};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC12.json';a.click();URL.revokeObjectURL(a.href);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC13.json';a.click();URL.revokeObjectURL(a.href);
 };
 fi.onchange=async()=>{
   if(!fi.files[0])return;

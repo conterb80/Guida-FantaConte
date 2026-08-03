@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#101826">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css?v=15">
-  <title>Guida Asta Conte • RC12 Smart Data</title>
+  <link rel="stylesheet" href="style.css?v=16">
+  <title>Guida Asta Conte • RC13 Scout Live</title>
 </head>
 <body>
 <header>
@@ -21,9 +21,9 @@
 <main>
   <section class="hero">
     <div>
-      <span class="pill">RC12 • SMART DATA</span>
+      <span class="pill">RC13 • SCOUT LIVE</span>
       <h2>Dalla rosa alla strategia d’asta.</h2>
-      <p>Dati squadra sintetici, aggiornamento editoriale controllato e gestione intelligente di budget e slot.</p>
+      <p>Centro mercato, alert sulle variazioni e diario aggiornamenti per seguire ogni cambiamento importante.</p>
     </div>
     <div class="stats">
       <b id="teamCount">20</b><span>squadre</span>
@@ -33,7 +33,7 @@
   </section>
 
   <section class="globalScout">
-    <div class="scoutSearchHead"><div><small>SCOUT GLOBALE</small><strong>Trova subito un giocatore</strong></div><span>RC12</span></div>
+    <div class="scoutSearchHead"><div><small>SCOUT GLOBALE</small><strong>Trova subito un giocatore</strong></div><span>RC13</span></div>
     <input id="playerSearch" autocomplete="off" placeholder="Cerca giocatore: Scalvini, Scamacca…">
     <div id="playerSearchResults" class="playerSearchResults hidden"></div>
   </section>
@@ -41,6 +41,7 @@
   <nav>
     <button class="tab active" data-tab="teams">Squadre</button>
     <button class="tab" data-tab="market">Mercato</button>
+    <button class="tab" data-tab="scoutlive">Scout Live <span id="alertTabCount">0</span></button>
     <button class="tab" data-tab="strategy">Strategia</button>
     <button class="tab" data-tab="auction">Lista asta <span id="auctionTabCount">0</span></button>
   </nav>
@@ -59,6 +60,21 @@
       <select id="marketFilter"><option value="all">Tutti</option><option value="official">Ufficiali</option><option value="talk">Trattative</option></select>
     </div>
     <div id="marketList" class="list"></div>
+  </section>
+
+  <section id="scoutlive" class="panel">
+    <div class="sectionHead scoutLiveHead">
+      <div><h3>Scout Live</h3><p>Alert, variazioni rosa e diario degli aggiornamenti.</p></div>
+      <select id="scoutLiveFilter"><option value="all">Tutti gli alert</option><option value="market">Mercato</option><option value="lineup">Gerarchie</option><option value="watch">Lista asta</option></select>
+    </div>
+    <section class="liveSummary" aria-label="Riepilogo Scout Live">
+      <div><small>ALERT ATTIVI</small><b id="liveAlertCount">0</b><span>da controllare</span></div>
+      <div><small>VARIAZIONI</small><b id="liveChangeCount">0</b><span>rosa e mercato</span></div>
+      <div><small>OBIETTIVI</small><b id="liveWatchCount">0</b><span>nella lista asta</span></div>
+    </section>
+    <div class="liveActions"><button id="scanChangesBtn" type="button">↻ Scansiona variazioni</button><button id="addDiaryBtn" type="button">＋ Aggiungi nota</button></div>
+    <div id="scoutLiveList" class="liveFeed"></div>
+    <section class="diarySection"><div class="diaryHead"><div><small>DIARIO AGGIORNAMENTI</small><strong>Cronologia personale</strong></div><button id="clearDiaryBtn" type="button">Svuota</button></div><div id="updateDiary" class="updateDiary"></div></section>
   </section>
 
   <section id="strategy" class="panel">
@@ -117,6 +133,6 @@
 </div>
 
 <input type="file" id="fileInput" accept=".json,application/json" hidden>
-<script src="app.js?v=15"></script>
+<script src="app.js?v=16"></script>
 </body>
 </html>

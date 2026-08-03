@@ -1,14 +1,15 @@
-GUIDA ASTA CONTE — RC12 SMART DATA
+GUIDA ASTA CONTE – RC13 SCOUT LIVE
 
-Novità realmente presenti:
-- Dashboard sintetica nella scheda squadra: rosa, titolari, nuovi acquisti, giovani e situazioni da verificare.
-- Pulsante “Aggiorna squadra”: applica i dati editoriali inclusi nel pacchetto preservando note e valutazioni personali.
-- Controllo Lista Asta con budget iniziale, crediti impegnati, residuo e slot per ruolo.
-- Dati della strategia salvati automaticamente sul dispositivo.
-- Backup aggiornato alla RC12.
+Novità:
+- Nuova scheda Scout Live con alert mercato, gerarchie e obiettivi della Lista Asta.
+- Riepilogo immediato di alert, variazioni e giocatori seguiti.
+- Scansione manuale delle variazioni rispetto all’ultima verifica.
+- Diario aggiornamenti personale con note salvate sul dispositivo.
+- Filtri alert per Mercato, Gerarchie e Lista Asta.
+- Struttura, Player Hub e Smart Data della RC12 mantenuti.
 
-NOTA IMPORTANTE
-Questa è una PWA statica su GitHub Pages. Il pulsante Aggiorna squadra usa il pacchetto editoriale incluso nella RC12; non interroga ancora fonti Internet in tempo reale. L’importazione JSON “Aggiorna rose” resta disponibile per caricare dati esterni verificati.
-
-INSTALLAZIONE
-Caricare tutti gli 8 file nella root del repository GitHub sostituendo quelli della RC11, poi eseguire Commit changes.
+Installazione GitHub Pages:
+1. Estrai lo ZIP.
+2. Carica tutti gli 8 file nella root del repository.
+3. Sostituisci i file esistenti e fai Commit changes.
+4. Riapri l’app e verifica la presenza della linguetta Scout Live.
