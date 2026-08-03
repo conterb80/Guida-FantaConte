@@ -1,4 +1,4 @@
-GUIDA ASTA CONTE — RC26 GUIDA COMPLETA 20 SQUADRE
+GUIDA ASTA CONTE — RC27 GUIDA COMPLETA 20 SQUADRE
 
 NOVITÀ PRINCIPALI
 - Inserite Parma, Roma, Sassuolo, Torino, Udinese e Venezia.
@@ -11,4 +11,4 @@ NOTA
 Le schede sono valutazioni pre-asta provvisorie e vanno aggiornate con gli ultimi movimenti di mercato.
 
 
-RC26 Rifinitura editoriale: uniformazione testi e preparazione versione finale pre-asta.
+RC27 Rifinitura editoriale: uniformazione testi e preparazione versione finale pre-asta.
