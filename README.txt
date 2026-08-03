@@ -1,10 +1,10 @@
-GUIDA ASTA CONTE — RC16 FOUNDATION CONSOLIDATION
+GUIDA ASTA CONTE — RC17 FOUNDATION CONSOLIDATION
 
 NOVITÀ PRINCIPALI
 - Separazione visiva netta di ogni singolo giocatore nelle sezioni Consigliati, Scommesse, Giovani, Affidabili, Osservati e Da evitare.
 - Ogni nome completo viene mostrato in una propria riga numerata, evitando l'effetto visivo per cui nome e cognome sembrano giocatori diversi.
 - Area di modifica mantenuta sotto l'anteprima: un nome completo per ogni riga.
-- Tutte le etichette dell'app aggiornate correttamente a RC16.
+- Tutte le etichette dell'app aggiornate correttamente a RC17.
 - Cache PWA aggiornata per forzare il caricamento della nuova versione.
 - Dati personali, lista asta, budget, diario e preferenze conservati tramite localStorage.
 
@@ -20,3 +20,8 @@ TEST RAPIDO
 - Verificare che “Gianluca Gaetano” occupi una riga unica.
 - Verificare che “Lazar Samardžić” sia chiaramente separato nella riga successiva.
 - Modificare un elenco, premere Salva, chiudere e riaprire la squadra.
+
+
+RC17:
+- Base preparata per completamento guida pre-asta.
+- Versione aggiornata identificata come RC17.
