@@ -1,13 +1,14 @@
-GUIDA ASTA CONTE — RC8 PREMIUM PLAYER HUB
+GUIDA ASTA CONTE — RC9 SCOUT PRO
 
-Base: RC7 promossa.
+Base: RC8 Premium Player Hub.
 
 Novità reali:
-- scheda giocatore apribile toccando ogni nome nella rosa
-- prezzo consigliato, stelle, presenze, gol, assist, MV e FM
-- indicatori titolarità, trend e rischio
-- consiglio Conte dedicato
-- aggiunta/rimozione dalla Lista asta direttamente dalla scheda giocatore
-- grafica premium e cache PWA RC8 v11
+- ricerca globale giocatori dalla Home
+- risultati rapidi con squadra, ruolo e punteggio Conte
+- scheda giocatore Scout Pro con età, piede, minuti, disciplina, rigori, fascia e titolarità
+- punteggio Conte 0–100
+- confronto rapido tra giocatori dello stesso ruolo
+- apertura diretta del giocatore confrontato
+- cache PWA RC9 v12
 
-Nota: i dati statistici presenti nella scheda Atalanta sono editoriali dimostrativi per testare struttura e usabilità; potranno essere sostituiti dai dati ufficiali nella fase aggiornamento rose.
+I dati presenti nell’Atalanta restano editoriali dimostrativi per testare il flusso.
