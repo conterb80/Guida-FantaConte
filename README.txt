@@ -1,22 +1,22 @@
-GUIDA ASTA CONTE — RC15 TEAM INTELLIGENCE
+GUIDA ASTA CONTE — RC16 FOUNDATION CONSOLIDATION
 
-Installazione / aggiornamento GitHub Pages
-1. Apri la repository della Guida Asta Conte.
-2. Carica tutti i file di questo ZIP nella cartella principale, sostituendo quelli esistenti.
-3. Conferma il commit.
-4. Apri l'app e aggiorna la pagina. Se appare ancora RC14, chiudi e riapri oppure svuota una sola volta la cache del sito.
-
-NOVITÀ RC15
-- Centro copertura delle 20 squadre.
-- Stato scheda: Pronta asta / In lavorazione / Da compilare.
-- Barra avanzamento per ogni squadra.
-- Filtri: Tutte, Pronte, Da completare, Con obiettivi.
-- Conteggio totale giocatori presenti nelle rose.
-- Motore Team Intelligence esteso a tutte le schede.
-- Player Intelligence RC14 mantenuta integralmente.
-- Dati personali, lista asta, budget e diario conservati tramite localStorage.
-- Backup rinominato RC15.
+NOVITÀ PRINCIPALI
+- Separazione visiva netta di ogni singolo giocatore nelle sezioni Consigliati, Scommesse, Giovani, Affidabili, Osservati e Da evitare.
+- Ogni nome completo viene mostrato in una propria riga numerata, evitando l'effetto visivo per cui nome e cognome sembrano giocatori diversi.
+- Area di modifica mantenuta sotto l'anteprima: un nome completo per ogni riga.
+- Tutte le etichette dell'app aggiornate correttamente a RC16.
 - Cache PWA aggiornata per forzare il caricamento della nuova versione.
+- Dati personali, lista asta, budget, diario e preferenze conservati tramite localStorage.
 
-NOTA DATI
-La scheda editoriale completa inclusa rimane quella Atalanta della RC14. Le altre 19 squadre dispongono ora della struttura Team Intelligence pronta per importazione o compilazione progressiva, senza inserire dati non verificati.
+INSTALLAZIONE SU GITHUB
+1. Estrarre il contenuto dello ZIP.
+2. Caricare tutti i file nella root della repository, sostituendo quelli esistenti.
+3. Fare Commit changes.
+4. Aprire l'app aggiungendo temporaneamente ?v=16 all'indirizzo.
+5. Se la vecchia versione resta visibile, chiudere completamente l'app e riaprirla.
+
+TEST RAPIDO
+- Aprire Atalanta > Consigli.
+- Verificare che “Gianluca Gaetano” occupi una riga unica.
+- Verificare che “Lazar Samardžić” sia chiaramente separato nella riga successiva.
+- Modificare un elenco, premere Salva, chiudere e riaprire la squadra.

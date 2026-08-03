@@ -1,7 +1,7 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',lineup:[],roster:[],penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
-const DATA_VERSION=15;
+const DATA_VERSION=16;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
@@ -124,6 +124,11 @@ const modal=document.querySelector('#modal');
 const view=document.querySelector('#teamView');
 const esc=(v='')=>String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
 const lines=(v='')=>String(v).split('\n').map(x=>x.trim()).filter(Boolean);
+function playerListPreview(value,emptyText='Nessun giocatore inserito'){
+  const items=lines(value);
+  if(!items.length)return `<div class="playerListEmpty">${esc(emptyText)}</div>`;
+  return `<div class="playerListPreview">${items.map((name,index)=>`<div class="playerListItem"><span class="playerListNumber">${index+1}</span><strong>${esc(name)}</strong></div>`).join('')}</div>`;
+}
 
 function allRosterPlayers(){
   const out=[];
@@ -202,7 +207,7 @@ function smartUpdateTeam(team){
   ['recommended','bets','young','reliable','avoid','watch','notes'].forEach(k=>personal[k]=data[team][k]||defaults[k]||'');
   data[team]={...blank(),...data[team],...defaults,...personal,updated:'Smart update eseguito oggi'};
   persist();refreshAll();openTeam(team,'formation');
-  alert(`${team} aggiornata con i dati editoriali inclusi nella RC15. Le tue note e valutazioni sono state conservate.`);
+  alert(`${team} aggiornata con i dati editoriali inclusi nella RC16. Le tue note e valutazioni sono state conservate.`);
 }
 function renderAuctionPlan(){
   const budgetInput=document.querySelector('#auctionBudget'),spentInput=document.querySelector('#auctionSpent');
@@ -278,7 +283,7 @@ function openTeam(t,section='formation'){
   const next=teams[(teamIndex+1)%teams.length];
   view.innerHTML=`
     <div class="teamTitle compactTeamTitle">
-      <small>GUIDA ASTA CONTE • RC15 TEAM INTELLIGENCE</small>
+      <small>GUIDA ASTA CONTE • RC16 FOUNDATION</small>
       <div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div class="clubIdentity"><span class="clubMark">${esc(t.slice(0,3).toUpperCase())}</span><div class="clubCopy"><h2>${t}</h2><p><span>${esc(d.coach||'Allenatore da definire')}</span><b>${esc(d.module||'Modulo da definire')}</b></p></div></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div>
       ${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}
       <button type="button" class="smartUpdateBtn" data-smart-update="${esc(t)}">↻ Aggiorna squadra</button>
@@ -307,9 +312,9 @@ function openTeam(t,section='formation'){
       </div>
       <div class="teamSection" data-section="advice">
         <section class="formSection"><h3>Valutazioni Conte</h3>
-          <div class="row2"><label class="tagField recommended"><span>⭐ Consigliati</span><textarea id="recommended" placeholder="Un nome per riga">${esc(d.recommended)}</textarea></label><label class="tagField bet"><span>💎 Scommesse</span><textarea id="bets" placeholder="Un nome per riga">${esc(d.bets)}</textarea></label></div>
-          <div class="row2"><label class="tagField young"><span>👶 Giovani</span><textarea id="young" placeholder="Un nome per riga">${esc(d.young)}</textarea></label><label class="tagField reliable"><span>🛡️ Affidabili</span><textarea id="reliable" placeholder="Un nome per riga">${esc(d.reliable)}</textarea></label></div>
-          <div class="row2"><label class="tagField watch"><span>👀 Osservati / obiettivi</span><textarea id="watch" placeholder="Un nome per riga">${esc(d.watch)}</textarea></label><label class="tagField avoid"><span>🚫 Da evitare</span><textarea id="avoid" placeholder="Un nome per riga">${esc(d.avoid)}</textarea></label></div>
+          <div class="row2 adviceGrid"><label class="tagField recommended"><span>⭐ Consigliati</span>${playerListPreview(d.recommended)}<textarea id="recommended" placeholder="Un nome completo per riga">${esc(d.recommended)}</textarea></label><label class="tagField bet"><span>💎 Scommesse</span>${playerListPreview(d.bets)}<textarea id="bets" placeholder="Un nome completo per riga">${esc(d.bets)}</textarea></label></div>
+          <div class="row2 adviceGrid"><label class="tagField young"><span>👶 Giovani</span>${playerListPreview(d.young)}<textarea id="young" placeholder="Un nome completo per riga">${esc(d.young)}</textarea></label><label class="tagField reliable"><span>🛡️ Affidabili</span>${playerListPreview(d.reliable)}<textarea id="reliable" placeholder="Un nome completo per riga">${esc(d.reliable)}</textarea></label></div>
+          <div class="row2 adviceGrid"><label class="tagField watch"><span>👀 Osservati / obiettivi</span>${playerListPreview(d.watch)}<textarea id="watch" placeholder="Un nome completo per riga">${esc(d.watch)}</textarea></label><label class="tagField avoid"><span>🚫 Da evitare</span>${playerListPreview(d.avoid)}<textarea id="avoid" placeholder="Un nome completo per riga">${esc(d.avoid)}</textarea></label></div>
         </section>
       </div>
       <div class="teamSection" data-section="market">
