@@ -1,12 +1,11 @@
-GUIDA ASTA CONTE — RC24 RIPRISTINO CONTENUTI 4
+GUIDA ASTA CONTE — RC25 GUIDA COMPLETA 20 SQUADRE
 
-CORREZIONE PRINCIPALE
-- Risolto il blocco della copertura a 9/20 causato dalla cache PWA.
-- Forzato il caricamento di app.js e style.css versione 24.
-- Incrementata la versione dati a 24 per importare realmente Lazio, Lecce, Milan, Monza e Napoli.
-- Nuova cache service worker gac-rc24-data-recovery-v1.
+NOVITÀ PRINCIPALI
+- Inserite Parma, Roma, Sassuolo, Torino, Udinese e Venezia.
+- Copertura guida portata a 20/20 squadre.
+- Per ogni nuova squadra: formazione, rosa, gerarchie, piazzati, consigli e mercato.
+- Versione dati e cache PWA aggiornate a 25.
+- Conservati lista asta, preferiti, budget e note personali.
 
-RISULTATO ATTESO
-- Copertura guida: 14/20.
-- Le cinque nuove squadre devono apparire 6/6 e Pronta asta.
-- Lista asta, preferiti, budget e note personali vengono mantenuti.
+NOTA
+Le schede sono valutazioni pre-asta provvisorie e vanno aggiornate con gli ultimi movimenti di mercato.
