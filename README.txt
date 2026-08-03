@@ -1,27 +1,17 @@
-GUIDA ASTA CONTE — RC17 FOUNDATION CONSOLIDATION
+GUIDA ASTA CONTE — RC18 CONTENUTI PRE-ASTA 1
 
 NOVITÀ PRINCIPALI
-- Separazione visiva netta di ogni singolo giocatore nelle sezioni Consigliati, Scommesse, Giovani, Affidabili, Osservati e Da evitare.
-- Ogni nome completo viene mostrato in una propria riga numerata, evitando l'effetto visivo per cui nome e cognome sembrano giocatori diversi.
-- Area di modifica mantenuta sotto l'anteprima: un nome completo per ogni riga.
-- Tutte le etichette dell'app aggiornate correttamente a RC17.
-- Cache PWA aggiornata per forzare il caricamento della nuova versione.
-- Dati personali, lista asta, budget, diario e preferenze conservati tramite localStorage.
+- Primo lotto editoriale ampliato: Atalanta, Bologna, Cagliari e Como.
+- Rose organizzate per ruolo, probabili formazioni, gerarchie e piazzati.
+- Consigliati, scommesse, giovani, affidabili e osservati separati per singolo giocatore.
+- Ripristino editoriale disponibile per ogni squadra già coperta.
+- Dati personali, lista asta, budget e note conservati durante l’aggiornamento.
+- Etichette e cache PWA aggiornate a RC18.
 
-INSTALLAZIONE SU GITHUB
-1. Estrarre il contenuto dello ZIP.
-2. Caricare tutti i file nella root della repository, sostituendo quelli esistenti.
-3. Fare Commit changes.
-4. Aprire l'app aggiungendo temporaneamente ?v=16 all'indirizzo.
-5. Se la vecchia versione resta visibile, chiudere completamente l'app e riaprirla.
+NOTA DATI
+Le rose e le valutazioni sono una base pre-asta provvisoria con mercato ancora aperto.
+Como usa la rosa ufficiale disponibile al 3 agosto 2026; formazioni e gerarchie restano valutazioni editoriali da verificare nei test e prima dell’asta.
 
-TEST RAPIDO
-- Aprire Atalanta > Consigli.
-- Verificare che “Gianluca Gaetano” occupi una riga unica.
-- Verificare che “Lazar Samardžić” sia chiaramente separato nella riga successiva.
-- Modificare un elenco, premere Salva, chiudere e riaprire la squadra.
-
-
-RC17:
-- Base preparata per completamento guida pre-asta.
-- Versione aggiornata identificata come RC17.
+INSTALLAZIONE
+Caricare tutti i file nella root del repository GitHub sostituendo quelli esistenti.
+Dopo la pubblicazione, aprire l’app e usare Aggiorna rose oppure ricaricare forzatamente la pagina se la vecchia cache resta visibile.

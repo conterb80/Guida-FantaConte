@@ -1,7 +1,7 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',lineup:[],roster:[],penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
-const DATA_VERSION=16;
+const DATA_VERSION=18;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
@@ -69,7 +69,62 @@ const editorialDefaults={
     avoid:'',
     notes:'Scheda test: rosa provvisoria di preparazione estiva. Aggiornare titolarità, mercato e disponibilità prima dell’asta.',
     updated:'Aggiornata 2 agosto 2026',source:'Scheda editoriale test • rosa provvisoria'
+  },
+  Bologna:{
+    coach:'Domenico Tedesco',module:'4-2-3-1',
+    formation:'Skorupski; João Mário, Lucumí, Heggem, Miranda; Ferguson, Moro; Orsolini, Bernardeschi, Cambiaghi; Dovbyk',
+    lineup:[
+      {name:'Łukasz Skorupski',short:'Skorupski',pos:'POR'},{name:'João Mário',short:'João Mário',pos:'TD'},{name:'Jhon Lucumí',short:'Lucumí',pos:'DC'},{name:'Torbjørn Heggem',short:'Heggem',pos:'DC'},{name:'Juan Miranda',short:'Miranda',pos:'TS'},
+      {name:'Lewis Ferguson',short:'Ferguson',pos:'CC'},{name:'Nikola Moro',short:'Moro',pos:'CC'},{name:'Riccardo Orsolini',short:'Orsolini',pos:'AD'},{name:'Federico Bernardeschi',short:'Bernardeschi',pos:'TRQ'},{name:'Nicolò Cambiaghi',short:'Cambiaghi',pos:'AS'},{name:'Artem Dovbyk',short:'Dovbyk',pos:'PC'}
+    ],
+    roster:[
+      {name:'Łukasz Skorupski',role:'Portiere',status:'Titolare',tags:['Affidabile']},{name:'Federico Ravaglia',role:'Portiere',status:'Riserva',tags:['Da seguire']},{name:'Massimo Pessina',role:'Portiere',status:'Aggregato',tags:['Giovane']},
+      {name:'João Mário',role:'Difensore',status:'Titolare',tags:['Bonus']},{name:'Jhon Lucumí',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Torbjørn Heggem',role:'Difensore',status:'Titolare',tags:['Scommessa']},{name:'Juan Miranda',role:'Difensore',status:'Titolare',tags:['Bonus']},{name:'Sam Beukema',role:'Difensore',status:'Ballottaggio',tags:['Affidabile']},{name:'Nadir Zortea',role:'Difensore',status:'Ballottaggio',tags:['Da seguire']},
+      {name:'Lewis Ferguson',role:'Centrocampista',status:'Titolare',tags:['Top','Da comprare']},{name:'Nikola Moro',role:'Centrocampista',status:'Titolare',tags:['Affidabile']},{name:'Remo Freuler',role:'Centrocampista',status:'Ballottaggio',tags:['Affidabile']},{name:'Giovanni Fabbian',role:'Centrocampista',status:'Ballottaggio',tags:['Scommessa','Bonus']},
+      {name:'Riccardo Orsolini',role:'Attaccante',status:'Titolare',tags:['Top','Rigorista']},{name:'Federico Bernardeschi',role:'Attaccante',status:'Titolare',tags:['Piazzati','Scommessa']},{name:'Nicolò Cambiaghi',role:'Attaccante',status:'Titolare',tags:['Scommessa']},{name:'Artem Dovbyk',role:'Attaccante',status:'Titolare',tags:['Top','Da comprare']},{name:'Thijs Dallinga',role:'Attaccante',status:'Ballottaggio',tags:['Da seguire']}
+    ],
+    penalties:'Orsolini\nDovbyk\nBernardeschi',freeKicks:'Orsolini\nBernardeschi\nFerguson',corners:'Orsolini\nBernardeschi\nMiranda',
+    arrivals:'Artem Dovbyk\nJoão Mário',departures:'Santiago Castro',talks:'Gerarchie offensive da verificare durante il precampionato.',
+    recommended:'Riccardo Orsolini\nArtem Dovbyk\nLewis Ferguson',bets:'Federico Bernardeschi\nGiovanni Fabbian\nNicolò Cambiaghi',young:'Giovanni Fabbian\nMassimo Pessina',reliable:'Łukasz Skorupski\nJhon Lucumí\nLewis Ferguson',watch:'Artem Dovbyk\nRiccardo Orsolini\nJuan Miranda',avoid:'',
+    notes:'Scheda pre-asta provvisoria. Mercato aperto: verificare gerarchie e disponibilità prima dell’asta.',updated:'Aggiornata 3 agosto 2026',source:'Lotto contenuti RC18 • rosa e formazione provvisorie'
+  },
+  Cagliari:{
+    coach:'Fabio Pisacane',module:'3-5-2',
+    formation:'Caprile; Zappa, Mina, Obert; Idrissi, Adopo, Prati, Deiola, Zé Pedro; Esposito, Borrelli',
+    lineup:[
+      {name:'Elia Caprile',short:'Caprile',pos:'POR'},{name:'Gabriele Zappa',short:'Zappa',pos:'DC'},{name:'Yerry Mina',short:'Mina',pos:'DC'},{name:'Adam Obert',short:'Obert',pos:'DC'},{name:'Riyad Idrissi',short:'Idrissi',pos:'ED'},
+      {name:'Michel Adopo',short:'Adopo',pos:'CC'},{name:'Matteo Prati',short:'Prati',pos:'REG'},{name:'Alessandro Deiola',short:'Deiola',pos:'CC'},{name:'Zé Pedro',short:'Zé Pedro',pos:'ES'},{name:'Sebastiano Esposito',short:'Esposito',pos:'SS'},{name:'Gennaro Borrelli',short:'Borrelli',pos:'PC'}
+    ],
+    roster:[
+      {name:'Elia Caprile',role:'Portiere',status:'Titolare',tags:['Top reparto']},{name:'Boris Radunović',role:'Portiere',status:'Riserva',tags:['Affidabile']},
+      {name:'Gabriele Zappa',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Yerry Mina',role:'Difensore',status:'Titolare',tags:['Bonus','Rischio cartellini']},{name:'Adam Obert',role:'Difensore',status:'Titolare',tags:['Da seguire']},{name:'Riyad Idrissi',role:'Difensore',status:'Titolare',tags:['Giovane','Scommessa']},{name:'Mateusz Wieteska',role:'Difensore',status:'Ballottaggio',tags:['Affidabile']},{name:'Juan Rodríguez',role:'Difensore',status:'Ballottaggio',tags:['Giovane']},
+      {name:'Michel Adopo',role:'Centrocampista',status:'Titolare',tags:['Affidabile']},{name:'Matteo Prati',role:'Centrocampista',status:'Titolare',tags:['Scommessa']},{name:'Alessandro Deiola',role:'Centrocampista',status:'Titolare',tags:['Bonus']},{name:'Jacopo Fazzini',role:'Centrocampista',status:'Ballottaggio',tags:['Scommessa','Bonus']},{name:'Harry Winks',role:'Centrocampista',status:'Ballottaggio',tags:['Piazzati']},
+      {name:'Sebastiano Esposito',role:'Attaccante',status:'Titolare',tags:['Top','Piazzati']},{name:'Gennaro Borrelli',role:'Attaccante',status:'Titolare',tags:['Scommessa']},{name:'Kingstone Mutandwa',role:'Attaccante',status:'Ballottaggio',tags:['Giovane','Scommessa']}
+    ],
+    penalties:'Sebastiano Esposito\nYerry Mina',freeKicks:'Sebastiano Esposito\nHarry Winks',corners:'Sebastiano Esposito\nHarry Winks',
+    arrivals:'Harry Winks\nKingstone Mutandwa',departures:'Gianluca Gaetano',talks:'Attacco e corsie ancora soggetti al mercato.',
+    recommended:'Elia Caprile\nSebastiano Esposito\nYerry Mina',bets:'Jacopo Fazzini\nGennaro Borrelli\nRiyad Idrissi',young:'Riyad Idrissi\nKingstone Mutandwa\nJuan Rodríguez',reliable:'Elia Caprile\nGabriele Zappa\nMichel Adopo',watch:'Sebastiano Esposito\nMatteo Prati\nJacopo Fazzini',avoid:'',
+    notes:'Scheda pre-asta provvisoria. Verificare il mercato e la composizione definitiva del reparto offensivo.',updated:'Aggiornata 3 agosto 2026',source:'Lotto contenuti RC18 • rosa e formazione provvisorie'
+  },
+  Como:{
+    coach:'Cesc Fàbregas',module:'4-2-3-1',
+    formation:'Butez; Van der Brempt, Diego Carlos, Jacobo Ramón, Álex Valle; Caqueret, Perrone; Assane Diao, Nico Paz, Jesús Rodríguez; Morata',
+    lineup:[
+      {name:'Jean Butez',short:'Butez',pos:'POR'},{name:'Ignace Van der Brempt',short:'Van der Brempt',pos:'TD'},{name:'Diego Carlos',short:'Diego Carlos',pos:'DC'},{name:'Jacobo Ramón',short:'J. Ramón',pos:'DC'},{name:'Álex Valle',short:'Álex Valle',pos:'TS'},
+      {name:'Maxence Caqueret',short:'Caqueret',pos:'CC'},{name:'Máximo Perrone',short:'Perrone',pos:'CC'},{name:'Assane Diao',short:'Diao',pos:'AD'},{name:'Nicolás Paz',short:'Nico Paz',pos:'TRQ'},{name:'Jesús Rodríguez',short:'J. Rodríguez',pos:'AS'},{name:'Álvaro Morata',short:'Morata',pos:'PC'}
+    ],
+    roster:[
+      {name:'Jean Butez',role:'Portiere',status:'Titolare',tags:['Affidabile']},{name:'Noel Törnqvist',role:'Portiere',status:'Riserva',tags:['Giovane']},{name:'Henrique Menke',role:'Portiere',status:'Gerarchia aperta',tags:['Giovane']},{name:'Mauro Vigorito',role:'Portiere',status:'In rosa',tags:['Esperienza']},
+      {name:'Ignace Van der Brempt',role:'Difensore',status:'Titolare',tags:['Bonus']},{name:'Diego Carlos',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Jacobo Ramón',role:'Difensore',status:'Titolare',tags:['Giovane','Scommessa']},{name:'Álex Valle',role:'Difensore',status:'Titolare',tags:['Bonus','Giovane']},{name:'Kaiki Bruno',role:'Difensore',status:'Ballottaggio',tags:['Giovane']},{name:'Andrés Cuenca',role:'Difensore',status:'Ballottaggio',tags:['Giovane']},{name:'Ivan Smolčić',role:'Difensore',status:'In rosa',tags:['Da seguire']},{name:'Marc Oliver Kempf',role:'Difensore',status:'In rosa',tags:['Affidabile']},{name:'Edoardo Goldaniga',role:'Difensore',status:'In rosa',tags:['Esperienza']},
+      {name:'Maxence Caqueret',role:'Centrocampista',status:'Titolare',tags:['Affidabile']},{name:'Máximo Perrone',role:'Centrocampista',status:'Titolare',tags:['Scommessa']},{name:'Nicolás Paz',role:'Centrocampista',status:'Titolare',tags:['Top','Piazzati']},{name:'Martin Baturina',role:'Centrocampista',status:'Ballottaggio',tags:['Scommessa','Bonus']},{name:'Lucas Da Cunha',role:'Centrocampista',status:'Ballottaggio',tags:['Affidabile']},{name:'Luis Milla',role:'Centrocampista',status:'In rosa',tags:['Piazzati']},{name:'Mattia Liberali',role:'Centrocampista',status:'In rosa',tags:['Giovane']},{name:'Adrian Lahdo',role:'Centrocampista',status:'Aggregato',tags:['Giovane']},
+      {name:'Assane Diao',role:'Attaccante',status:'Titolare',tags:['Top','Giovane']},{name:'Jesús Rodríguez',role:'Attaccante',status:'Titolare',tags:['Scommessa']},{name:'Álvaro Morata',role:'Attaccante',status:'Titolare',tags:['Top','Rigorista']},{name:'Anastasios Douvikas',role:'Attaccante',status:'Ballottaggio',tags:['Da seguire']},{name:'Nicolas Kühn',role:'Attaccante',status:'Ballottaggio',tags:['Scommessa']},{name:'Jayden Addai',role:'Attaccante',status:'In rosa',tags:['Giovane']}
+    ],
+    penalties:'Álvaro Morata\nNicolás Paz\nAnastasios Douvikas',freeKicks:'Nicolás Paz\nLuis Milla\nMartin Baturina',corners:'Nicolás Paz\nLuis Milla\nJesús Rodríguez',
+    arrivals:'Luis Milla\nKaiki Bruno\nAndrés Cuenca',departures:'Da verificare',talks:'Rosa profonda: diversi ballottaggi offensivi da seguire nel precampionato.',
+    recommended:'Nicolás Paz\nAssane Diao\nÁlvaro Morata',bets:'Martin Baturina\nJesús Rodríguez\nÁlex Valle',young:'Assane Diao\nJacobo Ramón\nMattia Liberali',reliable:'Jean Butez\nMaxence Caqueret\nDiego Carlos',watch:'Nicolás Paz\nAssane Diao\nMartin Baturina',avoid:'',
+    notes:'Rosa ufficiale caricata come base; gerarchie e formazione sono valutazioni pre-asta provvisorie.',updated:'Aggiornata 3 agosto 2026',source:'Rosa ufficiale Como • valutazioni pre-asta RC18'
   }
+
 };
 const playerProfiles={
   'Marco Carnesecchi':{price:'18–24',stars:4.5,mv:'6.28',fm:'5.36',apps:34,goals:0,assists:0,risk:'Basso',trend:'In crescita',injury:'Disponibile',condition:'Ottima',starterPct:96,ceiling:'24',stop:'25',timing:'Entrare dopo i primi portieri top',alternatives:['Marco Sportiello'],advice:'Portiere da prima fascia: affidabile, titolare e con margine di crescita.'},
@@ -89,17 +144,12 @@ const storedVersion=Number(localStorage.getItem('gac-data-version')||0);
 for(const t of teams){
   const current=data[t]||{};
   const defaults=editorialDefaults[t]||{};
-  const merged={...blank(),...current};
-  if(t==='Atalanta'){
-    const personalFields=['recommended','bets','young','reliable','avoid','watch','notes'];
-    const personal=Object.fromEntries(personalFields.map(k=>[k,current[k]||defaults[k]||'']));
-    const coreFields=['coach','module','formation','penalties','freeKicks','corners','arrivals','departures','talks'];
-    const hasEditorialData=coreFields.some(k=>String(current[k]||'').trim());
-    if(storedVersion<DATA_VERSION || !hasEditorialData){
-      data[t]={...blank(),...defaults,...personal};
-    }else{
-      data[t]={...blank(),...defaults,...current};
-    }
+  const personalFields=['recommended','bets','young','reliable','avoid','watch','notes'];
+  const personal=Object.fromEntries(personalFields.map(k=>[k,current[k]||defaults[k]||'']));
+  const coreFields=['coach','module','formation','penalties','freeKicks','corners','arrivals','departures','talks'];
+  const hasEditorialData=coreFields.some(k=>String(current[k]||'').trim());
+  if(Object.keys(defaults).length && (storedVersion<DATA_VERSION || !hasEditorialData)){
+    data[t]={...blank(),...defaults,...personal};
   }else{
     data[t]={...blank(),...defaults,...current};
   }
@@ -207,7 +257,7 @@ function smartUpdateTeam(team){
   ['recommended','bets','young','reliable','avoid','watch','notes'].forEach(k=>personal[k]=data[team][k]||defaults[k]||'');
   data[team]={...blank(),...data[team],...defaults,...personal,updated:'Smart update eseguito oggi'};
   persist();refreshAll();openTeam(team,'formation');
-  alert(`${team} aggiornata con i dati editoriali inclusi nella RC16. Le tue note e valutazioni sono state conservate.`);
+  alert(`${team} aggiornata con i dati editoriali inclusi nella RC18. Le tue note e valutazioni sono state conservate.`);
 }
 function renderAuctionPlan(){
   const budgetInput=document.querySelector('#auctionBudget'),spentInput=document.querySelector('#auctionSpent');
@@ -283,7 +333,7 @@ function openTeam(t,section='formation'){
   const next=teams[(teamIndex+1)%teams.length];
   view.innerHTML=`
     <div class="teamTitle compactTeamTitle">
-      <small>GUIDA ASTA CONTE • RC16 FOUNDATION</small>
+      <small>GUIDA ASTA CONTE • RC18 CONTENUTI 1</small>
       <div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div class="clubIdentity"><span class="clubMark">${esc(t.slice(0,3).toUpperCase())}</span><div class="clubCopy"><h2>${t}</h2><p><span>${esc(d.coach||'Allenatore da definire')}</span><b>${esc(d.module||'Modulo da definire')}</b></p></div></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div>
       ${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}
       <button type="button" class="smartUpdateBtn" data-smart-update="${esc(t)}">↻ Aggiorna squadra</button>
@@ -325,7 +375,7 @@ function openTeam(t,section='formation'){
       </div>
       <div class="teamSection" data-section="notes">
         <section class="formSection"><h3>Note personali</h3><label><span>Note Conte</span><textarea id="notes" rows="7">${esc(d.notes)}</textarea></label></section>
-        ${t==='Atalanta'?'<button class="restore" type="button">Ripristina dati editoriali Atalanta</button>':''}
+        ${editorialDefaults[t]?`<button class="restore" type="button">Ripristina dati editoriali ${esc(t)}</button>`:''}
       </div>
       <button class="save compactSave" aria-label="Salva scheda ${t}" title="Salva scheda">✓<span>Salva</span></button>
     </div>`;
