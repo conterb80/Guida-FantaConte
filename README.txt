@@ -1,11 +1,12 @@
-GUIDA ASTA CONTE — RC23 CONTENUTI PRE-ASTA 3
+GUIDA ASTA CONTE — RC24 RIPRISTINO CONTENUTI 4
 
-NOVITÀ PRINCIPALI
-- Aggiunte realmente cinque nuove squadre complete: Lazio, Lecce, Milan, Monza e Napoli.
-- Copertura guida prevista: 14/20 squadre.
-- Per ogni squadra: rosa, probabile formazione, gerarchie, piazzati, consigli, scommesse, giovani, mercato e note.
-- Versione dati e cache PWA aggiornate a RC23.
-- Backup, lista asta, budget e note personali conservati.
+CORREZIONE PRINCIPALE
+- Risolto il blocco della copertura a 9/20 causato dalla cache PWA.
+- Forzato il caricamento di app.js e style.css versione 24.
+- Incrementata la versione dati a 24 per importare realmente Lazio, Lecce, Milan, Monza e Napoli.
+- Nuova cache service worker gac-rc24-data-recovery-v1.
 
-NOTA
-Le valutazioni sono provvisorie e riferite alla preparazione pre-asta del 3 agosto 2026. Mercato e gerarchie restano in evoluzione.
+RISULTATO ATTESO
+- Copertura guida: 14/20.
+- Le cinque nuove squadre devono apparire 6/6 e Pronta asta.
+- Lista asta, preferiti, budget e note personali vengono mantenuti.

@@ -1,7 +1,7 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',lineup:[],roster:[],penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
-const DATA_VERSION=23;
+const DATA_VERSION=24;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
