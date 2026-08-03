@@ -1,16 +1,14 @@
-GUIDA ASTA CONTE — RC11 PLAYER HUB
+GUIDA ASTA CONTE — RC12 SMART DATA
 
-Novità principali:
-- scheda giocatore Player Hub completamente rinnovata
-- percentuale di titolarità e barra visiva
-- condizione fisica, disponibilità, rischio e trend
-- budget consigliato e tetto massimo d'asta
-- indicazione operativa su quando rilanciare
-- alternative cliccabili per ruolo
-- pulsante Preferito del Conte con salvataggio locale
-- confronto rapido tra giocatori mantenuto
-- Lista Asta integrata mantenuta
-- cache PWA aggiornata alla versione v14
+Novità realmente presenti:
+- Dashboard sintetica nella scheda squadra: rosa, titolari, nuovi acquisti, giovani e situazioni da verificare.
+- Pulsante “Aggiorna squadra”: applica i dati editoriali inclusi nel pacchetto preservando note e valutazioni personali.
+- Controllo Lista Asta con budget iniziale, crediti impegnati, residuo e slot per ruolo.
+- Dati della strategia salvati automaticamente sul dispositivo.
+- Backup aggiornato alla RC12.
 
-Installazione GitHub Pages:
-caricare nella root del repository tutti gli 8 file, sostituendo quelli precedenti, quindi eseguire Commit changes.
+NOTA IMPORTANTE
+Questa è una PWA statica su GitHub Pages. Il pulsante Aggiorna squadra usa il pacchetto editoriale incluso nella RC12; non interroga ancora fonti Internet in tempo reale. L’importazione JSON “Aggiorna rose” resta disponibile per caricare dati esterni verificati.
+
+INSTALLAZIONE
+Caricare tutti gli 8 file nella root del repository GitHub sostituendo quelli della RC11, poi eseguire Commit changes.

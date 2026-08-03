@@ -1,7 +1,7 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',lineup:[],roster:[],penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
-const DATA_VERSION=11;
+const DATA_VERSION=12;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
@@ -108,8 +108,10 @@ localStorage.setItem('gac-data-version',String(DATA_VERSION));
 persist();
 let auctionList=JSON.parse(localStorage.getItem('gac-auction-list')||'[]');
 let conteFavorites=JSON.parse(localStorage.getItem('gac-conte-favorites')||'[]');
+let auctionPlan=JSON.parse(localStorage.getItem('gac-auction-plan')||'null')||{budget:500,spent:0,slots:{Portiere:3,Difensore:8,Centrocampista:8,Attaccante:6}};
 const saveConteFavorites=()=>localStorage.setItem('gac-conte-favorites',JSON.stringify(conteFavorites));
 const saveAuctionList=()=>localStorage.setItem('gac-auction-list',JSON.stringify(auctionList));
+const saveAuctionPlan=()=>localStorage.setItem('gac-auction-plan',JSON.stringify(auctionPlan));
 let rosterFilter='all';
 let rosterStatusFilter='all';
 let rosterQuery='';
@@ -163,6 +165,39 @@ function renderTeams(q=''){
 }
 
 
+function teamDashboardHtml(d){
+  const roster=d.roster||[];
+  const starters=roster.filter(p=>p.status==='Titolare').length;
+  const newPlayers=roster.filter(p=>(p.tags||[]).some(tag=>tag.toLowerCase().includes('nuovo'))).length;
+  const young=roster.filter(p=>(p.tags||[]).some(tag=>tag.toLowerCase().includes('giovane'))).length;
+  const doubts=roster.filter(p=>['Da valutare','Ballottaggio','Gerarchia aperta'].includes(p.status)).length;
+  return `<section class="teamSmartDashboard"><div><small>ROSA</small><b>${roster.length}</b><span>giocatori</span></div><div><small>TITOLARI</small><b>${starters}</b><span>stimati</span></div><div><small>NUOVI</small><b>${newPlayers}</b><span>acquisti</span></div><div><small>GIOVANI</small><b>${young}</b><span>prospetti</span></div><div><small>DA VERIFICARE</small><b>${doubts}</b><span>situazioni</span></div></section>`;
+}
+function smartUpdateTeam(team){
+  const defaults=editorialDefaults[team];
+  if(!defaults){alert('Per questa squadra non è ancora disponibile un pacchetto editoriale aggiornato. Puoi comunque importare un file JSON con “Aggiorna rose”.');return;}
+  const personal={};
+  ['recommended','bets','young','reliable','avoid','watch','notes'].forEach(k=>personal[k]=data[team][k]||defaults[k]||'');
+  data[team]={...blank(),...data[team],...defaults,...personal,updated:'Smart update eseguito oggi'};
+  persist();refreshAll();openTeam(team,'formation');
+  alert(`${team} aggiornata con i dati editoriali inclusi nella RC12. Le tue note e valutazioni sono state conservate.`);
+}
+function renderAuctionPlan(){
+  const budgetInput=document.querySelector('#auctionBudget'),spentInput=document.querySelector('#auctionSpent');
+  if(!budgetInput||!spentInput)return;
+  budgetInput.value=auctionPlan.budget;spentInput.value=auctionPlan.spent;
+  const remaining=Math.max(0,Number(auctionPlan.budget||0)-Number(auctionPlan.spent||0));
+  document.querySelector('#auctionRemaining').textContent=remaining;
+  document.querySelector('#auctionObjectives').textContent=auctionList.length;
+  const roles=['Portiere','Difensore','Centrocampista','Attaccante'];
+  const icons={Portiere:'🧤',Difensore:'🛡️',Centrocampista:'⚙️',Attaccante:'⚽'};
+  document.querySelector('#slotSummary').innerHTML=roles.map(role=>{
+    const selected=auctionList.filter(x=>x.role===role).length;
+    const target=Number(auctionPlan.slots?.[role]||0);
+    const left=Math.max(0,target-selected);
+    return `<div class="slotCard"><span>${icons[role]} ${role}</span><b>${selected}/${target}</b><small>${left} slot liberi</small></div>`;
+  }).join('');
+}
 function lineupHtml(d){
   if(!d.lineup?.length)return '<div class="emptyMini">Formazione non ancora disponibile</div>';
   const rows=[d.lineup.slice(0,1),d.lineup.slice(1,5),d.lineup.slice(5,8),d.lineup.slice(8,11)];
@@ -221,10 +256,12 @@ function openTeam(t,section='formation'){
   const next=teams[(teamIndex+1)%teams.length];
   view.innerHTML=`
     <div class="teamTitle compactTeamTitle">
-      <small>GUIDA ASTA CONTE • RC11 PLAYER HUB</small>
+      <small>GUIDA ASTA CONTE • RC12 SMART DATA</small>
       <div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div class="clubIdentity"><span class="clubMark">${esc(t.slice(0,3).toUpperCase())}</span><div class="clubCopy"><h2>${t}</h2><p><span>${esc(d.coach||'Allenatore da definire')}</span><b>${esc(d.module||'Modulo da definire')}</b></p></div></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div>
       ${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}
+      <button type="button" class="smartUpdateBtn" data-smart-update="${esc(t)}">↻ Aggiorna squadra</button>
     </div>
+    ${teamDashboardHtml(d)}
     <div class="teamSectionTabs" role="tablist" aria-label="Sezioni scheda squadra">
       <button type="button" class="teamSectionTab" data-section="formation">⚽ Formazione</button>
       <button type="button" class="teamSectionTab" data-section="roster">👥 Rosa</button>
@@ -364,6 +401,7 @@ function renderStrategy(){
 
 function renderAuction(){
   const box=document.querySelector('#auctionList');
+  renderAuctionPlan();
   const filter=document.querySelector('#auctionRoleFilter')?.value||'all';
   document.querySelector('#auctionTabCount').textContent=auctionList.length;
   const enriched=auctionList.map(x=>{
@@ -395,7 +433,7 @@ function renderMarket(){
   box.innerHTML=items.length?items.map(x=>{const [icon,label]=meta[x.type];return `<button class="marketItem" onclick="openTeam('${x.team.replaceAll("'","\\'")}')"><span class="marketIcon ${x.type}">${icon}</span><span><b>${esc(x.name)}</b><small>${x.team} • ${label}</small></span><em class="status ${x.status}">${x.status==='official'?'Ufficiale':'Trattativa'}</em></button>`}).join(''):`<div class="empty"><strong>Nessun movimento inserito</strong><p>Apri una squadra e compila acquisti, cessioni o trattative.</p></div>`;
 }
 
-function refreshAll(){renderTeams(document.querySelector('#search').value);renderStrategy();renderMarket();renderAuction()}
+function refreshAll(){renderTeams(document.querySelector('#search').value);renderStrategy();renderMarket();renderAuction();renderAuctionPlan()}
 
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tab,.panel').forEach(x=>x.classList.remove('active'));
@@ -414,14 +452,18 @@ document.addEventListener('click',e=>{const results=document.querySelector('#pla
 document.querySelector('#strategyFilter').onchange=renderStrategy;
 document.querySelector('#marketFilter').onchange=renderMarket;
 document.querySelector('#auctionRoleFilter').onchange=renderAuction;
+const auctionBudget=document.querySelector('#auctionBudget'),auctionSpent=document.querySelector('#auctionSpent');
+if(auctionBudget)auctionBudget.oninput=e=>{auctionPlan.budget=Math.max(0,Number(e.target.value||0));saveAuctionPlan();renderAuctionPlan();};
+if(auctionSpent)auctionSpent.oninput=e=>{auctionPlan.spent=Math.max(0,Number(e.target.value||0));saveAuctionPlan();renderAuctionPlan();};
+const resetAuctionPlan=document.querySelector('#resetAuctionPlan');if(resetAuctionPlan)resetAuctionPlan.onclick=()=>{if(confirm('Ripristinare budget 500 e slot standard 3-8-8-6?')){auctionPlan={budget:500,spent:0,slots:{Portiere:3,Difensore:8,Centrocampista:8,Attaccante:6}};saveAuctionPlan();renderAuctionPlan();}};
 
 const fi=document.querySelector('#fileInput');
 document.querySelector('#refreshBtn').onclick=()=>fi.click();
 
 document.querySelector('#exportBtn').onclick=()=>{
-  const payload={app:'Guida Asta Conte',version:'RC10-Rosa-Pro',exportedAt:new Date().toISOString(),teams:data};
+  const payload={app:'Guida Asta Conte',version:'RC12-Smart-Data',exportedAt:new Date().toISOString(),teams:data};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC10.json';a.click();URL.revokeObjectURL(a.href);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC12.json';a.click();URL.revokeObjectURL(a.href);
 };
 fi.onchange=async()=>{
   if(!fi.files[0])return;
