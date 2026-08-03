@@ -1,14 +1,15 @@
-GUIDA ASTA CONTE — RC9 SCOUT PRO
+GUIDA ASTA CONTE — RC10 ROSA PRO
 
-Base: RC8 Premium Player Hub.
+NOVITÀ REALMENTE PRESENTI:
+- ricerca interna nella rosa della squadra
+- filtri per ruolo: portieri, difensori, centrocampisti, attaccanti
+- filtri rapidi: titolari, ballottaggi, giovani e top
+- statistiche essenziali visibili direttamente su ogni giocatore
+- punteggio Conte rapido sulle card
+- scheda giocatore completa con prezzo, presenze, gol, assist, MV e FM
+- Lista Asta integrata tramite stella
+- ricerca globale giocatore ripristinata e funzionante
+- nuova cache PWA RC10 v13
 
-Novità reali:
-- ricerca globale giocatori dalla Home
-- risultati rapidi con squadra, ruolo e punteggio Conte
-- scheda giocatore Scout Pro con età, piede, minuti, disciplina, rigori, fascia e titolarità
-- punteggio Conte 0–100
-- confronto rapido tra giocatori dello stesso ruolo
-- apertura diretta del giocatore confrontato
-- cache PWA RC9 v12
-
-I dati presenti nell’Atalanta restano editoriali dimostrativi per testare il flusso.
+INSTALLAZIONE:
+Caricare tutti gli 8 file nella root del repository GitHub sostituendo i precedenti.
