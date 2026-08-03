@@ -1,7 +1,7 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',lineup:[],roster:[],penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
-const DATA_VERSION=7;
+const DATA_VERSION=8;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
@@ -71,6 +71,19 @@ const editorialDefaults={
     updated:'Aggiornata 2 agosto 2026',source:'Scheda editoriale test • rosa provvisoria'
   }
 };
+const playerProfiles={
+  'Marco Carnesecchi':{price:'18–24',stars:4.5,mv:'6.28',fm:'5.36',apps:34,goals:0,assists:0,risk:'Basso',trend:'In crescita',advice:'Portiere da prima fascia: affidabile, titolare e con margine di crescita.'},
+  'Raoul Bellanova':{price:'14–20',stars:4,mv:'6.12',fm:'6.48',apps:33,goals:1,assists:7,risk:'Medio',trend:'Bonus',advice:'Esterno offensivo: da comprare se il prezzo resta sotto la fascia premium.'},
+  'Giorgio Scalvini':{price:'12–18',stars:4,mv:'6.18',fm:'6.32',apps:23,goals:2,assists:1,risk:'Medio',trend:'Rilancio',advice:'Profilo da monitorare: qualità alta, ma va verificata la continuità fisica.'},
+  'Isak Hien':{price:'7–10',stars:3.5,mv:'6.10',fm:'6.12',apps:31,goals:1,assists:0,risk:'Basso',trend:'Stabile',advice:'Difensore affidabile, utile per completare il reparto senza spendere troppo.'},
+  'Honest Ahanor':{price:'3–7',stars:3,mv:'6.00',fm:'6.08',apps:12,goals:1,assists:0,risk:'Alto',trend:'Scommessa',advice:'Giovane da ultimi slot: investimento interessante, ma minutaggio da confermare.'},
+  'Éderson':{price:'28–38',stars:4.5,mv:'6.35',fm:'6.74',apps:34,goals:5,assists:4,risk:'Basso',trend:'Top',advice:'Centrocampista completo e continuo: uno dei riferimenti della squadra.'},
+  'Gianluca Gaetano':{price:'12–18',stars:3.5,mv:'6.16',fm:'6.62',apps:29,goals:5,assists:3,risk:'Medio',trend:'Scommessa',advice:'Può portare bonus e crescere: da prendere al prezzo giusto, senza sovrapagarlo.'},
+  'Mario Pašalić':{price:'20–28',stars:4,mv:'6.18',fm:'7.02',apps:32,goals:8,assists:4,risk:'Medio',trend:'Bonus',advice:'Uno dei migliori per rapporto tra prezzo, inserimenti e bonus potenziali.'},
+  'Charles De Ketelaere':{price:'48–65',stars:5,mv:'6.54',fm:'7.58',apps:35,goals:12,assists:10,risk:'Basso',trend:'Top',advice:'Top offensivo: da prendere come riferimento, valutando bene il budget.'},
+  'Gianluca Scamacca':{price:'42–58',stars:4.5,mv:'6.38',fm:'7.72',apps:27,goals:15,assists:4,risk:'Medio',trend:'Rigorista',advice:'Prima punta da bonus pesanti. Il rischio principale resta la continuità fisica.'},
+  'Giacomo Raspadori':{price:'26–38',stars:4,mv:'6.22',fm:'6.86',apps:31,goals:8,assists:5,risk:'Medio',trend:'Piazzati',advice:'Jolly offensivo di qualità: interessante soprattutto se confermato sui piazzati.'}
+};
 let data=JSON.parse(localStorage.getItem('gac-data')||'null')||base;
 const storedVersion=Number(localStorage.getItem('gac-data-version')||0);
 for(const t of teams){
@@ -133,7 +146,7 @@ function rosterHtml(d,t){
     const players=d.roster.filter(p=>p.role===role);
     return `<div class="roleBlock"><h4>${icons[role]} ${role}${role==='Portiere'?'i':role==='Difensore'?'i':role==='Centrocampista'?'i':'i'} <span>${players.length}</span></h4>${players.map(p=>{
       const selected=auctionList.some(x=>x.team===t&&x.name===p.name);
-      return `<div class="playerCard"><div class="playerMain"><b>${esc(p.name)}</b><div class="playerMeta"><span class="statusChip ${esc(p.status).toLowerCase().replaceAll(' ','-')}">${esc(p.status)}</span>${(p.tags||[]).map(tag=>`<span class="tagChip">${esc(tag)}</span>`).join('')}</div></div><button type="button" class="starBtn ${selected?'selected':''}" data-team="${esc(t)}" data-player="${esc(p.name)}" aria-label="${selected?'Rimuovi dalla':'Aggiungi alla'} lista asta">${selected?'★':'☆'}</button></div>`;
+      return `<div class="playerCard"><button type="button" class="playerMain playerOpen" data-team="${esc(t)}" data-player="${esc(p.name)}"><b>${esc(p.name)}</b><small class="playerHint">Tocca per scheda e valore d’asta</small><div class="playerMeta"><span class="statusChip ${esc(p.status).toLowerCase().replaceAll(' ','-')}">${esc(p.status)}</span>${(p.tags||[]).map(tag=>`<span class="tagChip">${esc(tag)}</span>`).join('')}</div></button><button type="button" class="starBtn ${selected?'selected':''}" data-team="${esc(t)}" data-player="${esc(p.name)}" aria-label="${selected?'Rimuovi dalla':'Aggiungi alla'} lista asta">${selected?'★':'☆'}</button></div>`;
     }).join('')}</div>`;
   }).join('');
 }
@@ -164,7 +177,7 @@ function openTeam(t,section='formation'){
   const next=teams[(teamIndex+1)%teams.length];
   view.innerHTML=`
     <div class="teamTitle compactTeamTitle">
-      <small>GUIDA ASTA CONTE • RC7 GRAFICA PRO</small>
+      <small>GUIDA ASTA CONTE • RC8 PREMIUM</small>
       <div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div class="clubIdentity"><span class="clubMark">${esc(t.slice(0,3).toUpperCase())}</span><div class="clubCopy"><h2>${t}</h2><p><span>${esc(d.coach||'Allenatore da definire')}</span><b>${esc(d.module||'Modulo da definire')}</b></p></div></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div>
       ${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}
     </div>
@@ -212,6 +225,7 @@ function openTeam(t,section='formation'){
   document.body.classList.add('locked');
   view.querySelector('.save').onclick=()=>saveTeam(t);
   view.querySelectorAll('.starBtn').forEach(btn=>btn.onclick=()=>toggleAuctionPlayer(btn.dataset.team,btn.dataset.player));
+  view.querySelectorAll('.playerOpen').forEach(btn=>btn.onclick=()=>openPlayer(btn.dataset.team,btn.dataset.player));
   view.querySelectorAll('.rosterFilter').forEach(btn=>btn.onclick=()=>setRosterFilter(btn.dataset.role));
   view.querySelectorAll('.teamSectionTab').forEach(btn=>btn.onclick=()=>setTeamSection(btn.dataset.section));
   view.querySelectorAll('.teamStep').forEach(btn=>btn.onclick=()=>openTeam(btn.dataset.team,section));
@@ -221,6 +235,27 @@ function openTeam(t,section='formation'){
   setTeamSection(section);
   document.querySelector('.sheet').scrollTop=0;
 }
+
+function starsHtml(value){
+  const full=Math.floor(value||0), half=(value||0)-full>=.5;
+  return '★'.repeat(full)+(half?'◐':'')+'☆'.repeat(Math.max(0,5-full-(half?1:0)));
+}
+function openPlayer(team,name){
+  const p=(data[team]?.roster||[]).find(x=>x.name===name)||{};
+  const s=playerProfiles[name]||{price:'Da definire',stars:3,mv:'—',fm:'—',apps:'—',goals:'—',assists:'—',risk:'Da valutare',trend:'Osservato',advice:'Scheda dati in preparazione. Usa note e lista asta per seguirne l’evoluzione.'};
+  const selected=auctionList.some(x=>x.team===team&&x.name===name);
+  const initials=name.split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase();
+  document.querySelector('#playerView').innerHTML=`
+    <div class="playerHero"><div class="playerAvatar">${esc(initials)}</div><div><span class="playerTeam">${esc(team)} • ${esc(p.role||'Ruolo da definire')}</span><h2>${esc(name)}</h2><div class="playerStars">${starsHtml(s.stars)} <small>${s.stars}/5</small></div></div></div>
+    <div class="playerPrice"><span>Prezzo consigliato</span><b>${esc(s.price)}</b><small>crediti su base 500</small></div>
+    <div class="playerKpis"><div><span>Pres.</span><b>${s.apps}</b></div><div><span>Gol</span><b>${s.goals}</b></div><div><span>Assist</span><b>${s.assists}</b></div><div><span>MV</span><b>${s.mv}</b></div><div><span>FM</span><b>${s.fm}</b></div></div>
+    <div class="playerSignals"><span>${esc(p.status||'Da valutare')}</span><span>${esc(s.trend)}</span><span>Rischio ${esc(s.risk)}</span></div>
+    <section class="conteAdvice"><small>CONSIGLIO CONTE</small><p>${esc(s.advice)}</p></section>
+    <button id="playerAuctionBtn" class="playerAuctionBtn ${selected?'selected':''}">${selected?'★ Rimuovi dalla lista asta':'☆ Aggiungi alla lista asta'}</button>`;
+  const pm=document.querySelector('#playerModal');pm.classList.remove('hidden');pm.setAttribute('aria-hidden','false');
+  document.querySelector('#playerAuctionBtn').onclick=()=>{toggleAuctionPlayer(team,name);closePlayer();};
+}
+function closePlayer(){const pm=document.querySelector('#playerModal');pm.classList.add('hidden');pm.setAttribute('aria-hidden','true');}
 
 function restoreAtalanta(){
   const personal={};
@@ -299,8 +334,10 @@ document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
   if(b.dataset.tab==='strategy')renderStrategy();if(b.dataset.tab==='market')renderMarket();if(b.dataset.tab==='auction')renderAuction();
 });
 document.querySelector('.close').onclick=closeModal;
+document.querySelector('#playerClose').onclick=closePlayer;
+document.querySelector('#playerModal').onclick=e=>{if(e.target.id==='playerModal')closePlayer()};
 modal.onclick=e=>{if(e.target===modal)closeModal()};
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closePlayer();closeModal()}});
 document.querySelector('#search').oninput=e=>renderTeams(e.target.value);
 document.querySelector('#strategyFilter').onchange=renderStrategy;
 document.querySelector('#marketFilter').onchange=renderMarket;
@@ -310,9 +347,9 @@ const fi=document.querySelector('#fileInput');
 document.querySelector('#refreshBtn').onclick=()=>fi.click();
 
 document.querySelector('#exportBtn').onclick=()=>{
-  const payload={app:'Guida Asta Conte',version:'RC7-Grafica-Asta-Pro',exportedAt:new Date().toISOString(),teams:data};
+  const payload={app:'Guida Asta Conte',version:'RC8-Premium-Player-Hub',exportedAt:new Date().toISOString(),teams:data};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC7.json';a.click();URL.revokeObjectURL(a.href);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC8.json';a.click();URL.revokeObjectURL(a.href);
 };
 fi.onchange=async()=>{
   if(!fi.files[0])return;

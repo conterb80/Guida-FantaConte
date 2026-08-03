@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#101826">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=11">
   <title>Guida Asta Conte • Test Atalanta</title>
 </head>
 <body>
@@ -21,9 +21,9 @@
 <main>
   <section class="hero">
     <div>
-      <span class="pill">RC7 • GRAFICA ASTA PRO</span>
+      <span class="pill">RC8 • PREMIUM PLAYER HUB</span>
       <h2>Dalla rosa alla strategia d’asta.</h2>
-      <p>Consultazione rapida, schede compatte e grafica ottimizzata per smartphone.</p>
+      <p>Schede giocatore, valori d’asta e consultazione premium da smartphone.</p>
     </div>
     <div class="stats">
       <b id="teamCount">20</b><span>squadre</span>
@@ -93,7 +93,14 @@
   </div>
 </div>
 
+<div id="playerModal" class="playerModal hidden" aria-hidden="true">
+  <div class="playerSheet" role="dialog" aria-modal="true" aria-label="Scheda giocatore">
+    <button id="playerClose" class="playerClose" aria-label="Chiudi scheda giocatore">×</button>
+    <div id="playerView"></div>
+  </div>
+</div>
+
 <input type="file" id="fileInput" accept=".json,application/json" hidden>
-<script src="app.js?v=10"></script>
+<script src="app.js?v=11"></script>
 </body>
 </html>

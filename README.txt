@@ -1,14 +1,13 @@
-GUIDA ASTA CONTE - RC7 GRAFICA ASTA PRO
+GUIDA ASTA CONTE — RC8 PREMIUM PLAYER HUB
 
-Base: RC5 Modalità Asta Compatta promossa nel funzionamento.
+Base: RC7 promossa.
 
-Modifiche reali e visibili RC7:
-- testata squadra ridisegnata con monogramma del club
-- scheda mobile a pieno schermo
-- barra delle 5 sezioni a griglia, centrata sul telefono
-- card con nuovo stile professionale e accento verde
-- campo formazione, campi di modifica e pulsante salva rifiniti
-- cache PWA completamente rinnovata (v10)
-- nessuna modifica alla logica o ai contenuti già promossi
+Novità reali:
+- scheda giocatore apribile toccando ogni nome nella rosa
+- prezzo consigliato, stelle, presenze, gol, assist, MV e FM
+- indicatori titolarità, trend e rischio
+- consiglio Conte dedicato
+- aggiunta/rimozione dalla Lista asta direttamente dalla scheda giocatore
+- grafica premium e cache PWA RC8 v11
 
-Installazione: sostituire su GitHub tutti i file del pacchetto.
+Nota: i dati statistici presenti nella scheda Atalanta sono editoriali dimostrativi per testare struttura e usabilità; potranno essere sostituiti dai dati ufficiali nella fase aggiornamento rose.
