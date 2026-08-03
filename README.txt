@@ -1,15 +1,16 @@
-GUIDA ASTA CONTE — RC10 ROSA PRO
+GUIDA ASTA CONTE — RC11 PLAYER HUB
 
-NOVITÀ REALMENTE PRESENTI:
-- ricerca interna nella rosa della squadra
-- filtri per ruolo: portieri, difensori, centrocampisti, attaccanti
-- filtri rapidi: titolari, ballottaggi, giovani e top
-- statistiche essenziali visibili direttamente su ogni giocatore
-- punteggio Conte rapido sulle card
-- scheda giocatore completa con prezzo, presenze, gol, assist, MV e FM
-- Lista Asta integrata tramite stella
-- ricerca globale giocatore ripristinata e funzionante
-- nuova cache PWA RC10 v13
+Novità principali:
+- scheda giocatore Player Hub completamente rinnovata
+- percentuale di titolarità e barra visiva
+- condizione fisica, disponibilità, rischio e trend
+- budget consigliato e tetto massimo d'asta
+- indicazione operativa su quando rilanciare
+- alternative cliccabili per ruolo
+- pulsante Preferito del Conte con salvataggio locale
+- confronto rapido tra giocatori mantenuto
+- Lista Asta integrata mantenuta
+- cache PWA aggiornata alla versione v14
 
-INSTALLAZIONE:
-Caricare tutti gli 8 file nella root del repository GitHub sostituendo i precedenti.
+Installazione GitHub Pages:
+caricare nella root del repository tutti gli 8 file, sostituendo quelli precedenti, quindi eseguire Commit changes.

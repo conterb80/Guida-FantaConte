@@ -1,7 +1,7 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',lineup:[],roster:[],penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
-const DATA_VERSION=10;
+const DATA_VERSION=11;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
@@ -72,16 +72,16 @@ const editorialDefaults={
   }
 };
 const playerProfiles={
-  'Marco Carnesecchi':{price:'18–24',stars:4.5,mv:'6.28',fm:'5.36',apps:34,goals:0,assists:0,risk:'Basso',trend:'In crescita',advice:'Portiere da prima fascia: affidabile, titolare e con margine di crescita.'},
-  'Raoul Bellanova':{price:'14–20',stars:4,mv:'6.12',fm:'6.48',apps:33,goals:1,assists:7,risk:'Medio',trend:'Bonus',advice:'Esterno offensivo: da comprare se il prezzo resta sotto la fascia premium.'},
-  'Giorgio Scalvini':{price:'12–18',stars:4,mv:'6.18',fm:'6.32',apps:23,goals:2,assists:1,risk:'Medio',trend:'Rilancio',advice:'Profilo da monitorare: qualità alta, ma va verificata la continuità fisica.'},
+  'Marco Carnesecchi':{price:'18–24',stars:4.5,mv:'6.28',fm:'5.36',apps:34,goals:0,assists:0,risk:'Basso',trend:'In crescita',injury:'Disponibile',condition:'Ottima',starterPct:96,ceiling:'24',stop:'25',timing:'Entrare dopo i primi portieri top',alternatives:['Marco Sportiello'],advice:'Portiere da prima fascia: affidabile, titolare e con margine di crescita.'},
+  'Raoul Bellanova':{price:'14–20',stars:4,mv:'6.12',fm:'6.48',apps:33,goals:1,assists:7,risk:'Medio',trend:'Bonus',injury:'Disponibile',condition:'Buona',starterPct:91,ceiling:'20',stop:'21',timing:'Rilanciare con decisione fino alla fascia media',alternatives:['Davide Zappacosta','Giorgio Scalvini'],advice:'Esterno offensivo: da comprare se il prezzo resta sotto la fascia premium.'},
+  'Giorgio Scalvini':{price:'12–18',stars:4,mv:'6.18',fm:'6.32',apps:23,goals:2,assists:1,risk:'Medio',trend:'Rilancio',injury:'Da monitorare',condition:'In crescita',starterPct:82,ceiling:'18',stop:'19',timing:'Aspettare che il tavolo valuti il rischio fisico',alternatives:['Isak Hien','Odilon Kossounou'],advice:'Profilo da monitorare: qualità alta, ma va verificata la continuità fisica.'},
   'Isak Hien':{price:'7–10',stars:3.5,mv:'6.10',fm:'6.12',apps:31,goals:1,assists:0,risk:'Basso',trend:'Stabile',advice:'Difensore affidabile, utile per completare il reparto senza spendere troppo.'},
   'Honest Ahanor':{price:'3–7',stars:3,mv:'6.00',fm:'6.08',apps:12,goals:1,assists:0,risk:'Alto',trend:'Scommessa',advice:'Giovane da ultimi slot: investimento interessante, ma minutaggio da confermare.'},
-  'Éderson':{price:'28–38',stars:4.5,mv:'6.35',fm:'6.74',apps:34,goals:5,assists:4,risk:'Basso',trend:'Top',advice:'Centrocampista completo e continuo: uno dei riferimenti della squadra.'},
+  'Éderson':{price:'28–38',stars:4.5,mv:'6.35',fm:'6.74',apps:34,goals:5,assists:4,risk:'Basso',trend:'Top',injury:'Disponibile',condition:'Ottima',starterPct:97,ceiling:'38',stop:'40',timing:'Profilo da assicurarsi prima dei top assoluti',alternatives:['Mario Pašalić','Gianluca Gaetano'],advice:'Centrocampista completo e continuo: uno dei riferimenti della squadra.'},
   'Gianluca Gaetano':{price:'12–18',stars:3.5,mv:'6.16',fm:'6.62',apps:29,goals:5,assists:3,risk:'Medio',trend:'Scommessa',advice:'Può portare bonus e crescere: da prendere al prezzo giusto, senza sovrapagarlo.'},
   'Mario Pašalić':{price:'20–28',stars:4,mv:'6.18',fm:'7.02',apps:32,goals:8,assists:4,risk:'Medio',trend:'Bonus',advice:'Uno dei migliori per rapporto tra prezzo, inserimenti e bonus potenziali.'},
-  'Charles De Ketelaere':{price:'48–65',stars:5,mv:'6.54',fm:'7.58',apps:35,goals:12,assists:10,risk:'Basso',trend:'Top',advice:'Top offensivo: da prendere come riferimento, valutando bene il budget.'},
-  'Gianluca Scamacca':{price:'42–58',stars:4.5,mv:'6.38',fm:'7.72',apps:27,goals:15,assists:4,risk:'Medio',trend:'Rigorista',advice:'Prima punta da bonus pesanti. Il rischio principale resta la continuità fisica.'},
+  'Charles De Ketelaere':{price:'48–65',stars:5,mv:'6.54',fm:'7.58',apps:35,goals:12,assists:10,risk:'Basso',trend:'Top',injury:'Disponibile',condition:'Ottima',starterPct:98,ceiling:'65',stop:'68',timing:'Rilanciare forte ma senza superare il tetto',alternatives:['Gianluca Scamacca','Giacomo Raspadori'],advice:'Top offensivo: da prendere come riferimento, valutando bene il budget.'},
+  'Gianluca Scamacca':{price:'42–58',stars:4.5,mv:'6.38',fm:'7.72',apps:27,goals:15,assists:4,risk:'Medio',trend:'Rigorista',injury:'Da monitorare',condition:'Buona',starterPct:89,ceiling:'58',stop:'60',timing:'Sfruttare eventuali dubbi fisici per prenderlo sotto prezzo',alternatives:['Charles De Ketelaere','Nikola Krstović'],advice:'Prima punta da bonus pesanti. Il rischio principale resta la continuità fisica.'},
   'Giacomo Raspadori':{price:'26–38',stars:4,mv:'6.22',fm:'6.86',apps:31,goals:8,assists:5,risk:'Medio',trend:'Piazzati',advice:'Jolly offensivo di qualità: interessante soprattutto se confermato sui piazzati.'}
 };
 let data=JSON.parse(localStorage.getItem('gac-data')||'null')||base;
@@ -107,6 +107,8 @@ for(const t of teams){
 localStorage.setItem('gac-data-version',String(DATA_VERSION));
 persist();
 let auctionList=JSON.parse(localStorage.getItem('gac-auction-list')||'[]');
+let conteFavorites=JSON.parse(localStorage.getItem('gac-conte-favorites')||'[]');
+const saveConteFavorites=()=>localStorage.setItem('gac-conte-favorites',JSON.stringify(conteFavorites));
 const saveAuctionList=()=>localStorage.setItem('gac-auction-list',JSON.stringify(auctionList));
 let rosterFilter='all';
 let rosterStatusFilter='all';
@@ -130,13 +132,13 @@ function hashNumber(text,min,max){
 function profileFor(name){
   if(playerProfiles[name]){
     const p=playerProfiles[name];
-    return {...p,score:String(Math.round((p.stars||3)*20)),tier:(p.stars||3)>=4.5?'TOP':(p.stars||3)>=4?'PRIMA FASCIA':(p.stars||3)>=3.5?'TITOLARE':'SCOMMESSA',age:hashNumber(name,19,32),foot:'D',starter:(p.risk==='Basso'?'Alta':p.risk==='Medio'?'Media':'Da verificare'),minutes:(p.apps||0)*76,pens:p.goals>8?3:0,yellow:hashNumber(name,1,8),red:0};
+    return {...p,score:String(Math.round((p.stars||3)*20)),tier:(p.stars||3)>=4.5?'TOP':(p.stars||3)>=4?'PRIMA FASCIA':(p.stars||3)>=3.5?'TITOLARE':'SCOMMESSA',age:hashNumber(name,19,32),foot:'D',starter:(p.risk==='Basso'?'Alta':p.risk==='Medio'?'Media':'Da verificare'),starterPct:p.starterPct??hashNumber(name+'pct',68,96),injury:p.injury||'Disponibile',condition:p.condition||'Buona',ceiling:p.ceiling||String(p.price).split('–').slice(-1)[0],stop:p.stop||String(Number(String(p.price).split('–').slice(-1)[0]||0)+2),timing:p.timing||'Entrare quando il prezzo resta nella fascia prevista',alternatives:p.alternatives||[],minutes:(p.apps||0)*76,pens:p.goals>8?3:0,yellow:hashNumber(name,1,8),red:0};
   }
   const stars=(hashNumber(name,5,9)/2);
   const apps=hashNumber(name,8,33),goals=hashNumber(name,0,8),assists=hashNumber(name,0,6);
   const mv=(5.7+hashNumber(name+'mv',0,75)/100).toFixed(2);
   const fm=(Number(mv)+goals*.08+assists*.04).toFixed(2);
-  return {price:`${hashNumber(name+'p',2,12)}–${hashNumber(name+'p2',13,28)}`,stars,mv,fm,apps,goals,assists,risk:'Da valutare',trend:'Monitorare',advice:'Profilo da verificare durante il precampionato e prima dell’asta.',score:String(Math.round(stars*20)),tier:stars>=4?'PRIMA FASCIA':stars>=3.5?'TITOLARE':'ROTAZIONE',age:hashNumber(name,18,34),foot:hashNumber(name+'f',0,1)?'D':'S',starter:'Da verificare',minutes:apps*68,pens:0,yellow:hashNumber(name,0,7),red:0};
+  return {price:`${hashNumber(name+'p',2,12)}–${hashNumber(name+'p2',13,28)}`,stars,mv,fm,apps,goals,assists,risk:'Da valutare',trend:'Monitorare',advice:'Profilo da verificare durante il precampionato e prima dell’asta.',score:String(Math.round(stars*20)),tier:stars>=4?'PRIMA FASCIA':stars>=3.5?'TITOLARE':'ROTAZIONE',age:hashNumber(name,18,34),foot:hashNumber(name+'f',0,1)?'D':'S',starter:'Da verificare',starterPct:hashNumber(name+'pct',35,88),injury:'Da verificare',condition:'Da valutare',ceiling:String(hashNumber(name+'p2',13,28)),stop:String(hashNumber(name+'p2',13,28)+2),timing:'Entrare solo se il prezzo resta nella fascia prevista',alternatives:[],minutes:apps*68,pens:0,yellow:hashNumber(name,0,7),red:0};
 }
 function renderPlayerSearch(query=''){
   const box=document.querySelector('#playerSearchResults');if(!box)return;
@@ -219,7 +221,7 @@ function openTeam(t,section='formation'){
   const next=teams[(teamIndex+1)%teams.length];
   view.innerHTML=`
     <div class="teamTitle compactTeamTitle">
-      <small>GUIDA ASTA CONTE • RC10 ROSA PRO</small>
+      <small>GUIDA ASTA CONTE • RC11 PLAYER HUB</small>
       <div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div class="clubIdentity"><span class="clubMark">${esc(t.slice(0,3).toUpperCase())}</span><div class="clubCopy"><h2>${t}</h2><p><span>${esc(d.coach||'Allenatore da definire')}</span><b>${esc(d.module||'Modulo da definire')}</b></p></div></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div>
       ${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}
     </div>
@@ -291,21 +293,28 @@ function openPlayer(team,name){
   const p=(data[team]?.roster||[]).find(x=>x.name===name)||{};
   const s=profileFor(name);
   const selected=auctionList.some(x=>x.team===team&&x.name===name);
+  const favorite=conteFavorites.some(x=>x.team===team&&x.name===name);
   const initials=name.split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase();
   const candidates=allRosterPlayers().filter(x=>x.name!==name&&x.role===p.role).slice(0,24);
+  const alternatives=(s.alternatives||[]).map(alt=>`<button type="button" class="altPlayer" data-team="${esc(team)}" data-player="${esc(alt)}">${esc(alt)}</button>`).join('')||'<span class="noAlt">Da definire</span>';
   document.querySelector('#playerView').innerHTML=`
+    <div class="playerHubLabel">RC11 • PLAYER HUB</div>
     <div class="playerHero"><div class="playerAvatar">${esc(initials)}</div><div><span class="playerTeam">${esc(team)} • ${esc(p.role||'Ruolo da definire')}</span><h2>${esc(name)}</h2><div class="playerStars">${starsHtml(s.stars)} <small>${s.stars}/5</small></div></div><div class="conteScore"><b>${esc(s.score)}</b><small>CONTE</small></div></div>
-    <div class="playerIdentity"><span>${esc(s.tier)}</span><span>${esc(s.age)} anni</span><span>Piede ${esc(s.foot)}</span><span>Titolarità ${esc(s.starter)}</span></div>
-    <div class="playerPrice"><span>Prezzo consigliato</span><b>${esc(s.price)}</b><small>crediti su base 500</small></div>
+    <div class="playerIdentity"><span>${esc(s.tier)}</span><span>${esc(s.age)} anni</span><span>Piede ${esc(s.foot)}</span><span>${esc(p.status||'Da valutare')}</span></div>
+    <section class="hubSection situationHub"><div class="hubTitle"><small>SITUAZIONE ATTUALE</small><strong>Disponibilità e gerarchie</strong></div><div class="situationGrid"><div><span>Titolarità</span><b>${esc(s.starterPct)}%</b><i><u style="width:${Math.max(0,Math.min(100,Number(s.starterPct)||0))}%"></u></i></div><div><span>Condizione</span><b>${esc(s.condition)}</b></div><div><span>Infortuni</span><b>${esc(s.injury)}</b></div><div><span>Trend</span><b>${esc(s.trend)}</b></div></div></section>
+    <div class="playerPrice"><span>Budget consigliato</span><b>${esc(s.price)}</b><small>crediti su base 500</small></div>
     <div class="playerKpis seven"><div><span>Pres.</span><b>${s.apps}</b></div><div><span>Minuti</span><b>${s.minutes}</b></div><div><span>Gol</span><b>${s.goals}</b></div><div><span>Assist</span><b>${s.assists}</b></div><div><span>MV</span><b>${s.mv}</b></div><div><span>FM</span><b>${s.fm}</b></div><div><span>Rigori</span><b>${s.pens}</b></div></div>
     <div class="discipline"><span>🟨 ${esc(s.yellow)}</span><span>🟥 ${esc(s.red)}</span></div>
     <div class="playerSignals"><span>${esc(p.status||'Da valutare')}</span><span>${esc(s.trend)}</span><span>Rischio ${esc(s.risk)}</span>${(p.tags||[]).slice(0,3).map(tag=>`<span>${esc(tag)}</span>`).join('')}</div>
-    <section class="conteAdvice"><small>CONSIGLIO CONTE</small><p>${esc(s.advice)}</p></section>
+    <section class="conteAdvice"><small>VALUTAZIONE CONTE</small><p>${esc(s.advice)}</p></section>
+    <section class="hubSection auctionPlan"><div class="hubTitle"><small>STRATEGIA D'ASTA</small><strong>Piano operativo</strong></div><div class="planGrid"><div><span>Fascia ideale</span><b>${esc(s.price)} cr.</b></div><div><span>Tetto massimo</span><b>${esc(s.stop)} cr.</b></div><div class="planWide"><span>Quando rilanciare</span><b>${esc(s.timing)}</b></div><div class="planWide"><span>Alternative</span><div class="altPlayers">${alternatives}</div></div></div></section>
     <section class="compareBox"><div><small>CONFRONTO RAPIDO</small><strong>Confronta con un altro ${esc((p.role||'giocatore').toLowerCase())}</strong></div><select id="compareSelect"><option value="">Scegli giocatore</option>${candidates.map(x=>`<option value="${esc(x.team+'|||'+x.name)}">${esc(x.name)} • ${esc(x.team)}</option>`).join('')}</select><div id="compareResult"></div></section>
-    <button id="playerAuctionBtn" class="playerAuctionBtn ${selected?'selected':''}">${selected?'★ Rimuovi dalla lista asta':'☆ Aggiungi alla lista asta'}</button>`;
+    <div class="playerHubActions"><button id="playerFavoriteBtn" class="playerFavoriteBtn ${favorite?'selected':''}">${favorite?'♥ Preferito del Conte':'♡ Preferito del Conte'}</button><button id="playerAuctionBtn" class="playerAuctionBtn ${selected?'selected':''}">${selected?'★ Rimuovi dalla lista asta':'☆ Aggiungi alla lista asta'}</button></div>`;
   const pm=document.querySelector('#playerModal');pm.classList.remove('hidden');pm.setAttribute('aria-hidden','false');
   document.querySelector('#playerAuctionBtn').onclick=()=>{toggleAuctionPlayer(team,name);closePlayer();};
+  document.querySelector('#playerFavoriteBtn').onclick=()=>{const i=conteFavorites.findIndex(x=>x.team===team&&x.name===name);if(i>=0)conteFavorites.splice(i,1);else conteFavorites.push({team,name,role:p.role||'',score:s.score});saveConteFavorites();openPlayer(team,name);};
   document.querySelector('#compareSelect').onchange=e=>renderComparison(name,e.target.value);
+  document.querySelectorAll('.altPlayer').forEach(btn=>btn.onclick=()=>openPlayer(btn.dataset.team,btn.dataset.player));
 }
 function renderComparison(baseName,value){
   const box=document.querySelector('#compareResult');if(!box)return;
