@@ -1,7 +1,7 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',lineup:[],roster:[],penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
-const DATA_VERSION=18;
+const DATA_VERSION=20;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
@@ -123,7 +123,93 @@ const editorialDefaults={
     arrivals:'Luis Milla\nKaiki Bruno\nAndrés Cuenca',departures:'Da verificare',talks:'Rosa profonda: diversi ballottaggi offensivi da seguire nel precampionato.',
     recommended:'Nicolás Paz\nAssane Diao\nÁlvaro Morata',bets:'Martin Baturina\nJesús Rodríguez\nÁlex Valle',young:'Assane Diao\nJacobo Ramón\nMattia Liberali',reliable:'Jean Butez\nMaxence Caqueret\nDiego Carlos',watch:'Nicolás Paz\nAssane Diao\nMartin Baturina',avoid:'',
     notes:'Rosa ufficiale caricata come base; gerarchie e formazione sono valutazioni pre-asta provvisorie.',updated:'Aggiornata 3 agosto 2026',source:'Rosa ufficiale Como • valutazioni pre-asta RC18'
+  },
+  Fiorentina:{
+    coach:'Stefano Pioli',module:'3-4-2-1',
+    formation:'De Gea; Pongračić, Comuzzo, Ranieri; Dodô, Fagioli, Brescianini, Gosens; Gudmundsson, Fazzini; Kean',
+    lineup:[
+      {name:'David de Gea',short:'De Gea',pos:'POR'},{name:'Marin Pongračić',short:'Pongračić',pos:'DC'},{name:'Pietro Comuzzo',short:'Comuzzo',pos:'DC'},{name:'Luca Ranieri',short:'Ranieri',pos:'DC'},{name:'Dodô',short:'Dodô',pos:'ED'},{name:'Nicolò Fagioli',short:'Fagioli',pos:'CC'},{name:'Marco Brescianini',short:'Brescianini',pos:'CC'},{name:'Robin Gosens',short:'Gosens',pos:'ES'},{name:'Albert Gudmundsson',short:'Gudmundsson',pos:'TRQ'},{name:'Jacopo Fazzini',short:'Fazzini',pos:'TRQ'},{name:'Moise Kean',short:'Kean',pos:'PC'}
+    ],
+    roster:[
+      {name:'David de Gea',role:'Portiere',status:'Titolare',tags:['Top reparto','Affidabile']},{name:'Oliver Christensen',role:'Portiere',status:'Riserva',tags:['Da seguire']},{name:'Tommaso Martinelli',role:'Portiere',status:'Aggregato',tags:['Giovane']},
+      {name:'Marin Pongračić',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Pietro Comuzzo',role:'Difensore',status:'Titolare',tags:['Giovane','Scommessa']},{name:'Luca Ranieri',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Dodô',role:'Difensore',status:'Titolare',tags:['Bonus','Top reparto']},{name:'Robin Gosens',role:'Difensore',status:'Titolare',tags:['Bonus','Da comprare']},{name:'Fabiano Parisi',role:'Difensore',status:'Ballottaggio',tags:['Da seguire']},{name:'Matías Moreno',role:'Difensore',status:'Rotazione',tags:['Giovane']},
+      {name:'Nicolò Fagioli',role:'Centrocampista',status:'Titolare',tags:['Piazzati','Da comprare']},{name:'Marco Brescianini',role:'Centrocampista',status:'Titolare',tags:['Bonus','Scommessa']},{name:'Jacopo Fazzini',role:'Centrocampista',status:'Titolare',tags:['Giovane','Scommessa']},{name:'Rolando Mandragora',role:'Centrocampista',status:'Ballottaggio',tags:['Piazzati','Affidabile']},{name:'Cher Ndour',role:'Centrocampista',status:'Rotazione',tags:['Giovane']},
+      {name:'Albert Gudmundsson',role:'Attaccante',status:'Titolare',tags:['Top','Rigorista']},{name:'Moise Kean',role:'Attaccante',status:'Titolare',tags:['Top','Da comprare']},{name:'Lucas Beltrán',role:'Attaccante',status:'Ballottaggio',tags:['Da seguire']},{name:'Christian Kouamé',role:'Attaccante',status:'Rotazione',tags:['Jolly']}
+    ],
+    penalties:'Gudmundsson\nKean\nMandragora',freeKicks:'Gudmundsson\nFagioli\nMandragora',corners:'Fagioli\nGudmundsson\nDodô',
+    arrivals:'Marco Brescianini\nJacopo Fazzini',departures:'Da verificare',talks:'Gerarchie offensive da controllare nel precampionato e dopo gli ultimi movimenti di mercato.',
+    recommended:'Moise Kean\nAlbert Gudmundsson\nRobin Gosens',bets:'Marco Brescianini\nJacopo Fazzini\nPietro Comuzzo',young:'Pietro Comuzzo\nJacopo Fazzini\nTommaso Martinelli',reliable:'David de Gea\nLuca Ranieri\nNicolò Fagioli',watch:'Dodô\nMoise Kean\nAlbert Gudmundsson',avoid:'',
+    notes:'Scheda pre-asta provvisoria. Verificare modulo e gerarchie dopo le ultime amichevoli.',updated:'Aggiornata 3 agosto 2026',source:'Lotto contenuti RC20 • rosa pre-season provvisoria'
+  },
+  Frosinone:{
+    coach:'Da confermare',module:'4-3-3',
+    formation:'Cerofolini; Oyono, Monterisi, Romagnoli, Marchizza; Gelli, Mazzitelli, Garritano; Caso, Ambrosino, Ghedjemis',
+    lineup:[
+      {name:'Michele Cerofolini',short:'Cerofolini',pos:'POR'},{name:'Anthony Oyono',short:'Oyono',pos:'TD'},{name:'Ilario Monterisi',short:'Monterisi',pos:'DC'},{name:'Simone Romagnoli',short:'Romagnoli',pos:'DC'},{name:'Riccardo Marchizza',short:'Marchizza',pos:'TS'},{name:'Francesco Gelli',short:'Gelli',pos:'CC'},{name:'Luca Mazzitelli',short:'Mazzitelli',pos:'CC'},{name:'Luca Garritano',short:'Garritano',pos:'CC'},{name:'Giuseppe Caso',short:'Caso',pos:'AD'},{name:'Giuseppe Ambrosino',short:'Ambrosino',pos:'PC'},{name:'Fares Ghedjemis',short:'Ghedjemis',pos:'AS'}
+    ],
+    roster:[
+      {name:'Michele Cerofolini',role:'Portiere',status:'Titolare',tags:['Affidabile']},{name:'Pierluigi Frattali',role:'Portiere',status:'Riserva',tags:['Esperienza']},
+      {name:'Anthony Oyono',role:'Difensore',status:'Titolare',tags:['Bonus']},{name:'Ilario Monterisi',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Simone Romagnoli',role:'Difensore',status:'Titolare',tags:['Esperienza']},{name:'Riccardo Marchizza',role:'Difensore',status:'Titolare',tags:['Piazzati']},{name:'Sergio Kalaj',role:'Difensore',status:'Rotazione',tags:['Da seguire']},
+      {name:'Francesco Gelli',role:'Centrocampista',status:'Titolare',tags:['Affidabile']},{name:'Luca Mazzitelli',role:'Centrocampista',status:'Titolare',tags:['Piazzati','Rigorista']},{name:'Luca Garritano',role:'Centrocampista',status:'Titolare',tags:['Jolly']},{name:'Ebrima Darboe',role:'Centrocampista',status:'Ballottaggio',tags:['Da seguire']},
+      {name:'Giuseppe Caso',role:'Attaccante',status:'Titolare',tags:['Scommessa','Bonus']},{name:'Giuseppe Ambrosino',role:'Attaccante',status:'Titolare',tags:['Giovane','Scommessa']},{name:'Fares Ghedjemis',role:'Attaccante',status:'Titolare',tags:['Da seguire']},{name:'Walid Cheddira',role:'Attaccante',status:'Ballottaggio',tags:['Rigorista']}
+    ],
+    penalties:'Mazzitelli\nCheddira\nCaso',freeKicks:'Marchizza\nMazzitelli\nCaso',corners:'Marchizza\nCaso\nGarritano',
+    arrivals:'Da aggiornare',departures:'Da aggiornare',talks:'Scheda ponte: verificare categoria, rosa definitiva e allenatore prima dell’asta.',
+    recommended:'Luca Mazzitelli\nRiccardo Marchizza\nGiuseppe Caso',bets:'Giuseppe Ambrosino\nFares Ghedjemis\nAnthony Oyono',young:'Giuseppe Ambrosino\nSergio Kalaj',reliable:'Michele Cerofolini\nIlario Monterisi\nFrancesco Gelli',watch:'Luca Mazzitelli\nGiuseppe Caso\nRiccardo Marchizza',avoid:'',
+    notes:'Scheda provvisoria da verificare integralmente: mantenuta perché presente nell’elenco squadre dell’app.',updated:'Aggiornata 3 agosto 2026',source:'Lotto contenuti RC20 • scheda ponte da verificare'
+  },
+  Genoa:{
+    coach:'Patrick Vieira',module:'4-2-3-1',
+    formation:'Leali; Sabelli, De Winter, Vásquez, Aarón Martín; Frendrup, Masini; Messias, Malinovskyi, Vitinha; Pinamonti',
+    lineup:[
+      {name:'Nicola Leali',short:'Leali',pos:'POR'},{name:'Stefano Sabelli',short:'Sabelli',pos:'TD'},{name:'Koni De Winter',short:'De Winter',pos:'DC'},{name:'Johan Vásquez',short:'Vásquez',pos:'DC'},{name:'Aarón Martín',short:'A. Martín',pos:'TS'},{name:'Morten Frendrup',short:'Frendrup',pos:'CC'},{name:'Patrizio Masini',short:'Masini',pos:'CC'},{name:'Junior Messias',short:'Messias',pos:'AD'},{name:'Ruslan Malinovskyi',short:'Malinovskyi',pos:'TRQ'},{name:'Vitinha',short:'Vitinha',pos:'AS'},{name:'Andrea Pinamonti',short:'Pinamonti',pos:'PC'}
+    ],
+    roster:[
+      {name:'Nicola Leali',role:'Portiere',status:'Titolare',tags:['Affidabile']},{name:'Daniele Sommariva',role:'Portiere',status:'Riserva',tags:['Esperienza']},
+      {name:'Stefano Sabelli',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Koni De Winter',role:'Difensore',status:'Titolare',tags:['Top reparto','Giovane']},{name:'Johan Vásquez',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Aarón Martín',role:'Difensore',status:'Titolare',tags:['Bonus','Piazzati']},{name:'Mattia Bani',role:'Difensore',status:'Ballottaggio',tags:['Bonus']},{name:'Alessandro Marcandalli',role:'Difensore',status:'Rotazione',tags:['Giovane']},
+      {name:'Morten Frendrup',role:'Centrocampista',status:'Titolare',tags:['Top reparto','Affidabile']},{name:'Patrizio Masini',role:'Centrocampista',status:'Titolare',tags:['Scommessa']},{name:'Ruslan Malinovskyi',role:'Centrocampista',status:'Titolare',tags:['Piazzati','Bonus']},{name:'Milan Badelj',role:'Centrocampista',status:'Rotazione',tags:['Esperienza']},
+      {name:'Junior Messias',role:'Attaccante',status:'Titolare',tags:['Bonus','Da seguire']},{name:'Vitinha',role:'Attaccante',status:'Titolare',tags:['Scommessa']},{name:'Andrea Pinamonti',role:'Attaccante',status:'Titolare',tags:['Rigorista','Da comprare']},{name:'Caleb Ekuban',role:'Attaccante',status:'Rotazione',tags:['Jolly']}
+    ],
+    penalties:'Pinamonti\nMalinovskyi\nMessias',freeKicks:'Malinovskyi\nAarón Martín\nMessias',corners:'Aarón Martín\nMalinovskyi\nMessias',
+    arrivals:'Da aggiornare',departures:'Da aggiornare',talks:'Verificare la permanenza dei giocatori in prestito e le gerarchie offensive.',
+    recommended:'Andrea Pinamonti\nMorten Frendrup\nAarón Martín',bets:'Vitinha\nPatrizio Masini\nKoni De Winter',young:'Koni De Winter\nAlessandro Marcandalli\nPatrizio Masini',reliable:'Morten Frendrup\nJohan Vásquez\nNicola Leali',watch:'Andrea Pinamonti\nRuslan Malinovskyi\nAarón Martín',avoid:'',
+    notes:'Scheda pre-asta provvisoria: aggiornare gli ultimi movimenti prima della lista definitiva.',updated:'Aggiornata 3 agosto 2026',source:'Lotto contenuti RC20 • base Genoa pre-season'
+  },
+  Inter:{
+    coach:'Cristian Chivu',module:'3-5-2',
+    formation:'Sommer; Pavard, Akanji, Bastoni; Dumfries, Barella, Çalhanoğlu, Sučić, Dimarco; Lautaro, Thuram',
+    lineup:[
+      {name:'Yann Sommer',short:'Sommer',pos:'POR'},{name:'Benjamin Pavard',short:'Pavard',pos:'DC'},{name:'Manuel Akanji',short:'Akanji',pos:'DC'},{name:'Alessandro Bastoni',short:'Bastoni',pos:'DC'},{name:'Denzel Dumfries',short:'Dumfries',pos:'ED'},{name:'Nicolò Barella',short:'Barella',pos:'CC'},{name:'Hakan Çalhanoğlu',short:'Çalhanoğlu',pos:'REG'},{name:'Petar Sučić',short:'Sučić',pos:'CC'},{name:'Federico Dimarco',short:'Dimarco',pos:'ES'},{name:'Lautaro Martínez',short:'Lautaro',pos:'PC'},{name:'Marcus Thuram',short:'Thuram',pos:'PC'}
+    ],
+    roster:[
+      {name:'Yann Sommer',role:'Portiere',status:'Titolare',tags:['Top reparto','Affidabile']},{name:'Josep Martínez',role:'Portiere',status:'Ballottaggio',tags:['Da seguire']},
+      {name:'Benjamin Pavard',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Manuel Akanji',role:'Difensore',status:'Titolare',tags:['Top reparto']},{name:'Alessandro Bastoni',role:'Difensore',status:'Titolare',tags:['Top','Bonus']},{name:'Denzel Dumfries',role:'Difensore',status:'Titolare',tags:['Bonus','Da comprare']},{name:'Federico Dimarco',role:'Difensore',status:'Titolare',tags:['Top','Piazzati']},{name:'Carlos Augusto',role:'Difensore',status:'Ballottaggio',tags:['Bonus']},{name:'Yann Bisseck',role:'Difensore',status:'Rotazione',tags:['Scommessa']},
+      {name:'Nicolò Barella',role:'Centrocampista',status:'Titolare',tags:['Top','Affidabile']},{name:'Hakan Çalhanoğlu',role:'Centrocampista',status:'Titolare',tags:['Rigorista','Piazzati']},{name:'Petar Sučić',role:'Centrocampista',status:'Titolare',tags:['Scommessa','Giovane']},{name:'Piotr Zieliński',role:'Centrocampista',status:'Ballottaggio',tags:['Bonus']},{name:'Henrikh Mkhitaryan',role:'Centrocampista',status:'Rotazione',tags:['Esperienza']},
+      {name:'Lautaro Martínez',role:'Attaccante',status:'Titolare',tags:['Top assoluto','Rigorista']},{name:'Marcus Thuram',role:'Attaccante',status:'Titolare',tags:['Top','Da comprare']},{name:'Ange-Yoan Bonny',role:'Attaccante',status:'Rotazione',tags:['Scommessa']},{name:'Francesco Pio Esposito',role:'Attaccante',status:'Rotazione',tags:['Giovane','Scommessa']}
+    ],
+    penalties:'Lautaro Martínez\nÇalhanoğlu\nThuram',freeKicks:'Çalhanoğlu\nDimarco\nBarella',corners:'Dimarco\nÇalhanoğlu\nBarella',
+    arrivals:'Manuel Akanji\nPetar Sučić',departures:'Da aggiornare',talks:'Rosa profonda: controllare turnover, gestione europea e gerarchia dei portieri.',
+    recommended:'Lautaro Martínez\nFederico Dimarco\nHakan Çalhanoğlu',bets:'Petar Sučić\nFrancesco Pio Esposito\nAnge-Yoan Bonny',young:'Petar Sučić\nFrancesco Pio Esposito\nYann Bisseck',reliable:'Nicolò Barella\nAlessandro Bastoni\nYann Sommer',watch:'Marcus Thuram\nDenzel Dumfries\nFederico Dimarco',avoid:'',
+    notes:'Squadra di prima fascia. Considerare il turnover, ma i top restano riferimenti assoluti.',updated:'Aggiornata 3 agosto 2026',source:'Lotto contenuti RC20 • rosa Inter pre-season'
+  },
+  Juventus:{
+    coach:'Igor Tudor',module:'3-4-2-1',
+    formation:'Di Gregorio; Kalulu, Bremer, Gatti; Cambiaso, Locatelli, Koopmeiners, Kostić; Conceição, Yildiz; Jonathan David',
+    lineup:[
+      {name:'Michele Di Gregorio',short:'Di Gregorio',pos:'POR'},{name:'Pierre Kalulu',short:'Kalulu',pos:'DC'},{name:'Gleison Bremer',short:'Bremer',pos:'DC'},{name:'Federico Gatti',short:'Gatti',pos:'DC'},{name:'Andrea Cambiaso',short:'Cambiaso',pos:'ED'},{name:'Manuel Locatelli',short:'Locatelli',pos:'CC'},{name:'Teun Koopmeiners',short:'Koopmeiners',pos:'CC'},{name:'Filip Kostić',short:'Kostić',pos:'ES'},{name:'Francisco Conceição',short:'Conceição',pos:'TRQ'},{name:'Kenan Yildiz',short:'Yildiz',pos:'TRQ'},{name:'Jonathan David',short:'David',pos:'PC'}
+    ],
+    roster:[
+      {name:'Michele Di Gregorio',role:'Portiere',status:'Titolare',tags:['Top reparto','Affidabile']},{name:'Mattia Perin',role:'Portiere',status:'Riserva',tags:['Affidabile']},
+      {name:'Pierre Kalulu',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Gleison Bremer',role:'Difensore',status:'Titolare',tags:['Top reparto']},{name:'Federico Gatti',role:'Difensore',status:'Titolare',tags:['Bonus']},{name:'Andrea Cambiaso',role:'Difensore',status:'Titolare',tags:['Top','Bonus']},{name:'Emil Holm',role:'Difensore',status:'Ballottaggio',tags:['Bonus']},{name:'Juan Cabal',role:'Difensore',status:'Rotazione',tags:['Da seguire']},
+      {name:'Manuel Locatelli',role:'Centrocampista',status:'Titolare',tags:['Affidabile']},{name:'Teun Koopmeiners',role:'Centrocampista',status:'Titolare',tags:['Bonus','Piazzati']},{name:'Weston McKennie',role:'Centrocampista',status:'Ballottaggio',tags:['Jolly','Bonus']},{name:'Khéphren Thuram',role:'Centrocampista',status:'Ballottaggio',tags:['Scommessa']},
+      {name:'Francisco Conceição',role:'Attaccante',status:'Titolare',tags:['Scommessa','Bonus']},{name:'Kenan Yildiz',role:'Attaccante',status:'Titolare',tags:['Top','Da comprare']},{name:'Jonathan David',role:'Attaccante',status:'Titolare',tags:['Top','Rigorista']},{name:'Dušan Vlahović',role:'Attaccante',status:'Ballottaggio',tags:['Rigorista','Da verificare']}
+    ],
+    penalties:'Jonathan David\nVlahović\nKoopmeiners',freeKicks:'Koopmeiners\nYildiz\nConceição',corners:'Koopmeiners\nConceição\nCambiaso',
+    arrivals:'Jonathan David\nEmil Holm',departures:'Da aggiornare',talks:'Monitorare il dualismo offensivo e gli ultimi movimenti sulle fasce.',
+    recommended:'Kenan Yildiz\nJonathan David\nAndrea Cambiaso',bets:'Francisco Conceição\nKhéphren Thuram\nEmil Holm',young:'Kenan Yildiz\nFrancisco Conceição\nJuan Cabal',reliable:'Michele Di Gregorio\nGleison Bremer\nManuel Locatelli',watch:'Teun Koopmeiners\nJonathan David\nDušan Vlahović',avoid:'',
+    notes:'Scheda pre-asta provvisoria. Verificare mercato attaccanti e titolarità sulle fasce.',updated:'Aggiornata 3 agosto 2026',source:'Lotto contenuti RC20 • rosa Juventus pre-season'
   }
+
 
 };
 const playerProfiles={
