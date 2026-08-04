@@ -1,9 +1,14 @@
-GUIDA ASTA CONTE — RC28 POLISH 1
+GUIDA ASTA CONTE — RC29 COMPACT UI
 
-MIGLIORAMENTI
-- La stella nella Rosa aggiunge/rimuove il giocatore senza cambiare scheda e senza perdere lo scroll.
-- Conferma discreta a schermo dopo ogni selezione.
-- Riga presenze, gol, assist, fantamedia e crediti più leggibile, senza modificare il layout.
-- “Aggiorna rose” aggiorna localmente tutte le squadre con i dati inclusi nella RC28 e non apre più il file manager.
-- “Aggiorna squadra” è ora collegato e aggiorna la singola squadra, mantenendo sezione e posizione.
-- Note, valutazioni personali, preferiti, lista asta e budget vengono conservati.
+RITOCCHI PRINCIPALI
+- Eliminato il riquadro introduttivo “Dalla rosa alla strategia d’asta”.
+- Home ridimensionata: ricerca, navigazione, statistiche e filtri occupano meno spazio.
+- Le card delle squadre salgono molto più in alto nella schermata.
+- Scheda squadra resa più compatta: intestazione, aggiornamento, contatori e menu ridotti.
+- La probabile formazione è visibile più rapidamente.
+- Riga presenze/gol/assist/FM/crediti resa più leggibile.
+- Confermato il comportamento RC28: la stella mantiene aperta la scheda Rosa e la posizione di scorrimento.
+- Aggiorna rose e Aggiorna squadra mantengono dati e valutazioni personali.
+
+INSTALLAZIONE
+Caricare tutti i file nella root del repository GitHub Pages sostituendo quelli precedenti.

@@ -125,3 +125,85 @@ input:focus,textarea:focus,select:focus{border-color:#35dd83;box-shadow:0 0 0 3p
 .playerHint{font-size:11px!important;line-height:1.55!important;color:#b6c7da!important;font-weight:600;letter-spacing:.005em;margin-top:5px!important;margin-bottom:8px!important}
 .appToast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));z-index:9999;max-width:calc(100vw - 32px);transform:translate(-50%,18px);padding:10px 14px;border-radius:999px;background:#11283d;color:#eaf5ff;border:1px solid rgba(80,216,153,.45);box-shadow:0 12px 32px rgba(0,0,0,.4);font-size:12px;font-weight:800;opacity:0;pointer-events:none;transition:.18s ease}.appToast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:560px){.playerHint{font-size:10.5px!important;line-height:1.5!important}.appToast{bottom:calc(78px + env(safe-area-inset-bottom));font-size:11px}}
+
+
+/* RC29 Compact UI — solo ridimensionamento e pulizia grafica */
+.hero{display:none!important}
+header{padding-top:10px;padding-bottom:10px;min-height:58px}
+header h1{font-size:19px;margin:1px 0}
+header p{display:none}
+header small{font-size:10px}
+.headerActions button{padding:9px 10px;border-radius:11px}
+main{padding-top:9px}
+.globalScout{margin:7px 0 9px;padding:10px 12px;border-radius:16px}
+.scoutSearchHead{margin-bottom:7px}
+.scoutSearchHead small{font-size:8px}
+.scoutSearchHead strong{font-size:14px}
+.scoutSearchHead>span{display:none}
+.globalScout input{padding:10px 12px;min-height:42px}
+.playerSearchResults{top:76px}
+nav{gap:6px;margin:8px 0 10px}
+.tab{padding:9px 7px;border-radius:11px;font-size:12px;min-height:42px}
+.sectionHead{margin-bottom:8px;align-items:center}
+.sectionHead h3{font-size:20px}
+.sectionHead p{font-size:11px;margin-top:2px}
+#search{padding:9px 10px;max-width:180px}
+.teamIntelligenceBar{gap:7px;margin:8px 0}
+.teamIntelligenceBar>div{padding:8px 9px;border-radius:13px}
+.teamIntelligenceBar small{font-size:8px}
+.teamIntelligenceBar b{font-size:18px;margin:1px 0}
+.teamIntelligenceBar span{font-size:9px}
+.teamFilterBar{gap:6px;padding:1px 0 7px}
+.teamFilter{padding:7px 11px;font-size:11px}
+.grid{gap:8px}
+.team{padding:11px;min-height:92px;border-radius:14px}
+.team h4{font-size:17px}
+.teamProgress{margin:7px 0}
+
+/* Scheda squadra compatta: formazione più in alto */
+.sheet{padding-top:12px}
+.compactTeamTitle{margin-bottom:4px}
+.compactTeamTitle>small{font-size:8px}
+.teamTitleRow{grid-template-columns:34px 1fr 34px;gap:6px;margin-top:2px}
+.teamStep{height:34px;font-size:24px}
+.clubIdentity{gap:8px}
+.clubMark{flex-basis:40px;height:40px;border-radius:12px;font-size:11px}
+.clubCopy h2{font-size:23px;margin-bottom:4px}
+.clubCopy p{font-size:12px;gap:5px}
+.sourceNote{margin-top:6px;padding:4px 8px;font-size:9px}
+.smartUpdateBtn{margin-top:6px;padding:8px;font-size:12px}
+.teamSmartDashboard{gap:6px!important;margin:7px 0!important}
+.teamSmartDashboard>div{padding:7px 6px!important;border-radius:13px!important;min-height:58px!important}
+.teamSmartDashboard small{font-size:8px!important}
+.teamSmartDashboard b{font-size:18px!important;margin:1px 0!important}
+.teamSmartDashboard span{font-size:9px!important}
+.teamSectionTabs{gap:5px!important;margin-bottom:7px!important;padding:7px 4px 8px!important}
+.teamSectionTab{padding:7px 7px!important;font-size:10px!important}
+.teamSection.active{gap:8px}
+.formSection{padding:10px;border-radius:14px}
+.lineupSection{margin-top:0}
+.sectionTitleLine{margin-bottom:7px}
+.sectionTitleLine h3{font-size:18px}
+.pitch{padding:12px 5px;border-radius:15px}
+.pitchRow{margin:9px 0}
+.lineupNote{margin-top:6px}
+
+/* Riga statistiche giocatore più leggibile, senza cambiare layout */
+.playerHint{font-size:11.5px!important;line-height:1.45!important;color:#c2d0e0!important;font-weight:600!important;letter-spacing:.01em}
+
+@media(max-width:560px){
+  header{gap:7px;padding-left:12px;padding-right:12px}
+  .headerActions{gap:4px}
+  #exportBtn,#refreshBtn{padding:8px 7px;font-size:10px}
+  main{padding:8px 12px 14px}
+  nav{overflow-x:auto;scrollbar-width:none}
+  nav::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;min-width:92px}
+  .sectionHead{display:grid;grid-template-columns:1fr;gap:7px}
+  #search{max-width:none}
+  .teamIntelligenceBar>div{padding:7px 6px}
+  .teamSmartDashboard{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+  .teamSmartDashboard>div{min-width:0!important}
+  .teamSectionTabs{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+  .teamSectionTab{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+}

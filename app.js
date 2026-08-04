@@ -440,7 +440,7 @@ function smartUpdateTeam(team){
   showToast(`${team} aggiornata. Note e valutazioni personali conservate.`);
 }
 function updateAllBuiltInTeams(){
-  if(!confirm('Aggiornare tutte le rose con i dati inclusi nella RC28? Note, consigli personali e lista asta resteranno invariati.'))return;
+  if(!confirm('Aggiornare tutte le rose con i dati inclusi nella RC29? Note, consigli personali e lista asta resteranno invariati.'))return;
   let changed=0;
   teams.forEach(team=>{
     const defaults=editorialDefaults[team];if(!defaults)return;
@@ -448,7 +448,7 @@ function updateAllBuiltInTeams(){
     ['recommended','bets','young','reliable','avoid','watch','notes'].forEach(k=>personal[k]=data[team][k]||defaults[k]||'');
     data[team]={...blank(),...data[team],...defaults,...personal,updated:'Aggiornata oggi'};changed++;
   });
-  persist();refreshAll();showToast(`${changed} rose aggiornate con i dati RC28.`);
+  persist();refreshAll();showToast(`${changed} rose aggiornate con i dati RC29.`);
 }
 function renderAuctionPlan(){
   const budgetInput=document.querySelector('#auctionBudget'),spentInput=document.querySelector('#auctionSpent');
@@ -529,7 +529,7 @@ function openTeam(t,section='formation'){
   const next=teams[(teamIndex+1)%teams.length];
   view.innerHTML=`
     <div class="teamTitle compactTeamTitle">
-      <small>GUIDA ASTA CONTE • RC28 POLISH 1</small>
+      <small>GUIDA ASTA CONTE • RC29 COMPACT UI</small>
       <div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div class="clubIdentity"><span class="clubMark">${esc(t.slice(0,3).toUpperCase())}</span><div class="clubCopy"><h2>${t}</h2><p><span>${esc(d.coach||'Allenatore da definire')}</span><b>${esc(d.module||'Modulo da definire')}</b></p></div></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div>
       ${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}
       <button type="button" class="smartUpdateBtn" data-smart-update="${esc(t)}">↻ Aggiorna squadra</button>
@@ -625,7 +625,7 @@ function openPlayer(team,name){
   const candidates=allRosterPlayers().filter(x=>x.name!==name&&x.role===p.role).slice(0,24);
   const alternatives=(s.alternatives||[]).map(alt=>`<button type="button" class="altPlayer" data-team="${esc(team)}" data-player="${esc(alt)}">${esc(alt)}</button>`).join('')||'<span class="noAlt">Da definire</span>';
   document.querySelector('#playerView').innerHTML=`
-    <div class="playerHubLabel">RC28 • TEAM INTELLIGENCE</div>
+    <div class="playerHubLabel">RC29 • TEAM INTELLIGENCE</div>
     <div class="playerHero"><div class="playerAvatar">${esc(initials)}</div><div><span class="playerTeam">${esc(team)} • ${esc(p.role||'Ruolo da definire')}</span><h2>${esc(name)}</h2><div class="playerStars">${starsHtml(s.stars)} <small>${s.stars}/5</small></div></div><div class="conteScore"><b>${esc(s.score)}</b><small>CONTE</small></div></div>
     <div class="playerIdentity"><span>${esc(s.tier)}</span><span>${esc(s.age)} anni</span><span>Piede ${esc(s.foot)}</span><span>${esc(p.status||'Da valutare')}</span></div>
     <section class="decisionCard ${intel.verdictClass}"><div class="decisionMain"><small>DECISIONE CONTE</small><strong>${intel.verdict}</strong><span>${intel.action}</span></div><div class="prioritySeal"><small>PRIORITÀ</small><b>${intel.priority}</b></div></section>
@@ -799,9 +799,9 @@ const fi=document.querySelector('#fileInput');
 document.querySelector('#refreshBtn').onclick=updateAllBuiltInTeams;
 
 document.querySelector('#exportBtn').onclick=()=>{
-  const payload={app:'Guida Asta Conte',version:'RC28-Polish-1',exportedAt:new Date().toISOString(),teams:data};
+  const payload={app:'Guida Asta Conte',version:'RC29-Compact-UI',exportedAt:new Date().toISOString(),teams:data};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC28.json';a.click();URL.revokeObjectURL(a.href);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC29.json';a.click();URL.revokeObjectURL(a.href);
 };
 fi.onchange=async()=>{
   if(!fi.files[0])return;
