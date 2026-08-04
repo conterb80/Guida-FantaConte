@@ -120,3 +120,8 @@ input:focus,textarea:focus,select:focus{border-color:#35dd83;box-shadow:0 0 0 3p
 .tagField textarea{min-height:84px;margin-top:auto;font-size:13px;line-height:1.55}
 .tagField textarea:focus{outline:2px solid rgba(244,197,66,.28);border-color:#f4c542}
 @media(max-width:560px){.adviceGrid{grid-template-columns:1fr}.playerListItem{min-height:42px}.playerListItem strong{font-size:15px}}
+
+/* RC28 Polish 1: leggibilità statistiche e feedback non invasivi */
+.playerHint{font-size:11px!important;line-height:1.55!important;color:#b6c7da!important;font-weight:600;letter-spacing:.005em;margin-top:5px!important;margin-bottom:8px!important}
+.appToast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));z-index:9999;max-width:calc(100vw - 32px);transform:translate(-50%,18px);padding:10px 14px;border-radius:999px;background:#11283d;color:#eaf5ff;border:1px solid rgba(80,216,153,.45);box-shadow:0 12px 32px rgba(0,0,0,.4);font-size:12px;font-weight:800;opacity:0;pointer-events:none;transition:.18s ease}.appToast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:560px){.playerHint{font-size:10.5px!important;line-height:1.5!important}.appToast{bottom:calc(78px + env(safe-area-inset-bottom));font-size:11px}}

@@ -1,7 +1,7 @@
 const teams=['Atalanta','Bologna','Cagliari','Como','Fiorentina','Frosinone','Genoa','Inter','Juventus','Lazio','Lecce','Milan','Monza','Napoli','Parma','Roma','Sassuolo','Torino','Udinese','Venezia'];
 const blank=()=>({coach:'',module:'',formation:'',lineup:[],roster:[],penalties:'',freeKicks:'',corners:'',arrivals:'',departures:'',talks:'',recommended:'',bets:'',young:'',reliable:'',avoid:'',watch:'',notes:'',updated:'Da compilare'});
 const base=Object.fromEntries(teams.map(t=>[t,blank()]));
-const DATA_VERSION=25;
+const DATA_VERSION=28;
 const editorialDefaults={
   Atalanta:{
     coach:'Maurizio Sarri',module:'4-3-3',
@@ -420,14 +420,35 @@ function teamDashboardHtml(d){
   const doubts=roster.filter(p=>['Da valutare','Ballottaggio','Gerarchia aperta'].includes(p.status)).length;
   return `<section class="teamSmartDashboard"><div><small>ROSA</small><b>${roster.length}</b><span>giocatori</span></div><div><small>TITOLARI</small><b>${starters}</b><span>stimati</span></div><div><small>NUOVI</small><b>${newPlayers}</b><span>acquisti</span></div><div><small>GIOVANI</small><b>${young}</b><span>prospetti</span></div><div><small>DA VERIFICARE</small><b>${doubts}</b><span>situazioni</span></div></section>`;
 }
+function showToast(message){
+  let toast=document.querySelector('#appToast');
+  if(!toast){toast=document.createElement('div');toast.id='appToast';toast.className='appToast';document.body.appendChild(toast);}
+  toast.textContent=message;toast.classList.add('show');
+  clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>toast.classList.remove('show'),1800);
+}
 function smartUpdateTeam(team){
   const defaults=editorialDefaults[team];
-  if(!defaults){alert('Per questa squadra non è ancora disponibile un pacchetto editoriale aggiornato. Puoi comunque importare un file JSON con “Aggiorna rose”.');return;}
+  if(!defaults){showToast('Nessun pacchetto editoriale disponibile per questa squadra.');return;}
+  const activeSection=view.querySelector('.teamSectionTab.active')?.dataset.section||'formation';
+  const sheet=document.querySelector('.sheet');
+  const oldScroll=sheet?.scrollTop||0;
   const personal={};
   ['recommended','bets','young','reliable','avoid','watch','notes'].forEach(k=>personal[k]=data[team][k]||defaults[k]||'');
-  data[team]={...blank(),...data[team],...defaults,...personal,updated:'Smart update eseguito oggi'};
-  persist();refreshAll();openTeam(team,'formation');
-  alert(`${team} aggiornata con i dati editoriali inclusi nella RC18. Le tue note e valutazioni sono state conservate.`);
+  data[team]={...blank(),...data[team],...defaults,...personal,updated:'Aggiornata oggi'};
+  persist();refreshAll();openTeam(team,activeSection);
+  requestAnimationFrame(()=>{const newSheet=document.querySelector('.sheet');if(newSheet)newSheet.scrollTop=oldScroll;});
+  showToast(`${team} aggiornata. Note e valutazioni personali conservate.`);
+}
+function updateAllBuiltInTeams(){
+  if(!confirm('Aggiornare tutte le rose con i dati inclusi nella RC28? Note, consigli personali e lista asta resteranno invariati.'))return;
+  let changed=0;
+  teams.forEach(team=>{
+    const defaults=editorialDefaults[team];if(!defaults)return;
+    const personal={};
+    ['recommended','bets','young','reliable','avoid','watch','notes'].forEach(k=>personal[k]=data[team][k]||defaults[k]||'');
+    data[team]={...blank(),...data[team],...defaults,...personal,updated:'Aggiornata oggi'};changed++;
+  });
+  persist();refreshAll();showToast(`${changed} rose aggiornate con i dati RC28.`);
 }
 function renderAuctionPlan(){
   const budgetInput=document.querySelector('#auctionBudget'),spentInput=document.querySelector('#auctionSpent');
@@ -482,10 +503,15 @@ function applyRosterFilters(){
 function toggleAuctionPlayer(team,name){
   const player=(data[team]?.roster||[]).find(p=>p.name===name)||{};
   const i=auctionList.findIndex(x=>x.team===team&&x.name===name);
-  if(i>=0)auctionList.splice(i,1);else auctionList.push({team,name,role:player.role||'',status:player.status||'',tags:player.tags||[]});
-  saveAuctionList();renderAuction();
-  if(!modal.classList.contains('hidden'))openTeam(team);
-  refreshAll();
+  const added=i<0;
+  if(!added)auctionList.splice(i,1);else auctionList.push({team,name,role:player.role||'',status:player.status||'',tags:player.tags||[]});
+  saveAuctionList();renderAuction();refreshAll();
+  document.querySelectorAll(`.starBtn[data-team="${CSS.escape(team)}"][data-player="${CSS.escape(name)}"]`).forEach(btn=>{
+    btn.classList.toggle('selected',added);btn.textContent=added?'★':'☆';
+    btn.setAttribute('aria-label',`${added?'Rimuovi dalla':'Aggiungi alla'} lista asta`);
+  });
+  document.querySelectorAll('.auctionCount').forEach(el=>el.textContent=`⭐ Lista asta: ${auctionList.length}`);
+  showToast(added?`${name} aggiunto alla lista asta.`:`${name} rimosso dalla lista asta.`);
 }
 
 function setTeamSection(name){
@@ -503,7 +529,7 @@ function openTeam(t,section='formation'){
   const next=teams[(teamIndex+1)%teams.length];
   view.innerHTML=`
     <div class="teamTitle compactTeamTitle">
-      <small>GUIDA ASTA CONTE • RC18 CONTENUTI 1</small>
+      <small>GUIDA ASTA CONTE • RC28 POLISH 1</small>
       <div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div class="clubIdentity"><span class="clubMark">${esc(t.slice(0,3).toUpperCase())}</span><div class="clubCopy"><h2>${t}</h2><p><span>${esc(d.coach||'Allenatore da definire')}</span><b>${esc(d.module||'Modulo da definire')}</b></p></div></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div>
       ${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}
       <button type="button" class="smartUpdateBtn" data-smart-update="${esc(t)}">↻ Aggiorna squadra</button>
@@ -553,6 +579,7 @@ function openTeam(t,section='formation'){
   document.body.classList.add('locked');
   view.querySelector('.save').onclick=()=>saveTeam(t);
   view.querySelectorAll('.starBtn').forEach(btn=>btn.onclick=()=>toggleAuctionPlayer(btn.dataset.team,btn.dataset.player));
+  const smartUpdate=view.querySelector('[data-smart-update]');if(smartUpdate)smartUpdate.onclick=()=>smartUpdateTeam(smartUpdate.dataset.smartUpdate);
   view.querySelectorAll('.playerOpen').forEach(btn=>btn.onclick=()=>openPlayer(btn.dataset.team,btn.dataset.player));
   view.querySelectorAll('.rosterFilter').forEach(btn=>btn.onclick=()=>setRosterFilter(btn.dataset.role));
   view.querySelectorAll('.rosterStatusFilter').forEach(btn=>btn.onclick=()=>setRosterStatusFilter(btn.dataset.status));
@@ -598,7 +625,7 @@ function openPlayer(team,name){
   const candidates=allRosterPlayers().filter(x=>x.name!==name&&x.role===p.role).slice(0,24);
   const alternatives=(s.alternatives||[]).map(alt=>`<button type="button" class="altPlayer" data-team="${esc(team)}" data-player="${esc(alt)}">${esc(alt)}</button>`).join('')||'<span class="noAlt">Da definire</span>';
   document.querySelector('#playerView').innerHTML=`
-    <div class="playerHubLabel">RC15 • TEAM INTELLIGENCE</div>
+    <div class="playerHubLabel">RC28 • TEAM INTELLIGENCE</div>
     <div class="playerHero"><div class="playerAvatar">${esc(initials)}</div><div><span class="playerTeam">${esc(team)} • ${esc(p.role||'Ruolo da definire')}</span><h2>${esc(name)}</h2><div class="playerStars">${starsHtml(s.stars)} <small>${s.stars}/5</small></div></div><div class="conteScore"><b>${esc(s.score)}</b><small>CONTE</small></div></div>
     <div class="playerIdentity"><span>${esc(s.tier)}</span><span>${esc(s.age)} anni</span><span>Piede ${esc(s.foot)}</span><span>${esc(p.status||'Da valutare')}</span></div>
     <section class="decisionCard ${intel.verdictClass}"><div class="decisionMain"><small>DECISIONE CONTE</small><strong>${intel.verdict}</strong><span>${intel.action}</span></div><div class="prioritySeal"><small>PRIORITÀ</small><b>${intel.priority}</b></div></section>
@@ -769,12 +796,12 @@ if(auctionSpent)auctionSpent.oninput=e=>{auctionPlan.spent=Math.max(0,Number(e.t
 const resetAuctionPlan=document.querySelector('#resetAuctionPlan');if(resetAuctionPlan)resetAuctionPlan.onclick=()=>{if(confirm('Ripristinare budget 500 e slot standard 3-8-8-6?')){auctionPlan={budget:500,spent:0,slots:{Portiere:3,Difensore:8,Centrocampista:8,Attaccante:6}};saveAuctionPlan();renderAuctionPlan();}};
 
 const fi=document.querySelector('#fileInput');
-document.querySelector('#refreshBtn').onclick=()=>fi.click();
+document.querySelector('#refreshBtn').onclick=updateAllBuiltInTeams;
 
 document.querySelector('#exportBtn').onclick=()=>{
-  const payload={app:'Guida Asta Conte',version:'RC23-Contenuti-PreAsta-5',exportedAt:new Date().toISOString(),teams:data};
+  const payload={app:'Guida Asta Conte',version:'RC28-Polish-1',exportedAt:new Date().toISOString(),teams:data};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC23.json';a.click();URL.revokeObjectURL(a.href);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC28.json';a.click();URL.revokeObjectURL(a.href);
 };
 fi.onchange=async()=>{
   if(!fi.files[0])return;
