@@ -207,3 +207,11 @@ nav{gap:6px;margin:8px 0 10px}
   .teamSectionTabs{grid-template-columns:repeat(5,minmax(0,1fr))!important}
   .teamSectionTab{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 }
+
+/* RC31 · Fanta Conte Unified */
+.unifiedTab{border-color:rgba(159,122,234,.42)!important}
+.unifiedPanel{padding:0!important;background:transparent!important}
+.unifiedHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 10px;padding:12px 14px;border:1px solid rgba(148,163,184,.2);border-radius:16px;background:linear-gradient(135deg,rgba(57,31,104,.82),rgba(15,23,42,.94))}
+.unifiedHead small{display:block;color:#c4b5fd;font-weight:800;letter-spacing:.08em;font-size:.68rem}.unifiedHead h3{margin:2px 0;font-size:1.05rem}.unifiedHead p{margin:0;color:#aab6ca;font-size:.78rem}.reloadUnified{flex:0 0 auto;padding:8px 11px;border-radius:11px;border:1px solid rgba(196,181,253,.35);background:rgba(124,58,237,.2);color:#f5f3ff;font-weight:800}
+.unifiedFrame{display:block;width:100%;height:calc(100vh - 185px);min-height:620px;border:1px solid rgba(148,163,184,.18);border-radius:18px;background:#120a2a;box-shadow:0 18px 42px rgba(0,0,0,.28)}
+@media(max-width:620px){.unifiedHead{padding:10px 11px}.unifiedHead p{display:none}.unifiedFrame{height:calc(100vh - 150px);min-height:660px;border-radius:14px}}

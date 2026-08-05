@@ -159,21 +159,21 @@ const editorialDefaults={
     notes:'Scheda provvisoria da verificare integralmente: mantenuta perché presente nell’elenco squadre dell’app.',updated:'Aggiornata 3 agosto 2026',source:'Lotto contenuti RC20 • scheda ponte da verificare'
   },
   Genoa:{
-    coach:'Patrick Vieira',module:'4-2-3-1',
-    formation:'Leali; Sabelli, De Winter, Vásquez, Aarón Martín; Frendrup, Masini; Messias, Malinovskyi, Vitinha; Pinamonti',
+    coach:'Daniele De Rossi',module:'4-2-3-1',
+    formation:'Bijlow; Norton-Cuffy, Østigård, Vásquez, Aarón Martín; Frendrup, Ellertsson; Messias, Hamed Traoré, Vitinha; Colombo',
     lineup:[
-      {name:'Nicola Leali',short:'Leali',pos:'POR'},{name:'Stefano Sabelli',short:'Sabelli',pos:'TD'},{name:'Koni De Winter',short:'De Winter',pos:'DC'},{name:'Johan Vásquez',short:'Vásquez',pos:'DC'},{name:'Aarón Martín',short:'A. Martín',pos:'TS'},{name:'Morten Frendrup',short:'Frendrup',pos:'CC'},{name:'Patrizio Masini',short:'Masini',pos:'CC'},{name:'Junior Messias',short:'Messias',pos:'AD'},{name:'Ruslan Malinovskyi',short:'Malinovskyi',pos:'TRQ'},{name:'Vitinha',short:'Vitinha',pos:'AS'},{name:'Andrea Pinamonti',short:'Pinamonti',pos:'PC'}
+      {name:'Justin Bijlow',short:'Bijlow',pos:'POR'},{name:'Brooke Norton-Cuffy',short:'Norton-Cuffy',pos:'TD'},{name:'Leo Østigård',short:'Østigård',pos:'DC'},{name:'Johan Vásquez',short:'Vásquez',pos:'DC'},{name:'Aarón Martín',short:'A. Martín',pos:'TS'},{name:'Morten Frendrup',short:'Frendrup',pos:'CC'},{name:'Mikael Ellertsson',short:'Ellertsson',pos:'CC'},{name:'Junior Messias',short:'Messias',pos:'AD'},{name:'Hamed Traoré',short:'H. Traoré',pos:'TRQ'},{name:'Vitinha',short:'Vitinha',pos:'AS'},{name:'Lorenzo Colombo',short:'Colombo',pos:'PC'}
     ],
     roster:[
-      {name:'Nicola Leali',role:'Portiere',status:'Titolare',tags:['Affidabile']},{name:'Daniele Sommariva',role:'Portiere',status:'Riserva',tags:['Esperienza']},
-      {name:'Stefano Sabelli',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Koni De Winter',role:'Difensore',status:'Titolare',tags:['Top reparto','Giovane']},{name:'Johan Vásquez',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Aarón Martín',role:'Difensore',status:'Titolare',tags:['Bonus','Piazzati']},{name:'Mattia Bani',role:'Difensore',status:'Ballottaggio',tags:['Bonus']},{name:'Alessandro Marcandalli',role:'Difensore',status:'Rotazione',tags:['Giovane']},
-      {name:'Morten Frendrup',role:'Centrocampista',status:'Titolare',tags:['Top reparto','Affidabile']},{name:'Patrizio Masini',role:'Centrocampista',status:'Titolare',tags:['Scommessa']},{name:'Ruslan Malinovskyi',role:'Centrocampista',status:'Titolare',tags:['Piazzati','Bonus']},{name:'Milan Badelj',role:'Centrocampista',status:'Rotazione',tags:['Esperienza']},
-      {name:'Junior Messias',role:'Attaccante',status:'Titolare',tags:['Bonus','Da seguire']},{name:'Vitinha',role:'Attaccante',status:'Titolare',tags:['Scommessa']},{name:'Andrea Pinamonti',role:'Attaccante',status:'Titolare',tags:['Rigorista','Da comprare']},{name:'Caleb Ekuban',role:'Attaccante',status:'Rotazione',tags:['Jolly']}
+      {name:'Justin Bijlow',role:'Portiere',status:'Titolare',tags:['Da seguire']},{name:'Daniele Sommariva',role:'Portiere',status:'Riserva',tags:['Esperienza']},{name:'Franz Stolz',role:'Portiere',status:'Rotazione',tags:['Scommessa']},{name:'E. Lysionok',role:'Portiere',status:'Giovane',tags:['Giovane']},
+      {name:'Brooke Norton-Cuffy',role:'Difensore',status:'Titolare',tags:['Bonus','Da seguire']},{name:'Leo Østigård',role:'Difensore',status:'Titolare',tags:['Affidabile']},{name:'Johan Vásquez',role:'Difensore',status:'Titolare',tags:['Top reparto','Affidabile']},{name:'Aarón Martín',role:'Difensore',status:'Titolare',tags:['Bonus','Piazzati']},{name:'Alessandro Marcandalli',role:'Difensore',status:'Ballottaggio',tags:['Giovane']},{name:'Alessandro Vogliacco',role:'Difensore',status:'Rotazione',tags:['Affidabile']},{name:'Alan Matturro',role:'Difensore',status:'Rotazione',tags:['Giovane']},{name:'Stefano Sabelli',role:'Difensore',status:'Rotazione',tags:['Esperienza']},{name:'S. Otoa',role:'Difensore',status:'Giovane',tags:['Giovane']},{name:'D. Puczka',role:'Difensore',status:'Giovane',tags:['Giovane']},{name:'M. Doucouré',role:'Difensore',status:'Giovane',tags:['Giovane']},{name:'G. Calvani',role:'Difensore',status:'Rotazione',tags:['Da seguire']},{name:'Marcelo Vaz',role:'Difensore',status:'Giovane',tags:['Giovane']},{name:'W. Ouedraogo',role:'Difensore',status:'Giovane',tags:['Giovane']},
+      {name:'Morten Frendrup',role:'Centrocampista',status:'Titolare',tags:['Top reparto','Affidabile']},{name:'Mikael Ellertsson',role:'Centrocampista',status:'Titolare',tags:['Scommessa']},{name:'Hamed Traoré',role:'Centrocampista',status:'Titolare',tags:['Bonus','Da seguire']},{name:'Patrizio Masini',role:'Centrocampista',status:'Ballottaggio',tags:['Scommessa']},{name:'Alex Amorim',role:'Centrocampista',status:'Rotazione',tags:['Giovane']},{name:'B. Doumbia',role:'Centrocampista',status:'Giovane',tags:['Giovane']},{name:'H. Cuenca',role:'Centrocampista',status:'Giovane',tags:['Giovane']},{name:'E. Meichtry',role:'Centrocampista',status:'Giovane',tags:['Giovane']},{name:'S. Wiafe',role:'Centrocampista',status:'Giovane',tags:['Giovane']},
+      {name:'Lorenzo Colombo',role:'Attaccante',status:'Titolare',tags:['Da seguire']},{name:'Junior Messias',role:'Attaccante',status:'Titolare',tags:['Bonus','Piazzati']},{name:'Vitinha',role:'Attaccante',status:'Titolare',tags:['Scommessa']},{name:'Caleb Ekuban',role:'Attaccante',status:'Rotazione',tags:['Jolly']},{name:'L. Venturino',role:'Attaccante',status:'Rotazione',tags:['Giovane']},{name:'S. Fini',role:'Attaccante',status:'Giovane',tags:['Giovane']},{name:'A. Debenedetti',role:'Attaccante',status:'Rotazione',tags:['Da seguire']},{name:'E. Havel',role:'Attaccante',status:'Rotazione',tags:['Scommessa']},{name:'J. Nuredini',role:'Attaccante',status:'Giovane',tags:['Giovane']}
     ],
-    penalties:'Pinamonti\nMalinovskyi\nMessias',freeKicks:'Malinovskyi\nAarón Martín\nMessias',corners:'Aarón Martín\nMalinovskyi\nMessias',
-    arrivals:'Da aggiornare',departures:'Da aggiornare',talks:'Verificare la permanenza dei giocatori in prestito e le gerarchie offensive.',
-    recommended:'Andrea Pinamonti\nMorten Frendrup\nAarón Martín',bets:'Vitinha\nPatrizio Masini\nKoni De Winter',young:'Koni De Winter\nAlessandro Marcandalli\nPatrizio Masini',reliable:'Morten Frendrup\nJohan Vásquez\nNicola Leali',watch:'Andrea Pinamonti\nRuslan Malinovskyi\nAarón Martín',avoid:'',
-    notes:'Scheda pre-asta provvisoria: aggiornare gli ultimi movimenti prima della lista definitiva.',updated:'Aggiornata 3 agosto 2026',source:'Lotto contenuti RC20 • base Genoa pre-season'
+    penalties:'Da definire\nMessias\nHamed Traoré',freeKicks:'Aarón Martín\nMessias\nHamed Traoré',corners:'Aarón Martín\nMessias\nHamed Traoré',
+    arrivals:'Rosa prima squadra riallineata all’elenco UEFA disponibile al 4 agosto 2026.',departures:'Rimossi dalla scheda i dati non più attuali: Pinamonti, De Winter, Leali, Malinovskyi e altri elementi assenti dalla rosa verificata.',talks:'Gerarchie e undici titolare ancora provvisori: verificare gli ultimi movimenti prima dell’asta.',
+    recommended:'Morten Frendrup\nJohan Vásquez\nAarón Martín',bets:'Hamed Traoré\nMikael Ellertsson\nVitinha',young:'Alessandro Marcandalli\nL. Venturino\nH. Cuenca',reliable:'Morten Frendrup\nJohan Vásquez\nLeo Østigård',watch:'Lorenzo Colombo\nJunior Messias\nBrooke Norton-Cuffy',avoid:'',
+    notes:'RC30 Data Quality: rosa e allenatore verificati. La formazione resta una proiezione pre-campionato e può cambiare con il mercato.',updated:'Verificata 4 agosto 2026',source:'UEFA squad Genoa + conferma allenatore Reuters • RC30 Data Quality'
   },
   Inter:{
     coach:'Cristian Chivu',module:'3-5-2',
@@ -440,7 +440,7 @@ function smartUpdateTeam(team){
   showToast(`${team} aggiornata. Note e valutazioni personali conservate.`);
 }
 function updateAllBuiltInTeams(){
-  if(!confirm('Aggiornare tutte le rose con i dati inclusi nella RC29? Note, consigli personali e lista asta resteranno invariati.'))return;
+  if(!confirm('Aggiornare tutte le rose con i dati verificati inclusi nella RC30? Note, consigli personali e lista asta resteranno invariati.'))return;
   let changed=0;
   teams.forEach(team=>{
     const defaults=editorialDefaults[team];if(!defaults)return;
@@ -448,7 +448,7 @@ function updateAllBuiltInTeams(){
     ['recommended','bets','young','reliable','avoid','watch','notes'].forEach(k=>personal[k]=data[team][k]||defaults[k]||'');
     data[team]={...blank(),...data[team],...defaults,...personal,updated:'Aggiornata oggi'};changed++;
   });
-  persist();refreshAll();showToast(`${changed} rose aggiornate con i dati RC29.`);
+  persist();refreshAll();showToast(`${changed} rose aggiornate con i dati RC30.`);
 }
 function renderAuctionPlan(){
   const budgetInput=document.querySelector('#auctionBudget'),spentInput=document.querySelector('#auctionSpent');
@@ -529,7 +529,7 @@ function openTeam(t,section='formation'){
   const next=teams[(teamIndex+1)%teams.length];
   view.innerHTML=`
     <div class="teamTitle compactTeamTitle">
-      <small>GUIDA ASTA CONTE • RC29 COMPACT UI</small>
+      <small>GUIDA ASTA CONTE • RC30 DATA QUALITY 1</small>
       <div class="teamTitleRow"><button type="button" class="teamStep" data-team="${esc(prev)}" aria-label="Squadra precedente">‹</button><div class="clubIdentity"><span class="clubMark">${esc(t.slice(0,3).toUpperCase())}</span><div class="clubCopy"><h2>${t}</h2><p><span>${esc(d.coach||'Allenatore da definire')}</span><b>${esc(d.module||'Modulo da definire')}</b></p></div></div><button type="button" class="teamStep" data-team="${esc(next)}" aria-label="Squadra successiva">›</button></div>
       ${d.source?`<div class="sourceNote">● ${esc(d.source)} · ${esc(d.updated)}</div>`:''}
       <button type="button" class="smartUpdateBtn" data-smart-update="${esc(t)}">↻ Aggiorna squadra</button>
@@ -625,7 +625,7 @@ function openPlayer(team,name){
   const candidates=allRosterPlayers().filter(x=>x.name!==name&&x.role===p.role).slice(0,24);
   const alternatives=(s.alternatives||[]).map(alt=>`<button type="button" class="altPlayer" data-team="${esc(team)}" data-player="${esc(alt)}">${esc(alt)}</button>`).join('')||'<span class="noAlt">Da definire</span>';
   document.querySelector('#playerView').innerHTML=`
-    <div class="playerHubLabel">RC29 • TEAM INTELLIGENCE</div>
+    <div class="playerHubLabel">RC30 • DATA QUALITY</div>
     <div class="playerHero"><div class="playerAvatar">${esc(initials)}</div><div><span class="playerTeam">${esc(team)} • ${esc(p.role||'Ruolo da definire')}</span><h2>${esc(name)}</h2><div class="playerStars">${starsHtml(s.stars)} <small>${s.stars}/5</small></div></div><div class="conteScore"><b>${esc(s.score)}</b><small>CONTE</small></div></div>
     <div class="playerIdentity"><span>${esc(s.tier)}</span><span>${esc(s.age)} anni</span><span>Piede ${esc(s.foot)}</span><span>${esc(p.status||'Da valutare')}</span></div>
     <section class="decisionCard ${intel.verdictClass}"><div class="decisionMain"><small>DECISIONE CONTE</small><strong>${intel.verdict}</strong><span>${intel.action}</span></div><div class="prioritySeal"><small>PRIORITÀ</small><b>${intel.priority}</b></div></section>
@@ -799,9 +799,9 @@ const fi=document.querySelector('#fileInput');
 document.querySelector('#refreshBtn').onclick=updateAllBuiltInTeams;
 
 document.querySelector('#exportBtn').onclick=()=>{
-  const payload={app:'Guida Asta Conte',version:'RC29-Compact-UI',exportedAt:new Date().toISOString(),teams:data};
+  const payload={app:'Guida Asta Conte',version:'RC31-Unified-Alpha',exportedAt:new Date().toISOString(),teams:data};
   const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Guida-Asta-Conte-backup-RC29.json';a.click();URL.revokeObjectURL(a.href);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Fanta-Conte-Unified-backup-RC31.json';a.click();URL.revokeObjectURL(a.href);
 };
 fi.onchange=async()=>{
   if(!fi.files[0])return;
@@ -819,3 +819,10 @@ fi.onchange=async()=>{
 
 refreshAll();
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
+
+
+// RC31 · controlli pannelli Fanta Conte integrati
+document.querySelectorAll('.reloadUnified').forEach(btn=>btn.addEventListener('click',()=>{
+  const frame=document.getElementById(btn.dataset.frame);
+  if(frame){const base=frame.src.split('#')[0].split('&reload=')[0];frame.src=base+(base.includes('?')?'&':'?')+'reload='+Date.now();}
+}));

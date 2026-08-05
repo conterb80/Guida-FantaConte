@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#101826">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css?v=29">
-  <title>Guida Asta Conte • RC29 Compact UI</title>
+  <link rel="stylesheet" href="style.css?v=31">
+  <title>Fanta Conte Unified • RC31 Alpha</title>
 </head>
 <body>
 <header>
   <div>
     <small>STAGIONE 2026/27</small>
-    <h1>Guida Asta Conte</h1>
-    <p>Centro preparazione asta</p>
+    <h1>Fanta Conte Unified</h1>
+    <p>Guida squadre + Listone ufficiale</p>
   </div>
   <div class="headerActions"><button id="exportBtn" title="Esporta un backup dei dati">⇩ Backup</button><button id="refreshBtn" title="Aggiorna tutte le rose con i dati inclusi nell’app">↻ Aggiorna rose</button></div>
 </header>
@@ -31,7 +31,9 @@
     <button class="tab" data-tab="market">Mercato</button>
     <button class="tab" data-tab="scoutlive">Scout Live <span id="alertTabCount">0</span></button>
     <button class="tab" data-tab="strategy">Strategia</button>
-    <button class="tab" data-tab="auction">Lista asta <span id="auctionTabCount">0</span></button>
+    <button class="tab" data-tab="auction">Lista guida <span id="auctionTabCount">0</span></button>
+    <button class="tab unifiedTab" data-tab="officialList">Listone ufficiale</button>
+    <button class="tab unifiedTab" data-tab="officialMine">Mia lista</button>
   </nav>
 
   <section id="teams" class="panel active">
@@ -110,6 +112,16 @@
     <div id="auctionList" class="list"></div>
   </section>
 
+  <section id="officialList" class="panel unifiedPanel">
+    <div class="unifiedHead"><div><small>FANTA CONTE RC19</small><h3>Listone ufficiale</h3><p>Listone, quotazioni, filtri e strumenti d'asta nello stesso progetto.</p></div><button type="button" class="reloadUnified" data-frame="officialListFrame">↻ Ricarica</button></div>
+    <iframe id="officialListFrame" class="unifiedFrame" src="fanta/index.html?view=listone" title="Listone ufficiale Fanta Conte"></iframe>
+  </section>
+
+  <section id="officialMine" class="panel unifiedPanel">
+    <div class="unifiedHead"><div><small>FANTA CONTE RC19</small><h3>La mia lista ufficiale</h3><p>Preferiti, priorità, prezzi massimi e stato dell'asta.</p></div><button type="button" class="reloadUnified" data-frame="officialMineFrame">↻ Ricarica</button></div>
+    <iframe id="officialMineFrame" class="unifiedFrame" src="fanta/index.html?view=mylist" title="Mia lista Fanta Conte"></iframe>
+  </section>
+
 </main>
 
 <div id="modal" class="modal hidden">
@@ -127,6 +139,6 @@
 </div>
 
 <input type="file" id="fileInput" accept=".json,application/json" hidden>
-<script src="app.js?v=29"></script>
+<script src="app.js?v=31"></script>
 </body>
 </html>

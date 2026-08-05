@@ -1,11 +1,11 @@
 {
-  "name": "Guida Asta Conte RC29",
-  "short_name": "Guida Asta Conte",
+  "name": "Fanta Conte Unified RC31",
+  "short_name": "Fanta Conte",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#09111d",
   "theme_color": "#101826",
-  "description": "Guida personale Team Intelligence per preparare l'asta Fantacalcio 2026/27",
+  "description": "Guida squadre e Listone ufficiale unificati per l'asta Fantacalcio 2026/27",
   "icons": [
     {
       "src": "icon.svg",
